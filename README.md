@@ -1,7 +1,11 @@
 -----------------------------------------
+
 # Gonzalo Pardo's final degree project
+
 -----------------------------------------
+
 ## Use of neural networks in human activities classification
+
 This project is the final assignment for Gonzalo Pardo Villalibre. The aim will be to detect which activity is doing a certain subject, minimizing the number of sensors needed. Therefore the student will take advantage of the use of con NN (neural networks) of different types such as CN (convolutional networks) or RN (recurrent networks).
 
 The data set will be taken from https://dataverse.harvard.edu/. Named as `Replication Data for Estimating Lower Limb Kinematics using a Reduced Wearable Sensor Count` this data set contains information from **9 totally healthy subjects** performing different activities meassured by two systems: **Vicon & Xsens**.
@@ -9,6 +13,7 @@ The data set will be taken from https://dataverse.harvard.edu/. Named as `Replic
 Download: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/9QDD5J
 
 ## Movements
+
 | Movement          | Description                               | Time	|
 |---	            |---	                                    |---	|
 | Static            | Stand stil                                | ~10	|
@@ -23,17 +28,19 @@ Download: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/D
 
 **Disclaimer**: Be very careful here! As seen in the table above, the length of each sample differs. Very serious normalization job must be made here as we don't want to overfit the NN with a particular movement. 
 
-
 ## Measurement
+
 Each sensor takes samples with ***100Hz*** frecuency (100 samples per second). 
 
 ### 1 - IMU (X-sens):
+
 Not analized for now.
 
 ### 2 - VICON: 
-This data set makes use in its format from the class `class +mocapdb.@ViconBody.ViconBody(varargin)`
 
-+ #### Data set structure
+This data set makes use in its format from the class `class +mocapdb.@ViconBody.ViconBody(varargin)`
+* #### Data set structure
+
         Data set
         │
         └───Subject-01
@@ -54,7 +61,9 @@ This data set makes use in its format from the class `class +mocapdb.@ViconBody.
         │   
         ... (7 more subjects)
     
+
  + #### Position Variables (sensors): n x 3
+
     | Sensor    | Description   |
     |---	    |---	        |
     |  LTOE     | Right hip     | 
@@ -66,7 +75,8 @@ This data set makes use in its format from the class `class +mocapdb.@ViconBody.
     |  RTIO     | Right toe     | 
     |  LTIO   	| Left toe	    |
 
-+ #### Orientation Variables (sensors):  n x 4 
+* #### Orientation Variables (sensors):  n x 4 
+
     | Sensor    | Description       |
     |---	    |---	            |
     |  qLSK     | Right foot        | 
@@ -77,4 +87,3 @@ This data set makes use in its format from the class `class +mocapdb.@ViconBody.
     |  qRTH 	| Lef femur         | 
     
     **Unrecognized fields**: qLFT, RTOE (meassured and used -.-) 
-
