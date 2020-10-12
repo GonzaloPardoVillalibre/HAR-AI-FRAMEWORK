@@ -4,7 +4,7 @@
 
 ## Use of neural networks in human activities classification
 
-This project is the final assignment for Gonzalo Pardo Villalibre. The aim will be to detect which activity is doing a certain subject, minimizing the number of sensors needed. Therefore the student will take advantage of the use of con NN (neural networks) of different types such as CN (convolutional networks) or RN (recurrent networks).
+This project is the final assignment for Gonzalo Pardo Villalibre. The aim will be to detect which activity is doing a certain subject, minimizing the number of sensors needed. Therefore the student will take advantage of the use of NN (neural networks) from different types such as CN (convolutional networks) or RN (recurrent networks).
 
 The data set will be taken from https://dataverse.harvard.edu/. Named as `Replication Data for Estimating Lower Limb Kinematics using a Reduced Wearable Sensor Count` this data set contains information from **9 totally healthy subjects** performing different activities meassured by two systems: **Vicon & Xsens**.
 
