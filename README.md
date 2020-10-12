@@ -6,7 +6,7 @@ This project is the final assignment for Gonzalo Pardo Villalibre. The aim will 
 
 The data set will be taken from https://dataverse.harvard.edu/. Named as `Replication Data for Estimating Lower Limb Kinematics using a Reduced Wearable Sensor Count` this data set contains information from **9 totally healthy subjects** performing different activities meassured by two systems: **Vicon & Xsens**.
 
-(https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/9QDD5J)
+Download: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/9QDD5J
 
 ## Movements
 | Movement          | Description                               | Time	|
@@ -76,5 +76,5 @@ This data set makes use in its format from the class `class +mocapdb.@ViconBody.
     |  qRPV     | Right femur  	    | 
     |  qRTH 	| Lef femur         | 
     
-    **Unrecognized fields**: qLFT, RTOE (meassured and used -.-). 
+    **Unrecognized fields**: qLFT, RTOE (meassured and used -.-) 
 
