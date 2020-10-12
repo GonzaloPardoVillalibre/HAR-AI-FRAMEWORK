@@ -2,8 +2,6 @@
 
 # Gonzalo Pardo's final degree project
 
------------------------------------------
-
 ## Use of neural networks in human activities classification
 
 This project is the final assignment for Gonzalo Pardo Villalibre. The aim will be to detect which activity is doing a certain subject, minimizing the number of sensors needed. Therefore the student will take advantage of the use of con NN (neural networks) of different types such as CN (convolutional networks) or RN (recurrent networks).
