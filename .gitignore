@@ -1,2 +1,8 @@
 # Data set files
-data*
+*Trial*
+*Calib*
+*data-list*
+*.zip
+
+# Code config
+.vscode
