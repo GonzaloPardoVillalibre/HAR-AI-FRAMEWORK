@@ -14,17 +14,17 @@ Download: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/D
 
 ## Movements
 
-| Movement          | Description                               | Time	|
-|---                |---                                        |---	|
-| Static            | Stand stil                                | ~10	|
+| Movement          | Description                               | Time  |
+|---                |---                                        |---    |
+| Static            | Stand stil                                | ~10   |
 | Walk              | Walk straight and back                    | ~30   | 
-| Figure of 8       | Walk in figures of eight                  | ~60 	|
-| Zig-Zag           | Walk zigzag                               | ~60  	|
-| 5-minute walk     | Undirected walk, side step, and stand     | ~300 	|
-| Speedskater       | Speedskater on the spot                   | ~30  	|
-| Jog               | Jog straight and return                   | ~30  	|
-| Jumping jacks     | Jumping jacks on the spot                 | ~30	|
-| High kneee        | High knee jog straight and return         | ~30	|
+| Figure of 8       | Walk in figures of eight                  | ~60   |
+| Zig-Zag           | Walk zigzag                               | ~60   |
+| 5-minute walk     | Undirected walk, side step, and stand     | ~300  |
+| Speedskater       | Speedskater on the spot                   | ~30   |
+| Jog               | Jog straight and return                   | ~30   |
+| Jumping jacks     | Jumping jacks on the spot                 | ~30   |
+| High kneee        | High knee jog straight and return         | ~30   |
 
 **Disclaimer**: Be very careful here! As seen in the table above, the length of each sample differs. Very serious normalization job must be made here as we don't want to overfit the NN with a particular movement. 
 
