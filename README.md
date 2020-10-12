@@ -15,15 +15,15 @@ Download: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/D
 ## Movements
 
 | Movement          | Description                               | Time	|
-|---	            |---	                                    |---	|
+|---                |---                                        |---	|
 | Static            | Stand stil                                | ~10	|
 | Walk              | Walk straight and back                    | ~30   | 
-| Figure of 8       | Walk in figures of eight  	            | ~60 	|
-| Zig-Zag  	        | Walk zigzag   	                        | ~60  	|
-| 5-minute walk 	| Undirected walk, side step, and stand  	| ~300 	|
-| Speedskater  	    | Speedskater on the spot  	                | ~30  	|
-| Jog          	    | Jog straight and return 	                | ~30  	|
-| Jumping jacks  	| Jumping jacks on the spot  	            | ~30	|
+| Figure of 8       | Walk in figures of eight                  | ~60 	|
+| Zig-Zag           | Walk zigzag                               | ~60  	|
+| 5-minute walk     | Undirected walk, side step, and stand     | ~300 	|
+| Speedskater       | Speedskater on the spot                   | ~30  	|
+| Jog               | Jog straight and return                   | ~30  	|
+| Jumping jacks     | Jumping jacks on the spot                 | ~30	|
 | High kneee        | High knee jog straight and return         | ~30	|
 
 **Disclaimer**: Be very careful here! As seen in the table above, the length of each sample differs. Very serious normalization job must be made here as we don't want to overfit the NN with a particular movement. 
@@ -65,25 +65,25 @@ This data set makes use in its format from the class `class +mocapdb.@ViconBody.
  + #### Position Variables (sensors): n x 3
 
     | Sensor    | Description   |
-    |---	    |---	        |
+    |---        |---            |
     |  LTOE     | Right hip     | 
     |  PELV     | Left hip      |
     |  RFEP     | Right knee    |
     |  LFEP     | Left knee     |
-    |  RFEO   	| Right Ankle   | 
-    |  LFEO  	| Left Ankle  	| 
+    |  RFEO     | Right Ankle   | 
+    |  LFEO     | Left Ankle    | 
     |  RTIO     | Right toe     | 
-    |  LTIO   	| Left toe	    |
+    |  LTIO     | Left toe      |
 
 * #### Orientation Variables (sensors):  n x 4 
 
     | Sensor    | Description       |
-    |---	    |---	            |
+    |---        |---                |
     |  qLSK     | Right foot        | 
     |  qRFT     | Left foot         |
     |  qLTH     | Right tibia       |
     |  qRSK     | Left tibia        |
-    |  qRPV     | Right femur  	    | 
-    |  qRTH 	| Lef femur         | 
+    |  qRPV     | Right femur       | 
+    |  qRTH     | Lef femur         | 
     
     **Unrecognized fields**: qLFT, RTOE (meassured and used -.-)
