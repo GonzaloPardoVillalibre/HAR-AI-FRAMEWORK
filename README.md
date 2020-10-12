@@ -86,4 +86,4 @@ This data set makes use in its format from the class `class +mocapdb.@ViconBody.
     |  qRPV     | Right femur  	    | 
     |  qRTH 	| Lef femur         | 
     
-    **Unrecognized fields**: qLFT, RTOE (meassured and used -.-) 
+    **Unrecognized fields**: qLFT, RTOE (meassured and used -.-)
