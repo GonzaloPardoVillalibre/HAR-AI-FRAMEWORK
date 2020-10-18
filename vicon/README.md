@@ -34,9 +34,9 @@ According to the information recorded by the sensors there will be `two` types o
     Subject-Movement-Positionjoints-Samplenumber.csv
 ```
 
-## Orientation dataframes
+### Orientation dataframes
 
-+ ### Build individual dataframes per sensor
++ #### Build individual dataframes per sensor
     Choosing at least one element from the available orientation sensor list:
     ```
      ["qRPV", "qRTH", "qRSK", "qRFT", "qLTH", "qLSK", "qLFT"]
@@ -45,13 +45,13 @@ According to the information recorded by the sensors there will be `two` types o
     
     TO DO
     
-+ ### Build composed & interleaved dataframe for a certain activity and subject:
++ #### Build composed & interleaved dataframe for a certain activity and subject:
     
     TO DO
 
-## Positon dataframes
+### Positon dataframes
 
-+ ### Build individual dataframes per sensor
++ #### Build individual dataframes per sensor
     Choosing at least one element from the available position sensor list:
     ```
      ["LTOE", "PELV", "RFEP", "LFEP", "RFEO", "LFEO", "RTIO", "LTIO"]
@@ -60,7 +60,7 @@ According to the information recorded by the sensors there will be `two` types o
     
     TO DO
 
-+ ### Build composed & interleaved dataframe for a certain activity and subject:
++ #### Build composed & interleaved dataframe for a certain activity and subject:
 
     TO DO
 
