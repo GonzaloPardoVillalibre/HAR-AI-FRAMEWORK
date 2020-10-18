@@ -19,7 +19,7 @@ According to the information recorded by the sensors there will be `two` types o
     ```
     The script will build its individual dataframe. p.e.:
     
-    TO DO
+    ![Usage_schema](../doc/individual-dataframe.png)
     
 + #### Build composed & interleaved dataframe for a certain activity and subject:
     
