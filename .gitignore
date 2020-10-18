@@ -1,2 +1,11 @@
 # Data set files
-data*
+*Trial*
+*Calib*
+*data-list*
+*.zip
+
+# Code config
+.vscode
+
+# ouput
+vicon/pre-processing/_output/*
