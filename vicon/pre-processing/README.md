@@ -17,13 +17,16 @@ According to the information recorded by the sensors there will be `two` types o
     ```
      ["qRPV", "qRTH", "qRSK", "qRFT", "qLTH", "qLSK", "qLFT"]
     ```
-    The script will build its individual dataframe. p.e.:
+    The script will build its individual dataframe. p.e. (qRPV):
     
     ![Usage_schema](../doc/images/individual-orientation-df.png)
     
 + #### Build composed & interleaved dataframe for a certain activity and subject:
     
-    TO DO
+    For every sensor chosen beforewards, the script will interleave its dataframes. p.e. (qRPV, qRTH & qRSK) : 
+
+    ![Usage_schema](../doc/images/composed-orientation-df.png)
+    
 
 ### Positon dataframes
 
@@ -32,11 +35,12 @@ According to the information recorded by the sensors there will be `two` types o
     ```
      ["LTOE", "PELV", "RFEP", "LFEP", "RFEO", "LFEO", "RTIO", "LTIO"]
     ```
-    The script will build its individual dataframe. p.e.:
+    The script will build its individual dataframe. p.e. (LTOE):
     
-   ![Usage_schema](../doc/images/individual-position-df.png)
+    ![Usage_schema](../doc/images/individual-position-df.png)
 
 + #### Build composed & interleaved dataframe for a certain activity and subject:
 
-    TO DO
+    For every sensor chosen beforewards, the script will interleave its dataframes. p.e. (LTOE, PELV & RFEP) : 
 
+    ![Usage_schema](../doc/images/composed-position-df.png)
