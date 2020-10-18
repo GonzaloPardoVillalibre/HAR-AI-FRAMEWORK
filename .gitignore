@@ -6,3 +6,6 @@
 
 # Code config
 .vscode
+
+# ouput
+vicon/pre-processing/_output/*
