@@ -76,7 +76,7 @@ def build_dt(sample: str, subject: str, movement: str):
     subject_and_activity_file_output = output_path + subject + '-' + movement + '-Positionjoints-' + sample + '.csv'
     final_df.to_csv(subject_and_activity_file_output)
 
-# Analizes configured movements and samples
+# Analyzes configured movements and samples
 def  create_dt_by_movement(subject: str):
   print("Building images for subject: " + subject)
   for movement in cfg["movements"]["list"]:
