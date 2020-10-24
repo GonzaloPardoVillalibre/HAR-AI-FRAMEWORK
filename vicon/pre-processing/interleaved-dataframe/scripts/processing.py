@@ -2,22 +2,37 @@ from toolz import interleave
 import os
 import pandas as pd
 import json
-
+import shutil 
 
 # Porject main directory path
 main_path = os.getcwd()
 
 # Loads configuration file
-cfg_filename = main_path + '/vicon/pre-processing/scripts/config.json'
+cfg_filename = main_path + '/vicon/pre-processing/config.json'
 with open(cfg_filename) as f:
-  cfg = json.load(f)
+  full_config = json.load(f)
+  cfg = full_config["1"]
 
 # Path to _output file
-output_path = main_path + '/vicon/pre-processing/_output/'
+output_path = main_path + '/vicon/pre-processing/interleaved-dataframe/_output/'
+zippedoutput_path = main_path + '/vicon/pre-processing/interleaved-dataframe/_output-zipped/'
 
 ##################################################################
 # Methods                                                        #
 ##################################################################
+# zips old_output_directory
+def save_old_output():
+  print("\nCompressing older output")
+  _, _, files = next(os.walk(output_path))
+  if  len(files) == 0 : 
+    print("\nNo files to compress")
+    return
+  _, _, files = next(os.walk(zippedoutput_path))
+  file_count = len(files)
+  zipfilename = '_output-' + str(file_count + 1)
+  shutil.make_archive( base_name=zipfilename, root_dir=output_path, format='zip')
+  shutil.move((zipfilename + '.zip'),zippedoutput_path)
+  print("\nCompression finished")
 
 # Extracts orientation information for each line in csv
 def extract_quat_columns(file, jointName):
@@ -26,6 +41,9 @@ def extract_quat_columns(file, jointName):
     df.columns = df.iloc[5]
     df = df.drop(axis=0, index=[0, 1, 2, 3, 4, 5])
     df = df.filter(regex=jointName)
+    df = df.replace('-','NaN')
+    df = df.replace('','NaN')
+    df = df[:].astype(float)
     df.insert(loc=0, column='quat', value=jointName)
     df.columns = ['quat', '0', '1', '2', '3']
     return df
@@ -37,7 +55,8 @@ def extract_position_columns(file, jointName):
     df.columns = df.iloc[5]
     df = df.drop(axis=0, index=[0, 1, 2, 3, 4, 5])
     df = df.filter(regex=jointName)
-    df.insert(loc=0, column='3D vecotr', value=jointName)
+    df = df[:].astype(float)
+    df.insert(loc=0, column='3D vector', value=jointName)
     df.columns = ['3D vecotr', '0', '1', '2']
     return df
 
@@ -87,6 +106,9 @@ def  create_dt_by_movement(subject: str):
 #########################
 # Main                  #
 #########################
+if cfg["interleavedOutput"]["zipOlder"]:
+  save_old_output()
+shutil.copyfile(cfg_filename, (output_path + 'config.json'))
 for subject in cfg["subjects"]["list"]:
   create_dt_by_movement(subject)
 print("\nPRE-PROCESSING FINISHED")
