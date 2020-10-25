@@ -57,7 +57,7 @@ def calculate_sample_size():
   position_sample_size = sensors_size*batch_size
 
 def build_position_images(file: str):
-  print("Building images for posititon file:" + file)
+  print("Building images for posititon file: " + file)
   df = pd.read_fwf(input_path + file, header=None)
   df = df[0].str.split(',', expand=True)
   # Calculate image sizing
