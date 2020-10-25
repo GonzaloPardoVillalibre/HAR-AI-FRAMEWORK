@@ -46,7 +46,7 @@ def load_files():
   _, _, files = next(os.walk(input_path))
   files.remove('config.json')
   return files
-  
+
 def calculate_sample_size():
   global orientation_sample_size
   global position_sample_size
@@ -122,3 +122,4 @@ if cfg["enabled"]:
   print("\nIMAGE BUILDING FINISHED")
 else:
   print("\nIMAGE BUILDING DISABLED")
+  
