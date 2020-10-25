@@ -8,4 +8,4 @@
 .vscode
 
 # ouput
-vicon/pre-processing/_output/*
+vicon/pre-processing/interleaved-dataframe/_output/*
