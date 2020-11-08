@@ -4,6 +4,8 @@ import pandas as pd
 import json
 import shutil 
 
+global  orientation_image_number
+
 # Porject main directory path
 main_path = os.getcwd()
 
@@ -50,11 +52,22 @@ def load_files():
 def calculate_sample_size():
   global orientation_sample_size
   global position_sample_size
+  global orientation_sample_size_overlap
+  global position_sample_size_overlap
   sensors_size =  len(dt_cfg["orientationSensors"]["list"])
   batch_size = cfg["images"]["batch-size"]
-  orientation_sample_size = sensors_size*batch_size
+  overlap = cfg["images"]["overlap"]
+  orientation_sample_size = sensors_size * batch_size
+  orientation_sample_size_overlap = overlap * sensors_size
+  if not isinstance(orientation_sample_size_overlap, int):
+    print("overlap * orientation_sensors_size must be int")
+    exit
   sensors_size =  len(dt_cfg["positionSensors"]["list"])
-  position_sample_size = sensors_size*batch_size
+  position_sample_size = sensors_size * batch_size
+  position_sample_size_overlap = overlap * sensors_size
+  if not isinstance(position_sample_size_overlap, int):
+    print("overlap * position_sensors_size must be int")
+    exit
 
 def build_position_images(file: str):
   print("Building images for posititon file: " + file)
@@ -62,10 +75,11 @@ def build_position_images(file: str):
   df = df[0].str.split(',', expand=True)
   # Calculate image sizing
   df_len = len(df)
-  images_number = df_len//position_sample_size
+  jump_diff = position_sample_size - position_sample_size_overlap
+  images_number = df_len//jump_diff
   # Build individual images
   for i in range(images_number):
-    final_df = df.iloc[(i*position_sample_size)+1:position_sample_size*(i+1)+1]
+    final_df = df.iloc[(i*jump_diff)+1:(i*jump_diff)+ 1 + position_sample_size]
     del final_df[0]
     final_df.columns = ['3D vecotr', '0', '1', '2']
     final_df[['0', '1', '2']] = final_df[['0', '1', '2']].astype(float)
@@ -79,10 +93,11 @@ def build_orientation_images(file:str):
   df = df[0].str.split(',', expand=True)
   # Calculate image sizing
   df_len = len(df)
-  images_number = df_len//orientation_sample_size
+  jump_diff = orientation_sample_size - orientation_sample_size_overlap
+  images_number = df_len//jump_diff
   # Build individual images
   for i in range(images_number):
-    final_df = df.iloc[(i*orientation_sample_size)+1:orientation_sample_size*(i+1)+1]
+    final_df = df.iloc[(i*jump_diff)+1:(i*jump_diff)+1 + orientation_sample_size]
     del final_df[0]
     final_df.columns = ['quat', '0', '1', '2', '3']
     final_df[['0', '1', '2', '3']] = final_df[['0', '1', '2', '3']].astype(dtype=float, errors="ignore")

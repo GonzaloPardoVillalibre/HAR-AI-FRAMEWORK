@@ -45,7 +45,8 @@
                 "enabled": true
             },
             "images":{
-                "batch-size": 40 
+                "batch-size": 40,
+                "overlap": 30
             }
         }
     }
