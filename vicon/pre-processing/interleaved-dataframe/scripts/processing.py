@@ -11,7 +11,7 @@ main_path = os.getcwd()
 cfg_filename = main_path + '/vicon/pre-processing/config.json'
 with open(cfg_filename) as f:
   full_config = json.load(f)
-  cfg = full_config["1"]
+  cfg = full_config["1"]["in-dt"]
 
 # Path to _output file
 output_path = main_path + '/vicon/pre-processing/interleaved-dataframe/_output/'
@@ -97,7 +97,7 @@ def build_dt(sample: str, subject: str, movement: str):
 
 # Analyzes configured movements and samples
 def  create_dt_by_movement(subject: str):
-  print("Building images for subject: " + subject)
+  print("Building interleaved dataframes for subject: " + subject)
   for movement in cfg["movements"]["list"]:
     for sample in cfg["movements"]["samples"]:
       print("   Movement " + movement + " & record sample " + sample)
@@ -106,9 +106,12 @@ def  create_dt_by_movement(subject: str):
 #########################
 # Main                  #
 #########################
-if cfg["interleavedOutput"]["zipOlder"]:
-  save_old_output()
-shutil.copyfile(cfg_filename, (output_path + 'config.json'))
-for subject in cfg["subjects"]["list"]:
-  create_dt_by_movement(subject)
-print("\nPRE-PROCESSING FINISHED")
+if cfg["enabled"]:
+  if cfg["interleavedOutput"]["zipOlder"]:
+    save_old_output()
+  shutil.copyfile(cfg_filename, (output_path + 'config.json'))
+  for subject in cfg["subjects"]["list"]:
+    create_dt_by_movement(subject)
+  print("\nDATAFRAMES BUILDING FINISHED")
+else:
+  print("\nnDATAFRAMES BUILDING DISABLED")

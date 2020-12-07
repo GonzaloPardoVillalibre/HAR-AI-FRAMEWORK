@@ -1,31 +1,53 @@
 {
     "1":{
-        "subjects":{
-            "list": [ "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10"] 
-        },
-        "movements":{
-            "list": ["FigureofEight",
-                    "Fivemin",
-                    "HighKneeJog",
-                    "Jog",
-                    "JumpingJacks",
-                    "SpeedSkater",
-                    "Static",
-                    "TUG",
-                    "Walk"
-                    ],
-            "samples": ["1", "2"]
-        },
-       "orientationSensors":{
+        "in-dt":{
             "enabled": true,
-            "list":  ["qRPV", "qRTH", "qRSK", "qRFT", "qLTH", "qLSK", "qLFT"]
-       },
-       "positionSensors":{
-           "enabled": true,
-           "list": ["LTOE", "PELV", "RFEP", "LFEP", "RFEO", "LFEO", "RTIO", "LTIO"]
-       },
-       "interleavedOutput":{
-           "zipOlder": true
-       }
+            "subjects":{
+                "list": [ "S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10"] 
+            },
+            "movements":{
+                "list": ["FigureofEight",
+                        "Fivemin",
+                        "HighKneeJog",
+                        "Jog",
+                        "JumpingJacks",
+                        "SpeedSkater",
+                        "Static",
+                        "TUG",
+                        "Walk"
+                        ],
+                "samples": ["1", "2"]
+            },
+           "orientationSensors":{
+                "enabled": true,
+                "list":  ["qRPV", "qRTH", "qRSK", "qRFT", "qLTH", "qLSK", "qLFT"]
+           },
+           "positionSensors":{
+               "enabled": true,
+               "list": ["LTOE", "PELV", "RFEP", "LFEP", "RFEO", "LFEO", "RTIO", "LTIO"]
+           },
+           "interleavedOutput":{
+               "zipOlder": false
+               }
+           },
+        "im-bu":{
+            "enabled": true, 
+            "interleavedOutput":{
+                "useOlder":{
+                    "enabled": false,
+                    "number": 1
+                }    
+            },
+            "orientationSensors":{
+                "enabled": true
+            },
+            "positionSensors":{
+                "enabled": true
+            },
+            "images":{
+                "batch-size": 40,
+                "overlap": 30
+            }
+        }
     }
 }
