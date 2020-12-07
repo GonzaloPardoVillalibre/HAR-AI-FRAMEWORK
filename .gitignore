@@ -10,6 +10,7 @@
 # ouput
 vicon/pre-processing/interleaved-dataframe/_output/*
 vicon/pre-processing/image-enricher/_output/*
+!vicon/pre-processing/image-enricher/_output/.gitkeep
 vicon/pre-processing/image-builder/_output/*
 !vicon/pre-processing/image-builder/_output/.gitkeep
 !vicon/pre-processing/interleaved-dataframe/_output/.gitkeep
