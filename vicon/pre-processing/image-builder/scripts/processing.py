@@ -83,9 +83,10 @@ def build_position_images(file: str):
     del final_df[0]
     final_df.columns = ['3D vecotr', '0', '1', '2']
     final_df[['0', '1', '2']] = final_df[['0', '1', '2']].astype(float)
-    path = path_to_save(file, 'position/')
-    image_name = path + file[:-4] +'-' + str(i+1) + '.csv'
-    final_df.to_csv(image_name)
+    if (len(final_df) == position_sample_size):
+      path = path_to_save(file, 'position/')
+      image_name = path + file[:-4] +'-' + str(i+1) + '.csv'
+      final_df.to_csv(image_name)
 
 def build_orientation_images(file:str):
   print("Building images for orientation file: " + file)
@@ -101,9 +102,10 @@ def build_orientation_images(file:str):
     del final_df[0]
     final_df.columns = ['quat', '0', '1', '2', '3']
     final_df[['0', '1', '2', '3']] = final_df[['0', '1', '2', '3']].astype(dtype=float, errors="ignore")
-    path = path_to_save(file, 'orientation/')
-    image_name= path + file[:-4] +'-' + str(i+1) + '.csv'
-    final_df.to_csv(image_name )
+    if (len(final_df) == orientation_sample_size):
+      path = path_to_save(file, 'orientation/')
+      image_name= path + file[:-4] +'-' + str(i+1) + '.csv'
+      final_df.to_csv(image_name )
 
 def build_images(files : str):
   if 'Position' in files and cfg["positionSensors"]["enabled"]:
