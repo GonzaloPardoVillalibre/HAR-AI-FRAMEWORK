@@ -7,7 +7,6 @@
             },
             "movements":{
                 "list": ["FigureofEight",
-                        "Fivemin",
                         "HighKneeJog",
                         "Jog",
                         "JumpingJacks",
@@ -47,6 +46,15 @@
             "images":{
                 "batch-size": 40,
                 "overlap": 30
+            }
+        }, 
+        "im-en":{
+            "deepen_images":{
+                "enabled": true
+            },
+            "FFT":{
+                "enabled": true,
+                "combined": true
             }
         }
     }

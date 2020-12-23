@@ -3,7 +3,8 @@ import os
 import pandas as pd
 import json
 import shutil
-import numpy as np 
+import numpy as np
+import copy
 
 position_folder_names = []
 orientation_folder_names = []
@@ -22,13 +23,16 @@ with open(cfg_filename) as f:
 # Path to _output file
 input_path = main_path + '/vicon/pre-processing/image-builder/_output/'
 zippedinput_path = main_path + '/vicon/image-builder/_output-zipped/'
-output_path = main_path + '/vicon/pre-processing/image-enricher/_output/'
-
+general_output_path = main_path + '/vicon/pre-processing/image-enricher/_output/'
+fft_output_path = main_path + '/vicon/pre-processing/image-enricher/_output-FFT/'
 
 def build_output_directory():
   #Clean output directory
-  shutil.rmtree(output_path+'position/')
-  shutil.rmtree(output_path+'orientation/')
+  try:
+    shutil.rmtree(output_path+'position/')
+    shutil.rmtree(output_path+'orientation/')
+  except:
+    print("No folder had to be removed")
 
   #Create postion directories:
   os.mkdir(output_path+'position/')
@@ -42,43 +46,82 @@ def build_output_directory():
     orientation_folder_names.append(output_path+'orientation/'+movement+'/')
     os.mkdir(orientation_folder_names[-1])
 
-def fold_position_image(input_file: str, output_file: str, image_size, sensors_number, column_names: list):
-    print("\nFolding image: " + input_file)
-    df = pd.read_fwf(input_file, header=None)
-    df = df[0].str.split(',', expand=True)
+def build_and_save_image_with_FFT(df: pd.DataFrame, fft_output_file: str):
+    names = df.columns.values
+    data = df.values
+    data =  data.astype(np.float)
+    data = np.fft.fft2(data)
+    fft_df = pd.DataFrame(data, columns=names)
+    if cfg["FFT"]["combined"]:
+      fft_df = pd.concat([df, fft_df], axis=1)
+    fft_df.to_csv(fft_output_file)
+
+def fold_position_image(input_file: str, output_file: str, image_size, sensors_number, column_names: list, fft_output_file: str):
+    df = pd.read_csv(input_file, header=None)
     df = df.iloc[1:]
     df = df.drop(df.columns[[0, 1]], axis=1)
     image_size = im_bu_cfg["images"]["batch-size"]
     final_df = pd.DataFrame(df.values.reshape(image_size, sensors_number*3), columns=column_names)
+    if cfg["FFT"]["enabled"]:
+      build_and_save_image_with_FFT(final_df, fft_output_file)
     final_df.to_csv(output_file)
 
+def fold_orientation_image(input_file: str, output_file: str, image_size, sensors_number, column_names: list, fft_output_file: str):
+    df = pd.read_csv(input_file, header=None)
+    df = df.iloc[1:]
+    df = df.drop(df.columns[[0, 1]], axis=1)
+    image_size = im_bu_cfg["images"]["batch-size"]
+    final_df = pd.DataFrame(df.values.reshape(image_size, sensors_number*4), columns=column_names)
+    if cfg["FFT"]["enabled"]:
+      build_and_save_image_with_FFT(final_df, fft_output_file)
+    final_df.to_csv(output_file)
 
 def fold_images():
     for position_folder_name in dt_cfg["movements"]["list"]:
-        input_folder = input_path+'position/'+position_folder_name+'/'
-        output_folder = output_path+'position/'+position_folder_name+'/'
-        _, _, files = next(os.walk(input_folder))
-        image_size = im_bu_cfg["images"]["batch-size"]
-        sensors_number = len(dt_cfg["positionSensors"]["list"])
-        column_names = []
-        for sensor in dt_cfg["positionSensors"]["list"]:
-            column_names.append(sensor+'-0')
-            column_names.append(sensor+'-1')
-            column_names.append(sensor+'-2')
-        for file in files:
-            fold_position_image(input_folder+file, output_folder+file, image_size, sensors_number, column_names)
-    # for orientation_folder_names in dt_cfg["movements"]["list"]:
-    #     fold_orientation_images()
+      print("\nBuilding folded images for position movement: " + position_folder_name)
+      input_folder = input_path+'position/'+position_folder_name+'/'
+      output_folder = general_output_path + 'position/' + position_folder_name + '/'
+      fft_output_folder = fft_output_path + 'position/' + position_folder_name + '/'
+      _, _, files = next(os.walk(input_folder))
+      image_size = im_bu_cfg["images"]["batch-size"]
+      sensors_number = len(dt_cfg["positionSensors"]["list"])
+      column_names = []
+      for sensor in dt_cfg["positionSensors"]["list"]:
+          column_names.append(sensor+'-0')
+          column_names.append(sensor+'-1')
+          column_names.append(sensor+'-2')
+      for file in files:
+          fold_position_image(input_folder+file, output_folder+file, image_size, sensors_number, column_names, fft_output_folder+file)
+
+    for orientation_folder_name in dt_cfg["movements"]["list"]:
+      print("\nBuilding folded images for orientation movement: " + orientation_folder_name)
+      input_folder = input_path + 'orientation/' +orientation_folder_name + '/'
+      output_folder = output_path + 'orientation/' + orientation_folder_name + '/'
+      fft_output_folder = fft_output_path + 'orientation/' + orientation_folder_name + '/'
+      _, _, files = next(os.walk(input_folder))
+      image_size = im_bu_cfg["images"]["batch-size"]
+      sensors_number = len(dt_cfg["orientationSensors"]["list"])
+      column_names = []
+      for sensor in dt_cfg["orientationSensors"]["list"]:
+          column_names.append(sensor+'-0')
+          column_names.append(sensor+'-1')
+          column_names.append(sensor+'-2')
+          column_names.append(sensor+'-4')
+      for file in files:
+          fold_orientation_image(input_folder+file, output_folder+file, image_size, sensors_number, column_names, fft_output_folder+file)
 
 #########################
 # Main                  #
 #########################
-if cfg["deepen_images"]["enabled"]:
-  # Prepare output directory
+if cfg["FFT"]["enabled"]:
+  # Prepare output directory for images with FFT
+  output_path = fft_output_path
   build_output_directory()
 
-  
+if cfg["deepen_images"]["enabled"]:
+  # Prepare output directory
+  output_path = general_output_path
+  build_output_directory()
   fold_images()
-
 
 print("\nIMAGE ENRICHMENT FINISHED")

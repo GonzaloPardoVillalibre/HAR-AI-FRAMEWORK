@@ -71,8 +71,7 @@ def calculate_sample_size():
 
 def build_position_images(file: str):
   print("Building images for posititon file: " + file)
-  df = pd.read_fwf(input_path + file, header=None)
-  df = df[0].str.split(',', expand=True)
+  df = pd.read_csv(input_path + file, header=None)
   # Calculate image sizing
   df_len = len(df)
   jump_diff = position_sample_size - position_sample_size_overlap
@@ -85,13 +84,13 @@ def build_position_images(file: str):
     final_df[['0', '1', '2']] = final_df[['0', '1', '2']].astype(float)
     if (len(final_df) == position_sample_size):
       path = path_to_save(file, 'position/')
-      image_name = path + file[:-4] +'-' + str(i+1) + '.csv'
-      final_df.to_csv(image_name)
+      if path != None:
+        image_name = path + file[:-4] +'-' + str(i+1) + '.csv'
+        final_df.to_csv(image_name)
 
 def build_orientation_images(file:str):
   print("Building images for orientation file: " + file)
-  df = pd.read_fwf(input_path + file, header=None)
-  df = df[0].str.split(',', expand=True)
+  df = pd.read_csv(input_path + file, header=None)
   # Calculate image sizing
   df_len = len(df)
   jump_diff = orientation_sample_size - orientation_sample_size_overlap
@@ -101,11 +100,12 @@ def build_orientation_images(file:str):
     final_df = df.iloc[(i*jump_diff)+1:(i*jump_diff)+1 + orientation_sample_size]
     del final_df[0]
     final_df.columns = ['quat', '0', '1', '2', '3']
-    final_df[['0', '1', '2', '3']] = final_df[['0', '1', '2', '3']].astype(dtype=float, errors="ignore")
+    final_df[['0', '1', '2', '3']] = final_df[['0', '1', '2', '3']].astype(dtype=float)
     if (len(final_df) == orientation_sample_size):
       path = path_to_save(file, 'orientation/')
-      image_name= path + file[:-4] +'-' + str(i+1) + '.csv'
-      final_df.to_csv(image_name )
+      if path != None:
+        image_name= path + str(file[:-4]) +'-' + str(i+1) + '.csv'
+        final_df.to_csv(image_name )
 
 def build_images(files : str):
   if 'Position' in files and cfg["positionSensors"]["enabled"]:
