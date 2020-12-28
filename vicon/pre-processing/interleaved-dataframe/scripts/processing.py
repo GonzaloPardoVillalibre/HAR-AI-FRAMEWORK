@@ -84,7 +84,6 @@ def build_dt(sample: str, subject: str, movement: str):
         orientation_df_list.append(df.values)
     final_df = pd.DataFrame(interleave(orientation_df_list))
     subject_and_activity_file_output = output_path + subject + '-' + movement + '-Orientationjoints-' + sample + '.csv'
-    final_df = final_df.astype(dtype=float)
     final_df.to_csv(subject_and_activity_file_output)
 
   if cfg["positionSensors"]["enabled"]: 
