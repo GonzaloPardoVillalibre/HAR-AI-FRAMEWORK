@@ -25,10 +25,7 @@
            "positionSensors":{
                "enabled": true,
                "list": ["LTOE", "PELV", "RFEP", "LFEP", "RFEO", "LFEO", "RTIO", "LTIO"]
-           },
-           "interleavedOutput":{
-               "zipOlder": false
-               }
+            }
            },
         "im-bu":{
             "enabled": true, 
@@ -47,7 +44,8 @@
             "images":{
                 "batch-size": 40,
                 "overlap": 30
-            }
+            },
+            "deletePrevious": true
         }, 
         "im-en":{
             "deepen_images":{
@@ -55,8 +53,15 @@
             },
             "FFT":{
                 "enabled": true,
-                "combined": true
-            }
+                "combined": true,
+                "saveWithoutFFT": false
+            },
+            "deletePrevious": true
+        },
+        "final-dataset":{
+            "trainPercentage": 0.8,
+            "deletePrevious": true,
+            "FFT-input": true
         }
     }
 }
