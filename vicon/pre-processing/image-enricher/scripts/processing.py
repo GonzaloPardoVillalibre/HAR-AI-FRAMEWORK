@@ -29,7 +29,7 @@ fft_output_path = main_path + '/vicon/pre-processing/image-enricher/_output-FFT/
 ##################################################################
 # Methods                                                        #
 ################################################################## 
-def del_previpus_folder():
+def del_previous_folder():
   for filename in os.listdir(input_path):
     file_path = os.path.join(input_path, filename)
     shutil.rmtree(file_path)
@@ -137,4 +137,4 @@ if cfg["deepen_images"]["enabled"]:
 print("\nIMAGE ENRICHMENT FINISHED")
 
 if cfg["deletePrevious"]:
-  del_previpus_folder
+  del_previous_folder

@@ -31,10 +31,13 @@ else:
 ##################################################################
 # Methods                                                        #
 ################################################################## 
-def del_previpus_folder():
+def del_previous_folder():
   for filename in os.listdir(input_path):
-    file_path = os.path.join(input_path, filename)
-    shutil.rmtree(file_path)
+    try: 
+      file_path = os.path.join(input_path, filename)
+      shutil.rmtree(file_path)
+    except:
+      print("Not a directory")
 
 def build_output_directory():
   #Clean output directory
@@ -105,13 +108,7 @@ build_output_directory()
 
 # create_orientation_final_dataset()
 
-create_position_final_dataset()
+# create_position_final_dataset()
 
-
-# Ir movimento por movimiento cogiendo todos los nombres de ficheros y construir una lista
-# random.shuffle(a) siendo a la lista.
-# Tomar la longitud de esa lista y el porcentaje especificado (80%) mandarlo al train y el resto mandarlo al test.
-
-
-# if cfg["deletePrevious"]:
-#   del_previpus_folder
+if cfg["deletePrevious"]:
+  del_previous_folder()
