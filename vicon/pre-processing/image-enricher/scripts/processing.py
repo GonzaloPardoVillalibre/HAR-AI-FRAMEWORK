@@ -72,7 +72,7 @@ def fold_position_image(input_file: str, output_file: str, image_size, sensors_n
     final_df = pd.DataFrame(df.values.reshape(image_size, sensors_number*3), columns=column_names)
     if cfg["FFT"]["enabled"]:
       build_and_save_image_with_FFT(final_df, fft_output_file)
-    if cfg["saveWithoutFFT"]["enabled"]:
+    if cfg["FFT"]["saveWithoutFFT"]:
       final_df.to_csv(output_file)
 
 def fold_orientation_image(input_file: str, output_file: str, image_size, sensors_number, column_names: list, fft_output_file: str):
@@ -83,7 +83,7 @@ def fold_orientation_image(input_file: str, output_file: str, image_size, sensor
     final_df = pd.DataFrame(df.values.reshape(image_size, sensors_number*4), columns=column_names)
     if cfg["FFT"]["enabled"]:
       build_and_save_image_with_FFT(final_df, fft_output_file)
-    if cfg["saveWithoutFFT"]["enabled"]:
+    if cfg["FFT"]["saveWithoutFFT"]:
       final_df.to_csv(output_file)
 
 def fold_images():
