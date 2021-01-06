@@ -42,8 +42,8 @@
                 "enabled": true
             },
             "images":{
-                "batch-size": 40,
-                "overlap": 30
+                "batch-size": 128,
+                "overlap": 96
             },
             "deletePrevious": true
         }, 
@@ -60,7 +60,7 @@
         },
         "final-dataset":{
             "trainPercentage": 0.8,
-            "deletePrevious": true,
+            "deletePrevious": false,
             "FFT-input": true
         }
     }
