@@ -20,19 +20,13 @@ zippedoutput_path = main_path + '/vicon/pre-processing/interleaved-dataframe/_ou
 ##################################################################
 # Methods                                                        #
 ##################################################################
-# zips old_output_directory
-def save_old_output():
-  print("\nCompressing older output")
-  _, _, files = next(os.walk(output_path))
-  if  len(files) == 0 : 
-    print("\nNo files to compress")
-    return
-  _, _, files = next(os.walk(zippedoutput_path))
-  file_count = len(files)
-  zipfilename = '_output-' + str(file_count + 1)
-  shutil.make_archive( base_name=zipfilename, root_dir=output_path, format='zip')
-  shutil.move((zipfilename + '.zip'),zippedoutput_path)
-  print("\nCompression finished")
+def build_output_directory():
+  #Clean output directory
+  try:
+    shutil.rmtree(output_path)
+  except:
+    print("No folder had to be removed")
+  os.mkdir(output_path)
 
 # Extracts orientation information for each line in csv
 def extract_quat_columns(file, jointName):
@@ -107,11 +101,9 @@ def  create_dt_by_movement(subject: str):
 # Main                  #
 #########################
 if cfg["enabled"]:
-  if cfg["interleavedOutput"]["zipOlder"]:
-    save_old_output()
-  shutil.copyfile(cfg_filename, (output_path + 'config.json'))
+  build_output_directory()
   for subject in cfg["subjects"]["list"]:
     create_dt_by_movement(subject)
-  print("\nDATAFRAMES BUILDING FINISHED")
+  print("\nINTERLEAVED DATAFRAMES BUILDING FINISHED")
 else:
-  print("\nnDATAFRAMES BUILDING DISABLED")
+  print("\nnINTERLEAVED DATAFRAMES BUILDING DISABLED")

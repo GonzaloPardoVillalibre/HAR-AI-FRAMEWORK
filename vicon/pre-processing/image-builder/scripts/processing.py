@@ -24,11 +24,19 @@ output_path = main_path + '/vicon/pre-processing/image-builder/_output/'
 ##################################################################
 # Methods                                                        #
 ##################################################################
+def del_previous_folder():
+  for filename in os.listdir(input_path):
+    file_path = os.path.join(input_path, filename)
+    shutil.rmtree(file_path)
+
 def build_output_directory():
   #Clean output directory
-  shutil.rmtree(output_path+'position/')
-  shutil.rmtree(output_path+'orientation/')
-
+  try:
+    shutil.rmtree(output_path+'position/')
+    shutil.rmtree(output_path+'orientation/')
+  except: 
+    print("No folders to be removed")
+    
   #Create postion directories:
   os.mkdir(output_path+'position/')
   for movement in dt_cfg["movements"]["list"]:
@@ -46,7 +54,10 @@ def path_to_save(file: str, sensorType:str):
 
 def load_files():
   _, _, files = next(os.walk(input_path))
-  files.remove('config.json')
+  try:
+    files.remove('config.json')
+  except :
+    print("config.json not in list")
   return files
 
 def calculate_sample_size():
@@ -139,4 +150,6 @@ if cfg["enabled"]:
   print("\nIMAGE BUILDING FINISHED")
 else:
   print("\nIMAGE BUILDING DISABLED")
-  
+
+if cfg["deletePrevious"]:
+  del_previous_folder

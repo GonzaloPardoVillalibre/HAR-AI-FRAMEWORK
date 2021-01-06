@@ -26,6 +26,14 @@ zippedinput_path = main_path + '/vicon/image-builder/_output-zipped/'
 general_output_path = main_path + '/vicon/pre-processing/image-enricher/_output/'
 fft_output_path = main_path + '/vicon/pre-processing/image-enricher/_output-FFT/'
 
+##################################################################
+# Methods                                                        #
+################################################################## 
+def del_previous_folder():
+  for filename in os.listdir(input_path):
+    file_path = os.path.join(input_path, filename)
+    shutil.rmtree(file_path)
+
 def build_output_directory():
   #Clean output directory
   try:
@@ -64,7 +72,8 @@ def fold_position_image(input_file: str, output_file: str, image_size, sensors_n
     final_df = pd.DataFrame(df.values.reshape(image_size, sensors_number*3), columns=column_names)
     if cfg["FFT"]["enabled"]:
       build_and_save_image_with_FFT(final_df, fft_output_file)
-    final_df.to_csv(output_file)
+    if cfg["saveWithoutFFT"]["enabled"]:
+      final_df.to_csv(output_file)
 
 def fold_orientation_image(input_file: str, output_file: str, image_size, sensors_number, column_names: list, fft_output_file: str):
     df = pd.read_csv(input_file, header=None)
@@ -74,7 +83,8 @@ def fold_orientation_image(input_file: str, output_file: str, image_size, sensor
     final_df = pd.DataFrame(df.values.reshape(image_size, sensors_number*4), columns=column_names)
     if cfg["FFT"]["enabled"]:
       build_and_save_image_with_FFT(final_df, fft_output_file)
-    final_df.to_csv(output_file)
+    if cfg["saveWithoutFFT"]["enabled"]:
+      final_df.to_csv(output_file)
 
 def fold_images():
     for position_folder_name in dt_cfg["movements"]["list"]:
@@ -125,3 +135,6 @@ if cfg["deepen_images"]["enabled"]:
   fold_images()
 
 print("\nIMAGE ENRICHMENT FINISHED")
+
+if cfg["deletePrevious"]:
+  del_previous_folder
