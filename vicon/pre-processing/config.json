@@ -42,8 +42,8 @@
                 "enabled": true
             },
             "images":{
-                "batch-size": 40,
-                "overlap": 30
+                "batch-size": 128,
+                "overlap": 96
             },
             "deletePrevious": true
         }, 
@@ -56,7 +56,7 @@
                 "combined": true,
                 "saveWithoutFFT": false
             },
-            "deletePrevious": true
+            "deletePrevious": false
         },
         "final-dataset":{
             "deletePrevious": true,
@@ -68,7 +68,8 @@
             "bySubjects":{
                 "enabled": true,
                 "train-subjects": [ "S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09"],
-                "test-subjects": ["S10"]
+                "test-subjects": ["S10"],
+                "validationPercentage": 0.1
             }
         }
     }
