@@ -14,6 +14,7 @@ not_mixed_input = main_path + '/vicon/pre-processing/image-enricher/_output/'
 fft_input = main_path + '/vicon/pre-processing/image-enricher/_output-FFT/'
 test_output_path = main_path + '/vicon/pre-processing/final-dataset/test-set/'
 train_output_path = main_path + '/vicon/pre-processing/final-dataset/train-set/'
+validation_output_path = main_path + '/vicon/pre-processing/final-dataset/validation-set/'
 
 with open(cfg_filename) as f:
   full_config = json.load(f)
@@ -54,11 +55,13 @@ def build_output_directory_by_subjects():
   try:
     shutil.rmtree(test_output_path)
     shutil.rmtree(train_output_path)
+    shutil.rmtree(validation_output_path)
   except:
     print("No folder had to be removed")
 
     os.mkdir(test_output_path)
     os.mkdir(train_output_path)
+    os.mkdir(validation_output_path)
 
 def move_files_to_folder(input:str, output:str, files:[]):
   for file in files:
@@ -105,7 +108,14 @@ def create_orientation_final_dataset_by_subjects():
         for subject in cfg["bySubjects"]["test-subjects"]:
           if subject in file:
               test_list.append(file)
-      train_list = list(set(files).difference(test_list))
+      total_train_list = list(set(files).difference(test_list))
+      random.shuffle(total_train_list)
+      length = len(total_train_list)
+      print("Total training orientation images for movement " + movement + " : " + str(length))
+      index = int((length*cfg["bySubjects"]["validationPercentage"])//1)
+      validation_list = files[:index]
+      train_list =  files[index:]
+      move_files_to_folder(orientation_input_path, validation_output_path, validation_list)
       move_files_to_folder(orientation_input_path, train_output_path, train_list)
       move_files_to_folder(orientation_input_path, test_output_path, test_list)
       print("Final orientation dataset for movement " + movement + " created successfully")

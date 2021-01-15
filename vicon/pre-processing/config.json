@@ -59,7 +59,7 @@
             "deletePrevious": false
         },
         "final-dataset":{
-            "deletePrevious": true,
+            "deletePrevious": false,
             "FFT-input": true,
             "byPercentage": {
                 "enabled": false,
