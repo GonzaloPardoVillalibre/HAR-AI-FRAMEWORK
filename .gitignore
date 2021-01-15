@@ -17,3 +17,4 @@ vicon/pre-processing/image-builder/_output/*
 !vicon/pre-processing/interleaved-dataframe/_output/.gitkeep
 vicon/pre-processing/final-dataset/test-set/*
 vicon/pre-processing/final-dataset/train-set/*
+vicon/pre-processing/final-dataset/draft/*

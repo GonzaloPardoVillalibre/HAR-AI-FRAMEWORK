@@ -59,9 +59,17 @@
             "deletePrevious": true
         },
         "final-dataset":{
-            "trainPercentage": 0.8,
             "deletePrevious": true,
-            "FFT-input": true
+            "FFT-input": true,
+            "byPercentage": {
+                "enabled": false,
+                "trainPercentage": 0.8
+            },
+            "bySubjects":{
+                "enabled": true,
+                "train-subjects": [ "S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09"],
+                "test-subjects": ["S10"]
+            }
         }
     }
 }
