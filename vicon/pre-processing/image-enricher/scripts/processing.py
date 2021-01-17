@@ -57,7 +57,7 @@ def build_output_directory():
 def build_and_save_image_with_FFT(df: pd.DataFrame, fft_output_file: str):
     names = df.columns.values
     data = df.values
-    data =  data.astype(np.float)
+    data = data.astype(np.float32)
     data = np.fft.fft2(data)
     fft_df = pd.DataFrame(data, columns=names)
     if cfg["FFT"]["combined"]:

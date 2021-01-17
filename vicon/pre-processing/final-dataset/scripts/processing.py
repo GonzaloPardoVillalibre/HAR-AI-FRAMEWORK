@@ -68,7 +68,7 @@ def move_files_to_folder(input:str, output:str, files:[]):
     shutil.copy(input+file, output+file)
 
 def create_orientation_final_dataset_by_percentage():
-  for movement in dt_cfg["movements"]["list"]:
+  for movement in cfg["movements"]["list"]:
       orientation_input_path = input_path + 'orientation/'+movement+'/'
       orientation_train_output_path = train_output_path +'orientation/'+movement+'/'
       orientation_test_output_path = test_output_path +'orientation/'+movement+'/'
@@ -84,7 +84,7 @@ def create_orientation_final_dataset_by_percentage():
       print("Final orientation dataset for movement " + movement + " created successfully")
 
 def create_position_final_dataset_by_perecentage():
-  for movement in dt_cfg["movements"]["list"]:
+  for movement in cfg["movements"]["list"]:
       position_input_path = input_path + 'position/'+movement+'/'
       position_train_output_path = train_output_path +'position/'+movement+'/'
       position_test_output_path = test_output_path +'position/'+movement+'/'
@@ -100,21 +100,27 @@ def create_position_final_dataset_by_perecentage():
       print("Final position dataset for movement " + movement + " created successfully")
 
 def create_orientation_final_dataset_by_subjects():
-  for movement in dt_cfg["movements"]["list"]:
+  for movement in cfg["movements"]["list"]:
       test_list = []
+      total_train_list = []
       orientation_input_path = input_path + 'orientation/'+movement+'/'
       _, _, files = next(os.walk(orientation_input_path))
       for file in files:
         for subject in cfg["bySubjects"]["test-subjects"]:
-          if subject in file:
-              test_list.append(file)
-      total_train_list = list(set(files).difference(test_list))
+          if subject not in cfg["bySubjects"]["obviate"][movement]:
+            if subject in file:
+                test_list.append(file)
+      for file in files:
+        for subject in cfg["bySubjects"]["train-subjects"]:
+          if subject not in cfg["bySubjects"]["obviate"][movement]:
+            if subject in file:
+                total_train_list.append(file)
       random.shuffle(total_train_list)
       length = len(total_train_list)
       print("Total training orientation images for movement " + movement + " : " + str(length))
       index = int((length*cfg["bySubjects"]["validationPercentage"])//1)
-      validation_list = files[:index]
-      train_list =  files[index:]
+      validation_list = total_train_list[:index]
+      train_list =  total_train_list[index:]
       move_files_to_folder(orientation_input_path, validation_output_path, validation_list)
       move_files_to_folder(orientation_input_path, train_output_path, train_list)
       move_files_to_folder(orientation_input_path, test_output_path, test_list)
