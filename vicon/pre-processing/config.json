@@ -51,6 +51,9 @@
             "deepen_images":{
                 "enabled": true
             },
+            "dataAugmentationRotation":{
+                "gradeList":[0,90,180, 270]
+            },
             "FFT":{
                 "enabled": true,
                 "combined": true,
