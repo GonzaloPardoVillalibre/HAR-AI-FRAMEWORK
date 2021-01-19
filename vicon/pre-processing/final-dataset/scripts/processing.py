@@ -103,6 +103,7 @@ def create_orientation_final_dataset_by_subjects():
   for movement in cfg["movements"]["list"]:
       test_list = []
       total_train_list = []
+      validation_list = []
       orientation_input_path = input_path + 'orientation/'+movement+'/'
       _, _, files = next(os.walk(orientation_input_path))
       for file in files:
@@ -115,14 +116,16 @@ def create_orientation_final_dataset_by_subjects():
           if subject not in cfg["bySubjects"]["obviate"][movement]:
             if subject in file:
                 total_train_list.append(file)
+      for file in files:
+        for subject in cfg["bySubjects"]["validation-subjects"]:
+          if subject not in cfg["bySubjects"]["obviate"][movement]:
+            if subject in file:
+                validation_list.append(file)
       random.shuffle(total_train_list)
       length = len(total_train_list)
       print("Total training orientation images for movement " + movement + " : " + str(length))
-      index = int((length*cfg["bySubjects"]["validationPercentage"])//1)
-      validation_list = total_train_list[:index]
-      train_list =  total_train_list[index:]
       move_files_to_folder(orientation_input_path, validation_output_path, validation_list)
-      move_files_to_folder(orientation_input_path, train_output_path, train_list)
+      move_files_to_folder(orientation_input_path, train_output_path, total_train_list)
       move_files_to_folder(orientation_input_path, test_output_path, test_list)
       print("Final orientation dataset for movement " + movement + " created successfully")
  
