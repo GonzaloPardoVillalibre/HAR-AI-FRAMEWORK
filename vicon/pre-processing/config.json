@@ -3,7 +3,7 @@
         "in-dt":{
             "enabled": true,
             "subjects":{
-                "list": [ "S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10"] 
+                "list": [ "S01", "S02", "S04", "S05", "S06", "S07", "S08", "S09", "S10"] 
             },
             "movements":{
                 "list": ["FigureofEight",
@@ -12,7 +12,7 @@
                         "JumpingJacks",
                         "SpeedSkater",
                         "Static",
-                        "ZigZag",
+                        "Zigzag",
                         "TUG",
                         "Walk"
                         ],
@@ -57,14 +57,42 @@
             "FFT":{
                 "enabled": true,
                 "combined": true,
-                "saveWithoutFFT": false
+                "saveWithoutFFT": true
             },
-            "deletePrevious": true
+            "deletePrevious": false
         },
         "final-dataset":{
-            "trainPercentage": 0.8,
+            "movements":{
+                "list": ["FigureofEight",
+                        "HighKneeJog",
+                        "JumpingJacks",
+                        "SpeedSkater",
+                        "Zigzag"
+                        ]
+            },
             "deletePrevious": false,
-            "FFT-input": true
+            "FFT-input": true,
+            "byPercentage": {
+                "enabled": false,
+                "trainPercentage": 0.8
+            },
+            "bySubjects":{
+                "enabled": true,
+                "train-subjects": ["S01", "S02", "S04", "S05", "S06", "S08", "S09"],
+                "validation-subjects": ["S07"],
+                "test-subjects": ["S10"],
+                "obviate":{
+                    "FigureofEight":[],
+                    "HighKneeJog": [],
+                    "Jog":[],
+                    "JumpingJacks":[],
+                    "SpeedSkater":[],
+                    "Static":[],
+                    "Zigzag":[],
+                    "TUG":[],
+                    "Walk":[]
+                }
+            }
         }
     }
 }

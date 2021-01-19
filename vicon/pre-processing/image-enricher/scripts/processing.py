@@ -57,7 +57,7 @@ def build_output_directory():
 def build_and_save_image_with_FFT(df: pd.DataFrame, fft_output_file: str):
     names = df.columns.values
     data = df.values
-    data =  data.astype(np.float)
+    data = data.astype(np.float32)
     data = np.fft.fft2(data)
     fft_df = pd.DataFrame(data, columns=names)
     if cfg["FFT"]["combined"]:
@@ -93,6 +93,7 @@ def fold_position_image(input_file: str, output_file: str, image_size, sensors_n
     df = pd.read_csv(input_file, header=None)
     df = df.iloc[1:]
     df = df.drop(df.columns[[0, 1]], axis=1)
+    df = df.astype(np.float32)
     image_size = im_bu_cfg["images"]["batch-size"]
     final_df = pd.DataFrame(df.values.reshape(image_size, sensors_number*3), columns=column_names)
     if cfg["FFT"]["enabled"]:
@@ -104,6 +105,7 @@ def fold_orientation_image(input_file: str, output_file: str, image_size, sensor
     df = pd.read_csv(input_file, header=None)
     df = df.iloc[1:]
     df = df.drop(df.columns[[0, 1]], axis=1)
+    df = df.astype(np.float32)
     image_size = im_bu_cfg["images"]["batch-size"]
     for rotation_grades in cfg["dataAugmentationRotation"]["gradeList"]:
       rotated_df = create_rotated_images(rotation_grades, df)
