@@ -75,20 +75,20 @@
             },
             "bySubjects":{
                 "enabled": true,
-                "train-subjects": ["S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09"],
+                "train-subjects": ["S01", "S02", "S04", "S05", "S06", "S08", "S09"],
+                "validation-subjects": ["S07"],
                 "test-subjects": ["S10"],
                 "obviate":{
                     "FigureofEight":[],
                     "HighKneeJog": [],
                     "Jog":[],
-                    "JumpingJacks":["S08"],
+                    "JumpingJacks":[],
                     "SpeedSkater":[],
                     "Static":[],
-                    "Zigzag":["S09"],
+                    "Zigzag":[],
                     "TUG":[],
                     "Walk":[]
-                },
-                "validationPercentage": 0.1
+                }
             }
         }
     }
