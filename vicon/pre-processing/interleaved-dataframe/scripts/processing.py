@@ -30,13 +30,11 @@ def build_output_directory():
 
 # Extracts orientation information for each line in csv
 def extract_quat_columns(file, jointName):
-    df = pd.read_fwf(file, header=None)
-    df = df[0].str.split(',', expand=True)
-    df.columns = df.iloc[5]
-    df = df.drop(axis=0, index=[0, 1, 2, 3, 4, 5])
+    df = pd.read_csv(file, header=None, skiprows=[0,1,2,3,4])
+    first_row = df.iloc[0].values
+    df = df.iloc[1:]
+    df.columns = first_row
     df = df.filter(regex=jointName)
-    df = df.replace('-','NaN')
-    df = df.replace('','NaN')
     df = df[:].astype(float)
     df.insert(loc=0, column='quat', value=jointName)
     df.columns = ['quat', '0', '1', '2', '3']
@@ -44,10 +42,10 @@ def extract_quat_columns(file, jointName):
 
 # Extracts position information for each line in csv
 def extract_position_columns(file, jointName):
-    df = pd.read_fwf(file, header=None)
-    df = df[0].str.split(',', expand=True)
-    df.columns = df.iloc[5]
-    df = df.drop(axis=0, index=[0, 1, 2, 3, 4, 5])
+    df = pd.read_csv(file, header=None, skiprows=[0,1,2,3,4])
+    first_row = df.iloc[0].values
+    df = df.iloc[1:]
+    df.columns = first_row
     df = df.filter(regex=jointName)
     df = df[:].astype(float)
     df.insert(loc=0, column='3D vector', value=jointName)

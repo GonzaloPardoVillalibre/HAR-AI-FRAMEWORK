@@ -14,6 +14,7 @@ not_mixed_input = main_path + '/vicon/pre-processing/image-enricher/_output/'
 fft_input = main_path + '/vicon/pre-processing/image-enricher/_output-FFT/'
 test_output_path = main_path + '/vicon/pre-processing/final-dataset/test-set/'
 train_output_path = main_path + '/vicon/pre-processing/final-dataset/train-set/'
+validation_output_path = main_path + '/vicon/pre-processing/final-dataset/validation-set/'
 
 with open(cfg_filename) as f:
   full_config = json.load(f)
@@ -39,7 +40,7 @@ def del_previous_folder():
     except:
       print("Not a directory")
 
-def build_output_directory():
+def build_output_directory_by_percentage():
   #Clean output directory
   try:
     shutil.rmtree(test_output_path+'position/')
@@ -49,26 +50,25 @@ def build_output_directory():
   except:
     print("No folder had to be removed")
 
-  #Create postion directories:
-  os.mkdir(test_output_path+'position/')
-  os.mkdir(train_output_path+'position/')
-  for movement in dt_cfg["movements"]["list"]:
-    os.mkdir(test_output_path+'position/'+movement+'/')
-    os.mkdir(train_output_path+'position/'+movement+'/')
+def build_output_directory_by_subjects():
+  #Clean output directory
+  try:
+    shutil.rmtree(test_output_path)
+    shutil.rmtree(train_output_path)
+    shutil.rmtree(validation_output_path)
+  except:
+    print("No folder had to be removed")
 
-  #Create orientation directories:
-  os.mkdir(test_output_path+'orientation/')
-  os.mkdir(train_output_path+'orientation/')
-  for movement in dt_cfg["movements"]["list"]:
-    os.mkdir(test_output_path+'orientation/'+movement+'/')
-    os.mkdir(train_output_path+'orientation/'+movement+'/')
-    
+    os.mkdir(test_output_path)
+    os.mkdir(train_output_path)
+    os.mkdir(validation_output_path)
+
 def move_files_to_folder(input:str, output:str, files:[]):
   for file in files:
     shutil.copy(input+file, output+file)
 
-def create_orientation_final_dataset():
-  for movement in dt_cfg["movements"]["list"]:
+def create_orientation_final_dataset_by_percentage():
+  for movement in cfg["movements"]["list"]:
       orientation_input_path = input_path + 'orientation/'+movement+'/'
       orientation_train_output_path = train_output_path +'orientation/'+movement+'/'
       orientation_test_output_path = test_output_path +'orientation/'+movement+'/'
@@ -83,8 +83,8 @@ def create_orientation_final_dataset():
       move_files_to_folder(orientation_input_path, orientation_test_output_path, test_list)
       print("Final orientation dataset for movement " + movement + " created successfully")
 
-def create_position_final_dataset():
-  for movement in dt_cfg["movements"]["list"]:
+def create_position_final_dataset_by_perecentage():
+  for movement in cfg["movements"]["list"]:
       position_input_path = input_path + 'position/'+movement+'/'
       position_train_output_path = train_output_path +'position/'+movement+'/'
       position_test_output_path = test_output_path +'position/'+movement+'/'
@@ -99,16 +99,47 @@ def create_position_final_dataset():
       move_files_to_folder(position_input_path, position_test_output_path, test_list)
       print("Final position dataset for movement " + movement + " created successfully")
 
-# def create_position_final_dataset():
-
+def create_orientation_final_dataset_by_subjects():
+  for movement in cfg["movements"]["list"]:
+      test_list = []
+      total_train_list = []
+      validation_list = []
+      orientation_input_path = input_path + 'orientation/'+movement+'/'
+      _, _, files = next(os.walk(orientation_input_path))
+      for file in files:
+        for subject in cfg["bySubjects"]["test-subjects"]:
+          if subject not in cfg["bySubjects"]["obviate"][movement]:
+            if subject in file:
+                test_list.append(file)
+      for file in files:
+        for subject in cfg["bySubjects"]["train-subjects"]:
+          if subject not in cfg["bySubjects"]["obviate"][movement]:
+            if subject in file:
+                total_train_list.append(file)
+      for file in files:
+        for subject in cfg["bySubjects"]["validation-subjects"]:
+          if subject not in cfg["bySubjects"]["obviate"][movement]:
+            if subject in file:
+                validation_list.append(file)
+      random.shuffle(total_train_list)
+      length = len(total_train_list)
+      print("Total training orientation images for movement " + movement + " : " + str(length))
+      move_files_to_folder(orientation_input_path, validation_output_path, validation_list)
+      move_files_to_folder(orientation_input_path, train_output_path, total_train_list)
+      move_files_to_folder(orientation_input_path, test_output_path, test_list)
+      print("Final orientation dataset for movement " + movement + " created successfully")
+ 
 #########################
 # Main                  #
 #########################
-build_output_directory()
+if cfg["byPercentage"]["enabled"]:
+  build_output_directory_by_percentage()
+  create_orientation_final_dataset_by_percentage()
+  create_position_final_dataset_by_perecentage()
 
-# create_orientation_final_dataset()
-
-# create_position_final_dataset()
+if cfg["bySubjects"]["enabled"]:
+  build_output_directory_by_subjects()
+  create_orientation_final_dataset_by_subjects()
 
 if cfg["deletePrevious"]:
   del_previous_folder()
