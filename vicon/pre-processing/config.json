@@ -51,10 +51,13 @@
             "deepen_images":{
                 "enabled": true
             },
+            "dataAugmentationRotation":{
+                "gradeList":[0,30,60,90,120,150,180,210,240,270,300,330]
+            },
             "FFT":{
                 "enabled": true,
                 "combined": true,
-                "saveWithoutFFT": true
+                "saveWithoutFFT": false
             },
             "deletePrevious": false
         },
@@ -62,9 +65,13 @@
             "movements":{
                 "list": ["FigureofEight",
                         "HighKneeJog",
+                        "Jog",
                         "JumpingJacks",
                         "SpeedSkater",
-                        "Zigzag"
+                        "Static",
+                        "Zigzag",
+                        "TUG",
+                        "Walk"
                         ]
             },
             "deletePrevious": false,
