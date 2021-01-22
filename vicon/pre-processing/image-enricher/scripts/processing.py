@@ -16,9 +16,9 @@ main_path = os.getcwd()
 cfg_filename = main_path + '/vicon/pre-processing/config.json'
 with open(cfg_filename) as f:
   full_config = json.load(f)
-  dt_cfg = full_config["1"]["in-dt"]
-  im_bu_cfg = full_config["1"]["im-bu"]
-  cfg = full_config["1"]["im-en"]
+  dt_cfg = full_config["in-dt"]
+  im_bu_cfg = full_config["im-bu"]
+  cfg = full_config["im-en"]
 
 # Path to _output file
 input_path = main_path + '/vicon/pre-processing/image-builder/_output/'

@@ -1,102 +1,64 @@
-{
-    "1":{
-        "in-dt":{
-            "enabled": true,
-            "subjects":{
-                "list": [ "S01", "S02", "S04", "S05", "S06", "S07", "S08", "S09", "S10"] 
-            },
-            "movements":{
-                "list": ["FigureofEight",
-                        "HighKneeJog",
-                        "Jog",
-                        "JumpingJacks",
-                        "SpeedSkater",
-                        "Static",
-                        "Zigzag",
-                        "TUG",
-                        "Walk"
-                        ],
-                "samples": ["1", "2"]
-            },
-           "orientationSensors":{
-                "enabled": true,
-                "list":  ["qRPV", "qRTH", "qRSK", "qRFT", "qLTH", "qLSK", "qLFT"]
-           },
-           "positionSensors":{
-               "enabled": true,
-               "list": ["LTOE", "PELV", "RFEP", "LFEP", "RFEO", "LFEO", "RTIO", "LTIO"]
-            }
-           },
-        "im-bu":{
-            "enabled": true, 
-            "interleavedOutput":{
-                "useOlder":{
-                    "enabled": false,
-                    "number": 1
-                }    
-            },
-            "orientationSensors":{
-                "enabled": true
-            },
-            "positionSensors":{
-                "enabled": true
-            },
-            "images":{
-                "batch-size": 128,
-                "overlap": 96
-            },
-            "deletePrevious": true
-        }, 
-        "im-en":{
-            "deepen_images":{
-                "enabled": true
-            },
-            "dataAugmentationRotation":{
-                "gradeList":[0,30,60,90,120,150,180,210,240,270,300,330]
-            },
-            "FFT":{
-                "enabled": true,
-                "combined": true,
-                "saveWithoutFFT": false
-            },
-            "deletePrevious": false
+{   
+    "executionPath":"/home/gonzalo/Desktop/TFG",
+    "in-dt":{
+        "enabled": true,
+        "subjects":{
+            "list": [ "S01", "S02", "S04", "S05", "S06", "S07", "S08", "S09", "S10"] 
         },
-        "final-dataset":{
-            "movements":{
-                "list": ["FigureofEight",
-                        "HighKneeJog",
-                        "Jog",
-                        "JumpingJacks",
-                        "SpeedSkater",
-                        "Static",
-                        "Zigzag",
-                        "TUG",
-                        "Walk"
-                        ]
-            },
-            "deletePrevious": false,
-            "FFT-input": true,
-            "byPercentage": {
-                "enabled": false,
-                "trainPercentage": 0.8
-            },
-            "bySubjects":{
-                "enabled": true,
-                "train-subjects": ["S01", "S02", "S04", "S05", "S06", "S08", "S09"],
-                "validation-subjects": ["S07"],
-                "test-subjects": ["S10"],
-                "obviate":{
-                    "FigureofEight":[],
-                    "HighKneeJog": [],
-                    "Jog":[],
-                    "JumpingJacks":[],
-                    "SpeedSkater":[],
-                    "Static":[],
-                    "Zigzag":[],
-                    "TUG":[],
-                    "Walk":[]
-                }
-            }
+        "movements":{
+            "list": ["FigureofEight",
+                    "HighKneeJog",
+                    "Jog",
+                    "JumpingJacks",
+                    "SpeedSkater",
+                    "Static",
+                    "Zigzag",
+                    "TUG",
+                    "Walk"
+                    ],
+            "samples": ["1", "2"]
+        },
+        "orientationSensors":{
+            "enabled": true,
+            "list":  ["qRPV", "qRTH", "qRSK", "qRFT", "qLTH", "qLSK", "qLFT"]
+        },
+        "positionSensors":{
+            "enabled": true,
+            "list": ["LTOE", "PELV", "RFEP", "LFEP", "RFEO", "LFEO", "RTIO", "LTIO"]
         }
+        },
+    "im-bu":{
+        "enabled": true, 
+        "interleavedOutput":{
+            "useOlder":{
+                "enabled": false,
+                "number": 1
+            }    
+        },
+        "orientationSensors":{
+            "enabled": true
+        },
+        "positionSensors":{
+            "enabled": true
+        },
+        "images":{
+            "batch-size": 128,
+            "overlap": 96
+        },
+        "deletePrevious": true
+    }, 
+    "im-en":{
+        "deepen_images":{
+            "enabled": true
+        },
+        "dataAugmentationRotation":{
+            "gradeList":[0,30,60,90,120,150,180,210,240,270,300,330]
+        },
+        "FFT":{
+            "enabled": true,
+            "combined": true,
+            "saveWithoutFFT": false
+        },
+        "deletePrevious": false
     }
 }

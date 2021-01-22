@@ -13,8 +13,8 @@ main_path = os.getcwd()
 cfg_filename = main_path + '/vicon/pre-processing/config.json'
 with open(cfg_filename) as f:
   full_config = json.load(f)
-  dt_cfg = full_config["1"]["in-dt"]
-  cfg = full_config["1"]["im-bu"]
+  dt_cfg = full_config["in-dt"]
+  cfg = full_config["im-bu"]
 
 # Path to _output file
 input_path = main_path + '/vicon/pre-processing/interleaved-dataframe/_output/'
