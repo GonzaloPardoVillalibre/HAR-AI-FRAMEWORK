@@ -59,9 +59,10 @@ def build_and_save_image_with_FFT(df: pd.DataFrame, fft_output_file: str):
     data = df.values
     data = data.astype(np.float32)
     data = np.fft.fft2(data)
-    fft_df = pd.DataFrame(data, columns=names)
+    fft_df_real = pd.DataFrame(data.real.astype(np.float32), columns=names)
+    fft_df_imag = pd.DataFrame(data.imag.astype(np.float32), columns=names)
     if cfg["FFT"]["combined"]:
-      fft_df = pd.concat([df, fft_df], axis=1)
+      fft_df = pd.concat([df, fft_df_real, fft_df_imag], axis=1)
     fft_df.to_csv(fft_output_file)
 
 def unitary_rotation_quaternion(x:float, y:float, z:float, a:float):
@@ -78,15 +79,16 @@ def quaternion_multiply(quaternion1, quaternion0):
     return np.array([-x1 * x0 - y1 * y0 - z1 * z0 + w1 * w0,
                      x1 * w0 + y1 * z0 - z1 * y0 + w1 * x0,
                      -x1 * z0 + y1 * w0 + z1 * x0 + w1 * y0,
-                     x1 * y0 - y1 * x0 + z1 * w0 + w1 * z0], dtype=np.float64)
+                     x1 * y0 - y1 * x0 + z1 * w0 + w1 * z0], dtype=np.float32)
 
 def create_rotated_images(grades, original_df):
   vector_de_rotacion =  unitary_rotation_quaternion(0,0,1, grades*np.pi/180)
   original_df_array = original_df.values
-  final_df_array = [] 
+  final_df_array = copy.deepcopy(original_df_array)
+  i = 0
   for element in original_df_array:
-    print(element)
-    original_df_array[element] = quaternion_multiply(element, vector_de_rotacion)
+    final_df_array[i] = quaternion_multiply(element, vector_de_rotacion)
+    i = i +1
   return final_df_array
 
 def fold_position_image(input_file: str, output_file: str, image_size, sensors_number, column_names: list, fft_output_file: str):
@@ -146,8 +148,11 @@ def fold_images():
           column_names.append(sensor+'-1')
           column_names.append(sensor+'-2')
           column_names.append(sensor+'-4')
+      total_number = len(files)
       for file in files:
           fold_orientation_image(input_folder+file, output_folder+file, image_size, sensors_number, column_names, fft_output_folder+file)
+          print( "   - " + str(total_number) + " files remaining")
+          total_number = total_number - 1
 
 #########################
 # Main                  #
