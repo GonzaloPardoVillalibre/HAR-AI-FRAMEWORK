@@ -3,7 +3,7 @@
 *Calib*
 *data-list*
 *.zip
-
+*.pyc
 # Code config
 .vscode
 
