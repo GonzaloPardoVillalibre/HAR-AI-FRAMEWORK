@@ -5,5 +5,5 @@ services:
       context: ./docker/pre-processing
     volumes:
       - ./:/TFG
-    working_dir: /TFG/vicon
+    working_dir: /TFG/vicon/pre-processing
     command: tail -f /dev/null

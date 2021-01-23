@@ -1,0 +1,6 @@
+{   
+    "movements": ["FigureofEight", "HighKneeJog", "Jog", "JumpingJacks", "SpeedSkater", "Static", "Zigzag", "TUG", "Walk"],
+    "train-subjects": ["S01", "S02", "S04", "S05", "S06", "S08", "S09"],
+    "validation-subjects": ["S07"],
+    "test-subjects": ["S10"]
+}
