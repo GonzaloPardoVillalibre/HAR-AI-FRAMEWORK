@@ -2,5 +2,12 @@
     "movements": ["FigureofEight", "HighKneeJog", "Jog", "JumpingJacks", "SpeedSkater", "Static", "Zigzag", "TUG", "Walk"],
     "train-subjects": ["S01", "S02", "S04", "S05", "S06", "S08", "S09"],
     "validation-subjects": ["S07"],
-    "test-subjects": ["S10"]
+    "test-subjects": ["S10"],
+    "input-rows": 128,
+    "input-columns": 84,
+    "batch-size": 100,
+    "train-steps": 85,
+    "validation-steps": 25,
+    "test-steps": 25,
+    "epochs": 100
 }
