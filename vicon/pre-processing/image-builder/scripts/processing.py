@@ -7,7 +7,8 @@ import shutil
 global  orientation_image_number
 
 # Porject main directory path
-main_path = os.getcwd()
+# main_path = os.getcwd()
+main_path = '/TFG'
 
 # Loads configuration file
 cfg_filename = main_path + '/vicon/pre-processing/config.json'

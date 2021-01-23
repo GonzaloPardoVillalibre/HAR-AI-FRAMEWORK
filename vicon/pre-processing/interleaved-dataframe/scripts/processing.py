@@ -5,14 +5,14 @@ import json
 import shutil 
 
 # Porject main directory path
-main_path = os.getcwd()
+# main_path = os.getcwd()
+main_path = '/TFG'
 
 # Loads configuration file
 cfg_filename = main_path + '/vicon/pre-processing/config.json'
 with open(cfg_filename) as f:
   full_config = json.load(f)
   cfg = full_config["in-dt"]
-  main_path = full_config["/home/gonzalo/Desktop/TFG"]
 
 # Path to _output file
 output_path = main_path + '/vicon/pre-processing/interleaved-dataframe/_output/'

@@ -10,7 +10,8 @@ position_folder_names = []
 orientation_folder_names = []
 
 # Porject main directory path
-main_path = os.getcwd()
+# main_path = os.getcwd()
+main_path = '/TFG'
 
 # Loads configuration file
 cfg_filename = main_path + '/vicon/pre-processing/config.json'
@@ -113,7 +114,7 @@ def fold_orientation_image(input_file: str, output_file: str, image_size, sensor
       rotated_df = create_rotated_images(rotation_grades, df)
       final_df = pd.DataFrame(rotated_df.reshape(image_size, sensors_number*4), columns=column_names)
       if cfg["FFT"]["enabled"]:
-        build_and_save_image_with_FFT(final_df, fft_output_file + '-' + str(rotation_grades))
+        build_and_save_image_with_FFT(final_df, fft_output_file[:-4] + '-' + str(rotation_grades) + '.csv')
       if cfg["FFT"]["saveWithoutFFT"]:
         final_df.to_csv(output_file + '-' + str(rotation_grades))
 
