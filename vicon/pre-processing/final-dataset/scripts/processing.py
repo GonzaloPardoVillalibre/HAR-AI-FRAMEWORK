@@ -35,12 +35,13 @@ else:
 def build_output_directory():
   #Clean output directory
   try:
-    shutil.rmtree(final_output_path+'position/')
-    shutil.rmtree(final_output_path+'orientation/')
+    shutil.rmtree(final_output_path+'position')
+    os.mkdir(final_output_path+'position')
+    shutil.rmtree(final_output_path+'orientation')
+    os.mkdir(final_output_path+'orientation')
   except:
     print("No folder had to be removed")
-    os.mkdir(final_output_path+'position/')
-    os.mkdir(final_output_path+'orientation/')
+
     
 def move_files_to_folder(input:str, output:str, files:[]):
   for file in files:
