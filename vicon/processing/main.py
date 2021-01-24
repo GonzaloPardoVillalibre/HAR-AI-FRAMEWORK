@@ -1,11 +1,11 @@
 import train
-import os, json
+import os, json, gc
 import numpy as np
 import utils.utils as utils
 
 main_path = os.getcwd()
 cfg_files_path = main_path + '/vicon/processing/toTrain'
-outcome_path = main_path + '/vicon/processing/trainOutcomes'
+outcome = main_path + '/vicon/processing/trainOutcomes'
 _, _, files = next(os.walk(cfg_files_path))
 
 
@@ -14,8 +14,8 @@ _, _, files = next(os.walk(cfg_files_path))
 ##########
 
 for file in files:
-    outcome_path = utils.create_folder(outcome_path)
-
+    gc.collect()
+    outcome_path = utils.create_folder(outcome)
     cfg = utils.loadCfgJson(cfg_files_path + '/' + file)
 
     model, test_loss, test_accuracy, history_callback = train.train_main(cfg)

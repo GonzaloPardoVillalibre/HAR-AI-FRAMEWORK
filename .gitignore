@@ -18,3 +18,4 @@ vicon/pre-processing/image-builder/_output/*
 vicon/pre-processing/final-dataset/orientation/*
 vicon/pre-processing/final-dataset/position/*
 vicon/pre-processing/final-dataset/validation-set/*
+vicon/processing/trainOutcomes/*
