@@ -1,4 +1,4 @@
-import os, re, json
+import os, re, json, datetime
 
 def filter_files_by_regex(files:list, regex:str):
     filtered_list = [val for val in files if re.search(regex, val)]
@@ -34,3 +34,50 @@ def split_dataset(files:list, cfg:json):
     print("Total test files: " + str(len(test_files)))
 
     return train_files, test_files, validation_files
+
+def loadCfgJson(file_path:str):
+     with open(file_path) as f:
+        return json.load(f)
+
+def create_folder(folder_path: str):
+    datetime_object = datetime.datetime.now()
+    folder_path = folder_path + '/' + str(datetime_object)
+    os.mkdir(folder_path)
+    return folder_path
+
+def create_outcome_file(outcome_path:str, model, test_loss, test_accuracy, history_callback):
+    history = history_callback.history
+    with open(outcome_path + '/outcome.txt', 'w') as file:
+        file.write('##################################################\n')
+        file.write('#                 MODEL SUMMARY                  #\n') 
+        file.write('##################################################\n')
+        
+        model.summary(print_fn=lambda x: file.write(x + '\n'))
+        
+        file.write('\n\n')
+        file.write('##################################################\n')
+        file.write('#                 TRAIN OUTCOME                  #\n') 
+        file.write('##################################################\n')
+
+
+        for i in range(len(history) - 1):
+            file.write( 'loss: ' +  str(format(history["loss"][i], ".4f")) + 
+            ' | accuracy: ' +  str(format(history["accuracy"][i], ".4f")) + 
+            ' | val_loss: ' +  str(format(history["val_loss"][i], ".4f")) +
+            ' | val_accuracy: ' +  str(format(history["val_accuracy"][i], ".4f")) + '\n')
+
+        file.write('\n\n')
+        file.write('##################################################\n')
+        file.write('#                 TEST OUTCOME                   #\n') 
+        file.write('##################################################\n')
+        file.write( 'loss: ' +  str(format(test_loss, ".4f")) + ' | accuracy: ' +  str(format(test_accuracy, ".4f")))
+
+def create_config_output_file(outcome_path:str, cfg:json):
+    with open(outcome_path + '/config.json', 'w') as outfile:
+        json.dump(cfg, outfile)
+
+def save_model_and_weights(outcome_path:str, model):
+    model_json = model.to_json()
+    with open(outcome_path + '/model.json', "w") as json_file:
+        json_file.write(model_json)
+    model.save_weights(outcome_path + '/model.h5')
