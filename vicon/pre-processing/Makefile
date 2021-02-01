@@ -9,6 +9,7 @@ Commands:
   build-image-builder           Excute image builder script.
   build-image-enricher          Excute image enricher script.
   build-final-dataset           Excute final dataset script.
+  build-all:                    Execute all preprocessing steps by order.
 endef
 export help
 

@@ -1,4 +1,5 @@
-import os, re, json, datetime
+import os, re, json, datetime, random
+import tensorflow as tf 
 
 def filter_files_by_regex(files:list, regex:str):
     filtered_list = [val for val in files if re.search(regex, val)]
@@ -33,7 +34,24 @@ def split_dataset(files:list, cfg:json):
     print("Original test files: " + str(len(filter_files_by_regex(test_files, r'-0.csv$'))))
     print("Total test files: " + str(len(test_files)))
 
-    return train_files, test_files, validation_files
+    return train_files, validation_files, test_files
+
+def balance_data_set(files:list, cfg:json, set:str):
+    movement_samples = {}
+    for movement in cfg["movements"]:
+        movement_regex_string = re.compile(movement)
+        files_filtered = filter_files_by_regex(files, movement_regex_string)
+        movement_samples[movement] = len(files_filtered)
+    min_key = min(movement_samples, key=movement_samples.get)
+    final_files = []
+    print("Under balancing data-set by movement " + min_key + " with " +  str(movement_samples[min_key]) + " total files.")
+    for movement in cfg["movements"]:
+        movement_regex_string = re.compile(movement)
+        files_filtered = filter_files_by_regex(files, movement_regex_string)
+        random.shuffle(files_filtered)
+        final_files = final_files + files_filtered[:movement_samples[min_key]]
+    print("Final " + set + " data-set has " + str(len(final_files)) + " images.")
+    return final_files
 
 def loadCfgJson(file_path:str):
      with open(file_path) as f:
@@ -60,7 +78,7 @@ def create_outcome_file(outcome_path:str, model, test_loss, test_accuracy, histo
         file.write('##################################################\n')
 
 
-        for i in range(len(history) - 1):
+        for i in range(len(history["loss"])):
             file.write( 'loss: ' +  str(format(history["loss"][i], ".4f")) + 
             ' | accuracy: ' +  str(format(history["accuracy"][i], ".4f")) + 
             ' | val_loss: ' +  str(format(history["val_loss"][i], ".4f")) +
@@ -72,6 +90,12 @@ def create_outcome_file(outcome_path:str, model, test_loss, test_accuracy, histo
         file.write('##################################################\n')
         file.write( 'loss: ' +  str(format(test_loss, ".4f")) + ' | accuracy: ' +  str(format(test_accuracy, ".4f")))
 
+        file.write('\n\n')
+        file.write('##################################################\n')
+        file.write('#                     NOTES                      #\n') 
+        file.write('##################################################\n')
+        file.write('\n\n')
+      
 def create_config_output_file(outcome_path:str, cfg:json):
     with open(outcome_path + '/config.json', 'w') as outfile:
         json.dump(cfg, outfile)
@@ -81,3 +105,9 @@ def save_model_and_weights(outcome_path:str, model):
     with open(outcome_path + '/model.json', "w") as json_file:
         json_file.write(model_json)
     model.save_weights(outcome_path + '/model.h5')
+
+def addCallbacks(callbacks:json, callback_list: list):
+    for callback in callbacks:
+        if(callback["type"] == "earlyStop"):
+            callback_list.append(tf.keras.callbacks.EarlyStopping(monitor=callback["monitor"], patience=callback["patience"]))
+    return callback_list

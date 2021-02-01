@@ -1,0 +1,14 @@
+{   
+    "neural-network": "N2",
+    "movements": ["FigureofEight", "HighKneeJog", "Jog", "JumpingJacks", "SpeedSkater", "Static", "Zigzag", "TUG", "Walk"],
+    "train-subjects": ["S01", "S02", "S10", "S05", "S06", "S08", "S07"],
+    "validation-subjects": ["S09"],
+    "test-subjects": ["S04"],
+    "input-rows": 128,
+    "input-columns": 84,
+    "batch-size": 150,
+    "train-steps": 82,
+    "validation-steps": 82,
+    "test-steps": 82,
+    "epochs": 200
+}
