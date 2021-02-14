@@ -23,9 +23,14 @@ def split_dataset(files:list, cfg:json):
     # Load test set
     test_user_regex_string = build_regex_for_subjects(cfg["test-subjects"])
     test_files = filter_files_by_regex(files, test_user_regex_string)
+    # Use only original files
+    test_files = filter_files_by_regex(test_files, r'-0.csv$')
+
     # Load validation set
     validation_user_regex_string = build_regex_for_subjects(cfg["validation-subjects"])
     validation_files = filter_files_by_regex(files, validation_user_regex_string)
+    # Use only original files
+    validation_files = filter_files_by_regex(validation_files, r'-0.csv$')
 
     print("Original train files: " + str(len(filter_files_by_regex(train_files, r'-0.csv$'))))
     print("Total train files: " + str(len(train_files)))
