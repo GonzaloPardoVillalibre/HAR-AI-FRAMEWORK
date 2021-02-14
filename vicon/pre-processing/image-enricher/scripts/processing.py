@@ -38,8 +38,8 @@ def del_previous_folder():
 def build_output_directory():
   #Clean output directory
   try:
-    shutil.rmtree(output_path+'position/')
-    shutil.rmtree(output_path+'orientation/')
+    shutil.rmtree(output_path+'position')
+    shutil.rmtree(output_path+'orientation')
   except:
     print("No folder had to be removed")
 
@@ -155,6 +155,60 @@ def fold_images():
           print( "   - " + str(total_number) + " files remaining")
           total_number = total_number - 1
 
+def table_images():
+    for orientation_folder_name in dt_cfg["movements"]["list"]:
+      print("\nBuilding folded images for orientation movement: " + orientation_folder_name)
+      input_folder = input_path + 'orientation/' +orientation_folder_name + '/'
+      output_folder = output_path + 'orientation/' + orientation_folder_name + '/'
+      fft_output_folder = fft_output_path + 'orientation/' + orientation_folder_name + '/'
+      _, _, files = next(os.walk(input_folder))
+      image_size = im_bu_cfg["images"]["batch-size"]
+      sensors_number = len(dt_cfg["orientationSensors"]["list"])
+      column_names = []
+      for sensor in dt_cfg["orientationSensors"]["list"]:
+          column_names.append(sensor+'-0')
+          column_names.append(sensor+'-1')
+          column_names.append(sensor+'-2')
+          column_names.append(sensor+'-4')
+      total_number = len(files)
+      for file in files:
+          table_orientation_image(input_folder+file, output_folder+file, image_size, sensors_number, column_names, fft_output_folder+file)
+          print( "   - " + str(total_number) + " files remaining")
+          total_number = total_number - 1
+
+def table_orientation_image(input_file: str, output_file: str, image_size, sensors_number, column_names: list, fft_output_file: str):
+    df = pd.read_csv(input_file, header=None)
+    df = df.iloc[1:]
+    df = df.drop(df.columns[[0, 1]], axis=1)
+    df = df.astype(np.float32)
+    for rotation_grades in cfg["dataAugmentationRotation"]["gradeList"]:
+      rotated_array = create_rotated_images(rotation_grades, df)
+      rotated_df = pd.DataFrame(data=rotated_array)
+      total_cells = cfg["table_images"]["size"]
+      df_cells = {}
+      i = 0
+      for cell in range(total_cells*total_cells):
+        cell = rotated_df.iloc[(i*7): 7*(i+1)]
+        cell = cell.reset_index(drop=True)
+        df_cells[i+1] = cell
+        i = i +1
+      df_rows = {}
+      for row in range(total_cells):
+        row_selector = cfg["table_images"]["table"][row]
+        df_row = df_cells[row_selector[0]]
+        for cell in range(total_cells-1):
+          prueba2 = df_cells[row_selector[cell+1]].values
+          df_row = pd.concat([df_row, df_cells[row_selector[cell+1]]], ignore_index=True, axis=1)
+          prueba3 = df_row.values
+        df_rows[row] = df_row
+      final_df = df_rows[0]
+      for row in range(total_cells-1):
+        final_df = pd.concat([final_df, df_rows[row+1]], ignore_index=True, axis=0)
+      if cfg["FFT"]["enabled"]:
+        build_and_save_image_with_FFT(final_df, fft_output_file[:-4] + '-' + str(rotation_grades) + '.csv')
+      if cfg["FFT"]["saveWithoutFFT"]:
+        final_df.to_csv(output_file + '-' + str(rotation_grades))
+
 #########################
 # Main                  #
 #########################
@@ -168,6 +222,11 @@ if cfg["deepen_images"]["enabled"]:
   output_path = general_output_path
   build_output_directory()
   fold_images()
+
+if cfg["table_images"]["enabled"]:
+  # Prepare output directory
+  output_path = general_output_path
+  table_images()
 
 print("\nIMAGE ENRICHMENT FINISHED")
 
