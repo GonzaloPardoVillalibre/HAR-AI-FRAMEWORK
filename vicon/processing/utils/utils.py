@@ -13,22 +13,34 @@ def build_regex_for_subjects(subjects:list):
     user_regex_string = re.compile(user_regex_string)
     return user_regex_string
 
+def build_regex_for_movement(movements:list):
+    user_regex_string ="("
+    for movement in movements:
+        user_regex_string = (user_regex_string + movement + '|')
+    user_regex_string = user_regex_string[:-1] + ')'
+    user_regex_string = re.compile(user_regex_string)
+    return user_regex_string
+
 def extract_info_from_config(cfg:json):
     return cfg["input-rows"], cfg["input-columns"], cfg["movements"], cfg["batch-size"], cfg["train-steps"], cfg["validation-steps"], cfg["test-steps"], cfg["epochs"]
 
 def split_dataset(files:list, cfg:json):
+    movements_regex_string = build_regex_for_movement(cfg["movements"])
     # Load train set
     train_user_regex_string = build_regex_for_subjects(cfg["train-subjects"])
     train_files = filter_files_by_regex(files, train_user_regex_string)
+    train_files = filter_files_by_regex(train_files, movements_regex_string)
     # Load test set
     test_user_regex_string = build_regex_for_subjects(cfg["test-subjects"])
     test_files = filter_files_by_regex(files, test_user_regex_string)
+    test_files = filter_files_by_regex(test_files, movements_regex_string)
     # Use only original files
     test_files = filter_files_by_regex(test_files, r'-0.csv$')
 
     # Load validation set
     validation_user_regex_string = build_regex_for_subjects(cfg["validation-subjects"])
     validation_files = filter_files_by_regex(files, validation_user_regex_string)
+    validation_files = filter_files_by_regex(validation_files, movements_regex_string)
     # Use only original files
     validation_files = filter_files_by_regex(validation_files, r'-0.csv$')
 
