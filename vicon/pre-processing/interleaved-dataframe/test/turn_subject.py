@@ -5,6 +5,7 @@ import json
 import shutil
 import numpy as np
 import copy
+from scipy.spatial.transform import Rotation as R
 
 main_path = os.getcwd()
 
@@ -29,6 +30,11 @@ def quaternion_multiply(quaternion1, quaternion0):
 
 def create_rotated_images(grades, original_df):
   vector_de_rotacion =  unitary_rotation_quaternion(0,0,1, grades*np.pi/180)
+  r = R.from_euler('z', 0, degrees=True)
+  vector_r = r.as_quat()
+  # si usamos este entonces la línea 24 debe ser
+  # x0, y0, z0, w0
+  # pero si comparamos los dos vemos que el resultado es el mismo.
   original_df_array = original_df.values
   final_df_array = copy.deepcopy(original_df_array)
   i = 0
