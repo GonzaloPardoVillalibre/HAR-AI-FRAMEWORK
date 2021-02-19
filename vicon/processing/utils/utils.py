@@ -157,7 +157,8 @@ def create_confusion_matrix(prediction:list, file_path:str, movements:list):
         final_confusion_matrix = confusion_matrix(test_labels, predicted_labels)
     columns = np.array(movements)
     df_cm = pd.DataFrame(final_confusion_matrix,index=columns ,columns=columns)
-    plt.figure(figsize = (8,8))
+    fig = plt.figure(figsize = (len(columns),len(columns)))
     sn.set(font_scale=1.4) # for label size
     sn.heatmap(df_cm, annot=True, cmap='Oranges', annot_kws={"size": 10}, fmt="d") # font size
+    fig.tight_layout()
     plt.savefig(file_path + '/confusion-matrix.png')
