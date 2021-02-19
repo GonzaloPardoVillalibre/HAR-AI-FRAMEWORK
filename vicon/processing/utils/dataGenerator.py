@@ -2,9 +2,10 @@ import os, json
 import tensorflow as tf 
 import numpy as np
 import pandas as pd
+import csv
 # This function load the data from the csv, labels it and generates a tensorflow tf
 
-def tf_data_generator(input_path:str, file_list: list, batch_size: int, movements: list, rows:int, columns:int):
+def tf_data_generator(input_path:str, file_list: list, batch_size: int, movements: list, rows:int, columns:int, ouput_path:str):
     i = 0
     while True:
         if i*batch_size >= len(file_list):  # This loop is used to run the generator indefinitely.
@@ -24,8 +25,14 @@ def tf_data_generator(input_path:str, file_list: list, batch_size: int, movement
                 pattern = tf.constant(activity)  # This line has changed
                 for j in range(len(label_classes)):
                     if label_classes[j].numpy() == pattern.numpy(): # Pattern is matched against different label_classes
-                        labels.append(j)  
+                        labels.append(j)
             data = np.asarray(data).reshape(-1,rows,columns,1)
             labels = np.asarray(labels)
+            if (ouput_path):
+                # print(labels)
+                with open(ouput_path, 'a') as f:
+                    wtr = csv.writer(f, delimiter =',')
+                    wtr.writerow ([labels], )
+                    f.close()
             yield data, labels
             i = i + 1

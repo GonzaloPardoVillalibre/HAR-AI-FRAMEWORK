@@ -1,5 +1,11 @@
-import os, re, json, datetime, random
-import tensorflow as tf 
+import os, re, json, datetime, random, csv
+import tensorflow as tf
+import matplotlib.pyplot as plt
+from sklearn.metrics import confusion_matrix
+import pandas as pd
+import numpy as np
+import seaborn as sn
+from string import ascii_uppercase
 
 def filter_files_by_regex(files:list, regex:str):
     filtered_list = [val for val in files if re.search(regex, val)]
@@ -128,3 +134,30 @@ def addCallbacks(callbacks:json, callback_list: list):
         if(callback["type"] == "earlyStop"):
             callback_list.append(tf.keras.callbacks.EarlyStopping(monitor=callback["monitor"], patience=callback["patience"]))
     return callback_list
+
+def initialize_folder(path):
+    try:
+        os.mkdir(path)
+    except OSError:
+        print ("Creation of the directory %s failed" % path)
+    else:
+        print ("Successfully created the directory %s " % path)
+
+def create_confusion_matrix(prediction:list, file_path:str, movements:list):
+    predicted_labels = prediction.argmax(axis=-1)
+    with open(file_path+ '/test.csv') as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        test_labels= []
+        for row in csv_reader:
+            array = row[0].replace("\n", " ").replace("[", " ").replace("]", " ")[1:]
+            for char in array:
+                if char.isdigit():
+                    test_labels.append(int(char))
+        test_labels = np.array(test_labels)
+        final_confusion_matrix = confusion_matrix(test_labels, predicted_labels)
+    columns = np.array(movements)
+    df_cm = pd.DataFrame(final_confusion_matrix,index=columns ,columns=columns)
+    plt.figure(figsize = (8,8))
+    sn.set(font_scale=1.4) # for label size
+    sn.heatmap(df_cm, annot=True, cmap='Oranges', annot_kws={"size": 10}, fmt="d") # font size
+    plt.savefig(file_path + '/confusion-matrix.png')

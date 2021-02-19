@@ -18,8 +18,9 @@ for file in files:
     outcome_path = utils.create_folder(outcome)
     cfg = utils.loadCfgJson(cfg_files_path + '/' + file)
 
-    model, test_loss, test_accuracy, history_callback = train.train_main(cfg)
+    model, test_loss, test_accuracy, prediction, history_callback = train.train_main(cfg, outcome_path)
 
     utils.save_model_and_weights(outcome_path, model)
+    utils.create_confusion_matrix(prediction, outcome_path, cfg["movements"])
     utils.create_outcome_file(outcome_path, model, test_loss, test_accuracy, history_callback)
     utils.create_config_output_file(outcome_path, cfg)
