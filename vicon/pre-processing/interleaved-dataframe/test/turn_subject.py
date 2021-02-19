@@ -30,7 +30,7 @@ def quaternion_multiply(quaternion1, quaternion0):
 
 def create_rotated_images(grades, original_df):
   vector_de_rotacion =  unitary_rotation_quaternion(0,0,1, grades*np.pi/180)
-  r = R.from_euler('z', 0, degrees=True)
+  r = R.from_euler('z', 180, degrees=True)
   vector_r = r.as_quat()
   # si usamos este entonces la línea 24 debe ser
   # x0, y0, z0, w0
@@ -39,7 +39,7 @@ def create_rotated_images(grades, original_df):
   final_df_array = copy.deepcopy(original_df_array)
   i = 0
   for element in original_df_array:
-    final_df_array[i] = quaternion_multiply(element, vector_de_rotacion)
+    final_df_array[i] = quaternion_multiply(vector_de_rotacion, element)
     i = i +1
   return final_df_array
 
@@ -53,7 +53,7 @@ df_first = df.iloc[:,1]
 df_first = df_first.reset_index(drop=True)
 df = df.drop(df.columns[[0, 1]], axis=1)
 df = df.astype(np.float32)
-rotated_df = create_rotated_images(0, df)
+rotated_df = create_rotated_images(180, df)
 final_df = pd.DataFrame(rotated_df.reshape(45290,4), columns=["w","x","y","z"])
 final_df = pd.concat([df_first, final_df], ignore_index=True, axis=1)
 final_df.to_csv(out_path)

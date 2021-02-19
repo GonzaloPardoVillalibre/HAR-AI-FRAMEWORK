@@ -88,7 +88,7 @@ def create_rotated_images(grades, original_df):
   final_df_array = copy.deepcopy(original_df_array)
   i = 0
   for element in original_df_array:
-    final_df_array[i] = quaternion_multiply(element, vector_de_rotacion)
+    final_df_array[i] = quaternion_multiply(vector_de_rotacion, element)
     i = i +1
   return final_df_array
 
