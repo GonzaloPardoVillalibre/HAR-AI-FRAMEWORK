@@ -1,0 +1,17 @@
+version: "3"
+services:
+  preprocesser:
+    build:
+      context: ./docker/pre-processing
+    volumes:
+      - ./:/TFG
+    working_dir: /TFG/vicon/pre-processing
+    command: tail -f /dev/null
+
+  processer:
+    build:
+      context: ./docker/processing
+    volumes:
+      - ./:/TFG
+    working_dir: /TFG/vicon/processing
+    command: tail -f /dev/null
