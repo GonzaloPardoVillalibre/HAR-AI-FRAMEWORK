@@ -1,5 +1,5 @@
 {
-    "neural-network": "N3",
+    "neural-network": "N2",
     "movements": [
         "FigureofEight",
         "HighKneeJog",
@@ -32,14 +32,15 @@
             {   
                 "type" : "earlyStop",
                 "monitor" : "val_loss",
-                "patience" : 10,
+                "patience" : 7,
                 "mode": "min"
             }
         ]
     },
-    "input-rows": 128,
-    "input-columns": 84,
-    "batch-size": 128,
+    "input-rows": 256,
+    "input-columns": 21,
+    "channels": 4,
+    "batch-size": 100,
     "train-steps": 81,
     "validation-steps": 81,
     "test-steps": 81,

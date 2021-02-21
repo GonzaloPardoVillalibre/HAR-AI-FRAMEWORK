@@ -42,8 +42,8 @@
             "enabled": true
         },
         "images":{
-            "batch-size": 128,
-            "overlap": 96
+            "batch-size": 256,
+            "overlap": 192
         },
         "deletePrevious": true
     }, 

@@ -28,7 +28,7 @@ def build_regex_for_movement(movements:list):
     return user_regex_string
 
 def extract_info_from_config(cfg:json):
-    return cfg["input-rows"], cfg["input-columns"], cfg["movements"], cfg["batch-size"], cfg["train-steps"], cfg["validation-steps"], cfg["test-steps"], cfg["epochs"]
+    return cfg["input-rows"], cfg["input-columns"], cfg["channels"], cfg["movements"], cfg["batch-size"], cfg["train-steps"], cfg["validation-steps"], cfg["test-steps"], cfg["epochs"]
 
 def split_dataset(files:list, cfg:json):
     movements_regex_string = build_regex_for_movement(cfg["movements"])

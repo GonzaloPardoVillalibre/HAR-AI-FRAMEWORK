@@ -38,33 +38,51 @@ def del_previous_folder():
 def build_output_directory():
   #Clean output directory
   try:
-    shutil.rmtree(output_path+'position')
-    shutil.rmtree(output_path+'orientation')
-  except:
-    print("No folder had to be removed")
-
+      shutil.rmtree(output_path+'position')
+  except OSError as e:
+      print("Error: %s : %s" % (output_path+'position', e.strerror))
+  
   #Create postion directories:
   os.mkdir(output_path+'position/')
   for movement in dt_cfg["movements"]["list"]:
     position_folder_names.append(output_path+'position/'+movement+'/')
     os.mkdir(position_folder_names[-1])
 
+  try:
+      shutil.rmtree(output_path+'orientation/')
+  except OSError as e:
+      print("Error: %s : %s" % (output_path+'orientation/', e.strerror))
+  
   #Create orientation directories:
   os.mkdir(output_path+'orientation/')
   for movement in dt_cfg["movements"]["list"]:
     orientation_folder_names.append(output_path+'orientation/'+movement+'/')
     os.mkdir(orientation_folder_names[-1])
 
+def split_in_layers(df: pd.DataFrame):
+  print("Test how 4D input matrixes will enter the cnn")
+  sensors_number = len(dt_cfg["orientationSensors"]["list"])
+  test = df.values.reshape(256,sensors_number*3,4)
+  filtered_df_1 = df.filter(regex='-0$', axis=1).values
+  tu = filtered_df_1.shape[1]
+  filtered_df_2 = df.filter(regex='-1$', axis=1).values
+  filtered_df_3 = df.filter(regex='-2$', axis=1).values
+  filtered_df_4 = df.filter(regex='-3$', axis=1).values
+  test2 =  np.stack((filtered_df_1, filtered_df_2, filtered_df_3, filtered_df_4))
+  test3 = test2.reshape(256,sensors_number*3,4)
+  return df
+
 def build_and_save_image_with_FFT(df: pd.DataFrame, fft_output_file: str):
-    names = df.columns.values
-    data = df.values
-    data = data.astype(np.float32)
-    data = np.fft.fft2(data)
-    fft_df_real = pd.DataFrame(data.real.astype(np.float32), columns=names)
-    fft_df_imag = pd.DataFrame(data.imag.astype(np.float32), columns=names)
-    if cfg["FFT"]["combined"]:
-      fft_df = pd.concat([df, fft_df_real, fft_df_imag], axis=1)
-    fft_df.to_csv(fft_output_file)
+  names = df.columns.values
+  data = df.values
+  data = data.astype(np.float32)
+  data = np.fft.fft2(data)
+  fft_df_real = pd.DataFrame(data.real.astype(np.float32), columns=names)
+  fft_df_imag = pd.DataFrame(data.imag.astype(np.float32), columns=names)
+  if cfg["FFT"]["combined"]:
+    fft_df = pd.concat([df, fft_df_real, fft_df_imag], axis=1)
+  # test = split_in_layers(fft_df)
+  fft_df.to_csv(fft_output_file)
 
 def unitary_rotation_quaternion(x:float, y:float, z:float, a:float):
   rotation_factor = np.sin( a / 2.0 )
@@ -148,7 +166,7 @@ def fold_images():
           column_names.append(sensor+'-0')
           column_names.append(sensor+'-1')
           column_names.append(sensor+'-2')
-          column_names.append(sensor+'-4')
+          column_names.append(sensor+'-3')
       total_number = len(files)
       for file in files:
           fold_orientation_image(input_folder+file, output_folder+file, image_size, sensors_number, column_names, fft_output_folder+file)
@@ -169,7 +187,7 @@ def table_images():
           column_names.append(sensor+'-0')
           column_names.append(sensor+'-1')
           column_names.append(sensor+'-2')
-          column_names.append(sensor+'-4')
+          column_names.append(sensor+'-3')
       total_number = len(files)
       for file in files:
           table_orientation_image(input_folder+file, output_folder+file, image_size, sensors_number, column_names, fft_output_folder+file)
