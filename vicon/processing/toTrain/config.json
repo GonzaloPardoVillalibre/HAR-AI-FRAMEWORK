@@ -50,8 +50,9 @@
     "input-columns": 84,
     "channels": 1,
     "batch-size": 70,
-    "train-steps": 1,
-    "validation-steps": 1,
-    "test-steps": 1,
-    "epochs": 1
+    "train-steps": 81,
+    "validation-steps": 81,
+    "test-steps": 81,
+    "epochs": 150,
+    "comments": "This neural network model is very cool."
 }
