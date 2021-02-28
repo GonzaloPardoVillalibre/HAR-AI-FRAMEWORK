@@ -43,7 +43,7 @@ def train_main(cfg: json, outcome_path:str):
 
 # Add callbacks to model
   callbacks = []
-  bestWeightsPath = outcome_path + '/best_model_checkpoint_weights'
+  bestWeightsPath = outcome_path + '/best_weights'
   if cfg["callbacks"]["enabled"]:
     callbackList, modelCheckPoint = utils.addCallbacks(cfg["callbacks"]["list"], callbacks, bestWeightsPath)
 

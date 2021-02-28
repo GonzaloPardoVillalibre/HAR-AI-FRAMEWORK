@@ -25,5 +25,5 @@ for file in files:
     # Generate report
     utils.save_model_and_weights(outcome_path, model)
     utils.create_confusion_matrix(prediction, outcome_path, cfg["movements"])
-    utils.create_outcome_file(outcome_path, model, test_loss, test_accuracy, history_callback)
+    utils.create_outcome_file(outcome_path, model, test_loss, test_accuracy, history_callback, cfg["comments"])
     utils.create_config_output_file(outcome_path, cfg)

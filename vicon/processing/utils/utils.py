@@ -90,7 +90,7 @@ def create_folder(folder_path: str):
     os.mkdir(folder_path)
     return folder_path
 
-def create_outcome_file(outcome_path:str, model, test_loss, test_accuracy, history_callback):
+def create_outcome_file(outcome_path:str, model, test_loss, test_accuracy, history_callback, comments:str):
     history = history_callback.history
     with open(outcome_path + '/outcome.txt', 'w') as file:
         file.write('##################################################\n')
@@ -121,6 +121,7 @@ def create_outcome_file(outcome_path:str, model, test_loss, test_accuracy, histo
         file.write('##################################################\n')
         file.write('#                     NOTES                      #\n') 
         file.write('##################################################\n')
+        file.write(comments) 
         file.write('\n\n')
       
 def create_config_output_file(outcome_path:str, cfg:json):
@@ -152,6 +153,35 @@ def initialize_folder(path):
     else:
         print ("Successfully created the directory %s " % path)
 
+def calculate_confusion_matrix_metrics(confusion_matrix, movements):
+    FP = confusion_matrix.sum(axis=0) - np.diag(confusion_matrix) 
+    FN = confusion_matrix.sum(axis=1) - np.diag(confusion_matrix)
+    TP = np.diag(confusion_matrix)
+    TN = confusion_matrix.sum() - (FP + FN + TP)
+    FP = FP.astype(float)
+    FN = FN.astype(float)
+    TP = TP.astype(float)
+    TN = TN.astype(float)
+    # Sensitivity, hit rate, recall, or true positive rate
+    TPR = TP/(TP+FN)
+    # Specificity or true negative rate
+    TNR = TN/(TN+FP)
+    # Precision or positive predictive value
+    PPV = TP/(TP+FP)
+    # Negative predictive value
+    NPV = TN/(TN+FN)
+    # Fall out or false positive rate
+    FPR = FP/(FP+TN)
+    # False negative rate
+    FNR = FN/(TP+FN)
+    # False discovery rate
+    FDR = FP/(TP+FP)
+    # Overall accuracy for each class
+    ACC = (TP+TN)/(TP+FP+FN+TN)
+    index = ['Sensitivity', 'Specificity', 'Precision', 'Negative precision', 'Fall out', 'False negative rate', 'False discovery rate', 'Accuracy']
+    metrics_df = pd.DataFrame([TPR, TNR, PPV, NPV, FPR, FNR, FDR, ACC] ,index= index ,columns=movements)
+    return metrics_df
+
 def create_confusion_matrix(prediction:list, file_path:str, movements:list):
     predicted_labels = prediction.argmax(axis=-1)
     with open(file_path+ '/test.csv') as csv_file:
@@ -168,6 +198,12 @@ def create_confusion_matrix(prediction:list, file_path:str, movements:list):
     df_cm = pd.DataFrame(final_confusion_matrix,index=columns ,columns=columns)
     fig = plt.figure(figsize = (len(columns),len(columns)))
     sn.set(font_scale=1.4) # for label size
-    sn.heatmap(df_cm, annot=True, cmap='Oranges', annot_kws={"size": 10}, fmt="d") # font size
+    sn.heatmap(df_cm, annot=True, cmap='Blues', annot_kws={"size": 10}, fmt="d") # font size
     fig.tight_layout()
     plt.savefig(file_path + '/confusion-matrix.png')
+    metrics_df=calculate_confusion_matrix_metrics(final_confusion_matrix, movements)
+    fig = plt.figure(figsize = (8,len(columns)))
+    sn.set(font_scale=1.4) # for label size
+    sn.heatmap(metrics_df, annot=True, cmap='Blues', annot_kws={"size": 10}) # font size
+    fig.tight_layout()
+    plt.savefig(file_path + '/confusion-matrix-metrics.png')
