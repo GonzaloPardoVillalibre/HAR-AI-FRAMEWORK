@@ -36,6 +36,10 @@ def split_dataset(files:list, cfg:json):
     train_user_regex_string = build_regex_for_subjects(cfg["train-subjects"])
     train_files = filter_files_by_regex(files, train_user_regex_string)
     train_files = filter_files_by_regex(train_files, movements_regex_string)
+    # Use only original files
+    if cfg["no-augmentation"]:
+        train_files = filter_files_by_regex(train_files, r'-0.csv$')
+
     # Load test set
     test_user_regex_string = build_regex_for_subjects(cfg["test-subjects"])
     test_files = filter_files_by_regex(files, test_user_regex_string)
