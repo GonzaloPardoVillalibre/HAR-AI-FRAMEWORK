@@ -43,15 +43,21 @@ def train_main(cfg: json, outcome_path:str):
 
 # Add callbacks to model
   callbacks = []
+  bestWeightsPath = outcome_path + '/best_model_checkpoint_weights'
   if cfg["callbacks"]["enabled"]:
-    utils.addCallbacks(cfg["callbacks"]["list"], callbacks)
+    callbackList, modelCheckPoint = utils.addCallbacks(cfg["callbacks"]["list"], callbacks, bestWeightsPath)
 
 # Fit model
   history_callback = model.fit(train_dataset, validation_data = validation_dataset, steps_per_epoch = train_steps,
           validation_steps = validation_steps, epochs = epochs, callbacks = callbacks)
 
 # Evaluation & prediction phases
-  test_loss, test_accuracy = model.evaluate(test_dataset, steps = test_steps)
-  prediction = model.predict(test_dataset_prediction, steps = test_steps)
+  if modelCheckPoint:
+    model.load_weights(bestWeightsPath)
+    test_loss, test_accuracy = model.evaluate(test_dataset, steps = test_steps)
+    prediction = model.predict(test_dataset_prediction, steps = test_steps)
+  else:
+    test_loss, test_accuracy = model.evaluate(test_dataset, steps = test_steps)
+    prediction = model.predict(test_dataset_prediction, steps = test_steps)
 
   return model, test_loss, test_accuracy, prediction, history_callback

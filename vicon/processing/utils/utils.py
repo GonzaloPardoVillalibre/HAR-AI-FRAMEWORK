@@ -133,11 +133,16 @@ def save_model_and_weights(outcome_path:str, model):
         json_file.write(model_json)
     model.save_weights(outcome_path + '/model.h5')
 
-def addCallbacks(callbacks:json, callback_list: list):
+def addCallbacks(callbacks:json, callback_list: list, outcome_path:str):
+    modelCheckPoint = False
     for callback in callbacks:
         if(callback["type"] == "earlyStop"):
             callback_list.append(tf.keras.callbacks.EarlyStopping(monitor=callback["monitor"], patience=callback["patience"]))
-    return callback_list
+        if(callback["type"] == "modelCheckPoint"):
+            modelCheckPoint = True
+            callback_list.append(tf.keras.callbacks.ModelCheckpoint(monitor=callback["monitor"], save_weights_only=callback["save_weights_only"], save_best_only=callback["save_best_only"] 
+                , filepath= outcome_path, mode=callback["mode"] ))
+    return callback_list, modelCheckPoint
 
 def initialize_folder(path):
     try:
