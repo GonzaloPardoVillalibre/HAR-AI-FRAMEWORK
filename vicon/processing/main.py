@@ -3,7 +3,8 @@ import os, json, gc
 import numpy as np
 import utils.utils as utils
 
-main_path = os.getcwd()
+# main_path = os.getcwd()
+main_path = '/TFG'
 cfg_files_path = main_path + '/vicon/processing/toTrain'
 outcome = main_path + '/vicon/processing/trainOutcomes'
 _, _, files = next(os.walk(cfg_files_path))

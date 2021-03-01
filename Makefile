@@ -25,3 +25,7 @@ develenv-down:
 preprocess-sh:
 	@echo "Entering preprocessing environment"
 	docker exec -it "tfg_preprocesser_1" bash
+
+process-sh:
+	@echo "Entering preprocessing environment"
+	docker exec -it "tfg_processer_1" bash

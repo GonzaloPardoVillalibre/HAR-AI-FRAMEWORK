@@ -15,3 +15,8 @@ services:
       - ./:/TFG
     working_dir: /TFG/vicon/processing
     command: tail -f /dev/null
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - capabilities: [gpu]

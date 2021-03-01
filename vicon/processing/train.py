@@ -5,7 +5,8 @@ import tensorflow as tf
 import re, os, json
 import importlib
 
-main_path = os.getcwd()
+# main_path = os.getcwd()
+main_path = '/TFG'
 final_input_path = main_path + '/vicon/pre-processing/final-dataset/orientation/'
 _, _, files = next(os.walk(final_input_path))
 
