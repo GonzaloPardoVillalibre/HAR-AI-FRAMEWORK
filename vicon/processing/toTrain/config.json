@@ -31,15 +31,9 @@
         "enabled": true,
         "list": [
             {
-                "type": "earlyStop",
-                "monitor": "val_loss",
-                "patience": 7,
-                "mode": "min"
-            },
-            {
                 "type": "modelCheckPoint",
                 "save_weights_only":true,
-                "monitor": "val_accuracy",
+                "monitor": "loss",
                 "mode":"max",
                 "save_best_only":true
             }
@@ -52,6 +46,6 @@
     "train-steps": 81,
     "validation-steps": 81,
     "test-steps": 81,
-    "epochs": 150,
+    "epochs": 40,
     "comments": "This neural network model is very cool."
 }
