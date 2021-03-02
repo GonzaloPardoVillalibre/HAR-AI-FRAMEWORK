@@ -180,6 +180,7 @@ def calculate_confusion_matrix_metrics(confusion_matrix, movements):
     ACC = (TP+TN)/(TP+FP+FN+TN)
     index = ['Sensitivity', 'Specificity', 'Precision', 'Negative precision', 'Fall out', 'False negative rate', 'False discovery rate', 'Accuracy']
     metrics_df = pd.DataFrame([TPR, TNR, PPV, NPV, FPR, FNR, FDR, ACC] ,index= index ,columns=movements)
+    metrics_df['Average'] = metrics_df.mean(numeric_only=True, axis=1)
     return metrics_df
 
 def create_confusion_matrix(prediction:list, file_path:str, movements:list):
