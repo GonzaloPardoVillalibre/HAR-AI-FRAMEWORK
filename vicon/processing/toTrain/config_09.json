@@ -1,0 +1,43 @@
+{
+    "neural-network": "N5",
+    "no-augmentation": true,
+    "movements": [
+        "FigureofEight",
+        "HighKneeJog",
+        "Jog",
+        "JumpingJacks",
+        "SpeedSkater",
+        "Static",
+        "Zigzag",
+        "Walk"
+    ],
+    "train-subjects": [
+        "S01",
+        "S02",
+        "S04",
+        "S05",
+        "S06",
+        "S07",
+        "S10"
+    ],
+    "validation-subjects": [
+        "S08"
+    ],
+    "test-subjects": [
+        "S09"
+    ],
+    "callbacks": {
+        "enabled": true,
+        "list": [
+        ]
+    },
+    "input-rows": 350,
+    "input-columns": 84,
+    "channels": 1,
+    "batch-size": 70,
+    "train-steps": 81,
+    "validation-steps": 81,
+    "test-steps": 81,
+    "epochs": 40,
+    "comments": "This neural network model is very cool."
+}
