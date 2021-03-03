@@ -7,6 +7,8 @@ import numpy as np
 import seaborn as sn
 from string import ascii_uppercase
 
+metrics_index = ['Sensitivity', 'Specificity', 'Precision', 'Negative predictive value', 'Fall out', 'False negative rate', 'False discovery rate', 'Accuracy']
+
 def filter_files_by_regex(files:list, regex:str):
     filtered_list = [val for val in files if re.search(regex, val)]
     return filtered_list
@@ -84,9 +86,9 @@ def loadCfgJson(file_path:str):
      with open(file_path) as f:
         return json.load(f)
 
-def create_folder(folder_path: str):
+def create_folder(folder_path: str, folderBaseName:str=''):
     datetime_object = datetime.datetime.now()
-    folder_path = folder_path + '/' + str(datetime_object)
+    folder_path = folder_path + '/' + folderBaseName + str(datetime_object) 
     os.mkdir(folder_path)
     return folder_path
 
@@ -178,8 +180,7 @@ def calculate_confusion_matrix_metrics(confusion_matrix, movements):
     FDR = FP/(TP+FP)
     # Overall accuracy for each class
     ACC = (TP+TN)/(TP+FP+FN+TN)
-    index = ['Sensitivity', 'Specificity', 'Precision', 'Negative precision', 'Fall out', 'False negative rate', 'False discovery rate', 'Accuracy']
-    metrics_df = pd.DataFrame([TPR, TNR, PPV, NPV, FPR, FNR, FDR, ACC] ,index= index ,columns=movements)
+    metrics_df = pd.DataFrame([TPR, TNR, PPV, NPV, FPR, FNR, FDR, ACC] ,index= metrics_index ,columns=movements)
     metrics_df['Average'] = metrics_df.mean(numeric_only=True, axis=1)
     return metrics_df
 
@@ -195,14 +196,17 @@ def create_confusion_matrix(prediction:list, file_path:str, movements:list):
                     test_labels.append(int(char))
         test_labels = np.array(test_labels)
         final_confusion_matrix = confusion_matrix(test_labels, predicted_labels)
+    os.remove(file_path+ '/test.csv')
     columns = np.array(movements)
     df_cm = pd.DataFrame(final_confusion_matrix,index=columns ,columns=columns)
+    df_cm.to_csv(file_path+'/confusion-matrix.csv')
     fig = plt.figure(figsize = (len(columns),len(columns)))
     sn.set(font_scale=1.4) # for label size
     sn.heatmap(df_cm, annot=True, cmap='Blues', annot_kws={"size": 10}, fmt="d") # font size
     fig.tight_layout()
     plt.savefig(file_path + '/confusion-matrix.png')
     metrics_df=calculate_confusion_matrix_metrics(final_confusion_matrix, movements)
+    metrics_df.to_csv(file_path+'/confusion-matrix-metrics.csv')
     fig = plt.figure(figsize = (8,len(columns)))
     sn.set(font_scale=1.4) # for label size
     sn.heatmap(metrics_df, annot=True, cmap='Blues', annot_kws={"size": 10}) # font size
@@ -233,3 +237,40 @@ def set_memory_growth():
         except RuntimeError as e:
             # Memory growth must be set before GPUs have been initialized
             print(e)
+
+# For K-Fold directories build average confusion matrices
+def build_average_confusion_matrix(kFoldFolder:str):
+    _, folders, _ = next(os.walk(kFoldFolder))
+    confusion_matrix_metrics = []
+    confusion_matrixs = []
+    columns = []
+    for folder in folders:
+        confusion_matrix = pd.read_csv(kFoldFolder + '/' + folder + '/confusion-matrix.csv', header=None)
+        columns.append(confusion_matrix.iloc[:1].values[0][1:])
+        confusion_matrix = confusion_matrix.iloc[1:]
+        confusion_matrix = confusion_matrix.drop(confusion_matrix.columns[0], axis=1)
+        confusion_matrixs.append(confusion_matrix.astype(float).values)
+
+        confusion_matrix_metric = pd.read_csv(kFoldFolder + '/' + folder + '/confusion-matrix-metrics.csv', header=None)
+        columns.append(confusion_matrix_metric.iloc[:1].values[0][1:])
+        confusion_matrix_metric = confusion_matrix_metric.iloc[1:]
+        confusion_matrix_metric = confusion_matrix_metric.drop(confusion_matrix_metric.columns[0], axis=1)
+        confusion_matrix_metrics.append(confusion_matrix_metric.astype(float).values)
+ 
+    averages_confusion_matrix_metrics = [(x + y) / 2.0 for (x, y) in zip(confusion_matrix_metrics[:-1], confusion_matrix_metrics[1:])]
+    metrics_df=pd.DataFrame(averages_confusion_matrix_metrics[0],index=metrics_index ,columns=columns[1])
+    metrics_df.to_csv(kFoldFolder+'/average-confusion-matrix-metrics.csv')
+    fig = plt.figure(figsize = (2*len(metrics_index),2*len(columns)))
+    sn.set(font_scale=1.4) # for label size
+    sn.heatmap(metrics_df, annot=True, cmap='Blues', annot_kws={"size": 10}) # font size
+    fig.tight_layout()
+    plt.savefig(kFoldFolder + '/average-confusion-matrix-metrics.png')
+
+    averages_confusion_matrix = [(x + y) / 2.0 for (x, y) in zip(confusion_matrixs[:-1], confusion_matrixs[1:])]
+    df_cm = pd.DataFrame(averages_confusion_matrix[0],index=columns[0] ,columns=columns[0])
+    df_cm.to_csv(kFoldFolder+'/average-confusion-matrix.csv')
+    fig = plt.figure(figsize = (2*len(columns),2*len(columns)))
+    sn.set(font_scale=1.4) # for label size
+    sn.heatmap(df_cm, annot=True, cmap='Blues', annot_kws={"size": 10}) # font size
+    fig.tight_layout()
+    plt.savefig(kFoldFolder + '/average-confusion-matrix.png')
