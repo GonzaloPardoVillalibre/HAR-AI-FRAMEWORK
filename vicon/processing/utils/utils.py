@@ -7,7 +7,7 @@ import numpy as np
 import seaborn as sn
 from string import ascii_uppercase
 
-metrics_index = ['Sensitivity', 'Specificity', 'Precision', 'Negative predictive value', 'Fall out', 'False negative rate', 'False discovery rate', 'Accuracy']
+metrics_index = ['Sensitivity', 'Specificity', 'Precision', 'Negative predictive value', 'Fall out', 'False negative rate', 'False discovery rate', 'Accuracy', 'F1 Score']
 
 def filter_files_by_regex(files:list, regex:str):
     filtered_list = [val for val in files if re.search(regex, val)]
@@ -180,7 +180,9 @@ def calculate_confusion_matrix_metrics(confusion_matrix, movements):
     FDR = FP/(TP+FP)
     # Overall accuracy for each class
     ACC = (TP+TN)/(TP+FP+FN+TN)
-    metrics_df = pd.DataFrame([TPR, TNR, PPV, NPV, FPR, FNR, FDR, ACC] ,index= metrics_index ,columns=movements)
+    # F1 Score
+    FONE = 2*TP/(2*TP + FP + FN)
+    metrics_df = pd.DataFrame([TPR, TNR, PPV, NPV, FPR, FNR, FDR, ACC, FONE] ,index= metrics_index ,columns=movements)
     metrics_df['Average'] = metrics_df.mean(numeric_only=True, axis=1)
     return metrics_df
 
@@ -198,20 +200,22 @@ def create_confusion_matrix(prediction:list, file_path:str, movements:list):
         final_confusion_matrix = confusion_matrix(test_labels, predicted_labels)
     os.remove(file_path+ '/test.csv')
     columns = np.array(movements)
-    df_cm = pd.DataFrame(final_confusion_matrix,index=columns ,columns=columns)
-    df_cm.to_csv(file_path+'/confusion-matrix.csv')
-    fig = plt.figure(figsize = (len(columns),len(columns)))
-    sn.set(font_scale=1.4) # for label size
-    sn.heatmap(df_cm, annot=True, cmap='Blues', annot_kws={"size": 10}, fmt="d") # font size
-    fig.tight_layout()
-    plt.savefig(file_path + '/confusion-matrix.png')
+    # Build & save confusion matrix
+    save_dataframe_as_heatMap(nparray=final_confusion_matrix, indexNames=columns \
+            ,columNames=columns, saveFolder=file_path, imgBaseName='/confusion-matrix', format='d')
+    # Build & save confusion metrics matrix
     metrics_df=calculate_confusion_matrix_metrics(final_confusion_matrix, movements)
     metrics_df.to_csv(file_path+'/confusion-matrix-metrics.csv')
-    fig = plt.figure(figsize = (8,len(columns)))
+    fig = plt.figure(figsize = (len(metrics_index),len(columns)))
     sn.set(font_scale=1.4) # for label size
     sn.heatmap(metrics_df, annot=True, cmap='Blues', annot_kws={"size": 10}) # font size
     fig.tight_layout()
     plt.savefig(file_path + '/confusion-matrix-metrics.png')
+    # Build & save normalized confusion matrix
+    row_sums = final_confusion_matrix.sum(axis=1)
+    normalized_aggregated_confusion_matrix = final_confusion_matrix / row_sums[:, np.newaxis]
+    save_dataframe_as_heatMap(nparray=normalized_aggregated_confusion_matrix, indexNames=columns \
+            ,columNames=columns, saveFolder=file_path, imgBaseName='/confusion-matrix-normalized')
 
 def restrict_to_physcial_gpu():
     gpus = tf.config.list_physical_devices('GPU')
@@ -256,21 +260,33 @@ def build_average_confusion_matrix(kFoldFolder:str):
         confusion_matrix_metric = confusion_matrix_metric.iloc[1:]
         confusion_matrix_metric = confusion_matrix_metric.drop(confusion_matrix_metric.columns[0], axis=1)
         confusion_matrix_metrics.append(confusion_matrix_metric.astype(float).values)
- 
-    averages_confusion_matrix_metrics = [(x + y) / 2.0 for (x, y) in zip(confusion_matrix_metrics[:-1], confusion_matrix_metrics[1:])]
-    metrics_df=pd.DataFrame(averages_confusion_matrix_metrics[0],index=metrics_index ,columns=columns[1])
-    metrics_df.to_csv(kFoldFolder+'/average-confusion-matrix-metrics.csv')
-    fig = plt.figure(figsize = (2*len(metrics_index),2*len(columns)))
-    sn.set(font_scale=1.4) # for label size
-    sn.heatmap(metrics_df, annot=True, cmap='Blues', annot_kws={"size": 10}) # font size
-    fig.tight_layout()
-    plt.savefig(kFoldFolder + '/average-confusion-matrix-metrics.png')
+    
+    # Build & save average confusion metrics matrix
+    averages_confusion_metrics_matrix = np.add.reduce(confusion_matrix_metrics)/len(confusion_matrix_metrics)
+    save_dataframe_as_heatMap(nparray=averages_confusion_metrics_matrix, indexNames=metrics_index, sizeFactor=1.5 \
+                        ,columNames=columns[1], saveFolder=kFoldFolder, imgBaseName='/average-confusion-matrix-metrics')
 
-    averages_confusion_matrix = [(x + y) / 2.0 for (x, y) in zip(confusion_matrixs[:-1], confusion_matrixs[1:])]
-    df_cm = pd.DataFrame(averages_confusion_matrix[0],index=columns[0] ,columns=columns[0])
-    df_cm.to_csv(kFoldFolder+'/average-confusion-matrix.csv')
-    fig = plt.figure(figsize = (2*len(columns),2*len(columns)))
+    # Build & save aggregated confusion matrix
+    aggregated_confusion_matrix = np.add.reduce(confusion_matrixs).astype(int)
+    save_dataframe_as_heatMap(nparray=aggregated_confusion_matrix, indexNames=columns[0] \
+                            ,columNames=columns[0], saveFolder=kFoldFolder, imgBaseName='/aggregated-confusion-matrix', format='d')
+
+    # Build & save normalized aggregated confusion matrix
+    row_sums = aggregated_confusion_matrix.sum(axis=1)
+    normalized_aggregated_confusion_matrix = aggregated_confusion_matrix / row_sums[:, np.newaxis]
+    save_dataframe_as_heatMap(nparray=normalized_aggregated_confusion_matrix, indexNames=columns[0] \
+                              ,columNames=columns[0], saveFolder=kFoldFolder, imgBaseName='/aggregated-confusion-matrix-normalized')
+
+# Function to build and save matrice's heatmap
+def save_dataframe_as_heatMap(nparray:np.array, columNames:list, indexNames:list, saveFolder:str, imgBaseName:str, sizeFactor:int=1, format:str=None):
+    df = pd.DataFrame(nparray,index=indexNames ,columns=columNames)
+    df.to_csv(saveFolder + imgBaseName + '.csv')
+    fig = plt.figure(figsize = (sizeFactor*len(indexNames),sizeFactor*len(columNames)))
     sn.set(font_scale=1.4) # for label size
-    sn.heatmap(df_cm, annot=True, cmap='Blues', annot_kws={"size": 10}) # font size
+    if format is None:
+        sn.heatmap(df, annot=True, cmap='Blues', annot_kws={"size": 10}) # font size
+    else:
+        sn.heatmap(df, annot=True, cmap='Blues', annot_kws={"size": 10}, fmt=format) # font size
     fig.tight_layout()
-    plt.savefig(kFoldFolder + '/average-confusion-matrix.png')
+    plt.savefig(saveFolder + imgBaseName + '.png')
+    plt.close(fig)
