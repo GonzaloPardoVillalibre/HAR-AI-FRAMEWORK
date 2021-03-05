@@ -21,14 +21,21 @@
         "S09"
     ],
     "validation-subjects": [
-        "S01"
+        "S10"
     ],
     "test-subjects": [
-        "S10"
+        "S01"
     ],
     "callbacks": {
         "enabled": true,
         "list": [
+            {
+                "type": "modelCheckPoint",
+                "save_weights_only":true,
+                "monitor": "loss",
+                "mode":"min",
+                "save_best_only":true
+            }
         ]
     },
     "input-rows": 350,
@@ -39,5 +46,5 @@
     "validation-steps": 81,
     "test-steps": 81,
     "epochs": 40,
-    "comments": "This neural network model is very cool."
+    "comments": "K-Fold for neural network model 5. Try with a deeper network as I assume no much noise in measures."  
 }
