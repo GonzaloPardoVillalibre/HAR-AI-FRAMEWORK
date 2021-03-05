@@ -1,5 +1,6 @@
 {
-    "neural-network": "N3_B",
+    "neural-network": "N2",
+    "no-augmentation": true,
     "movements": [
         "FigureofEight",
         "HighKneeJog",
@@ -8,7 +9,6 @@
         "SpeedSkater",
         "Static",
         "Zigzag",
-        "TUG",
         "Walk"
     ],
     "train-subjects": [
@@ -17,31 +17,34 @@
         "S04",
         "S05",
         "S06",
-        "S08",
-        "S09"
+        "S07",
+        "S08"
     ],
     "validation-subjects": [
-        "S10"
+        "S09"
     ],
     "test-subjects": [
-        "S07"
+        "S10"
     ],
-    "callbacks" : {
+    "callbacks": {
         "enabled": true,
-        "list":[
-            {   
-                "type" : "earlyStop",
-                "monitor" : "val_loss",
-                "patience" : 10,
-                "mode": "min"
+        "list": [
+            {
+                "type": "modelCheckPoint",
+                "save_weights_only":true,
+                "monitor": "loss",
+                "mode":"min",
+                "save_best_only":true
             }
         ]
     },
-    "input-rows": 128,
+    "input-rows": 350,
     "input-columns": 84,
-    "batch-size": 128,
+    "channels": 1,
+    "batch-size": 70,
     "train-steps": 81,
     "validation-steps": 81,
     "test-steps": 81,
-    "epochs": 150
+    "epochs": 40,
+    "comments": "This neural network model is very cool."
 }

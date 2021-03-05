@@ -39,6 +39,7 @@
     },
     "input-rows": 128,
     "input-columns": 84,
+    "channels": 1,
     "batch-size": 128,
     "train-steps": 81,
     "validation-steps": 81,
