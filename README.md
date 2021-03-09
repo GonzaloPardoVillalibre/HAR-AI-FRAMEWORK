@@ -31,14 +31,14 @@ For the reference there is a generic view of the architecture:
 # Enter the pre-processing environment
 make preprocess-sh
 ```
-The guide for this environment can be found here: [pre-process environment documentation](framework/pre-processing/pre-process.md)
+The guide for this environment can be found here: [pre-process environment documentation](framework/pre-processing/README.md)
 
 ## Training environment
 ```sh
 # Enter the training environment
 make train-sh
 ```
-The guide for this environment can be found here: [train environment documentation](framework/train/train.md)
+The guide for this environment can be found here: [train environment documentation](framework/train/README.md)
 
 
 # What is this project all about?
