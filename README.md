@@ -22,6 +22,7 @@ Also a `make help` utility is available for the developer.
 
 ## Docker architecture 
 For the reference there is a generic view
+
 ![Usage_schema](./doc/images/docker-architecture.png)
 
 ## Pre-processing environmnet
@@ -44,4 +45,4 @@ This project is the final assignment for Gonzalo Pardo Villalibre. The aim will 
 
 In this journey the developer decided to not only solve the concret problem but also to create a reusable framework making the process easier for future investigators.
 
-More info about specif problem can be found here:
+More info about specific problem can be found here:
