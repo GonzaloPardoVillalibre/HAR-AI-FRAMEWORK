@@ -8,6 +8,7 @@ This project provides a framework based on docker and aims to expedite the ***hu
 - Training environment.
 
 While the ***training environment*** has a more general use, providing a generic tool to solve a vast amount of problems, the ***pre-processing environment*** has its focus on pre-processing human activity datasets (measured in a **quaternion** form) to solve the already mentioned ***"human activity classification problem"***.
+
 Pre-requirements:
  - Docker v17
  - GNU Make
@@ -35,7 +36,7 @@ The guide for this environment can be found here: [pre-process environment docum
 ## Training environment
 ```sh
 # Enter the training environment
-make process-sh
+make train-sh
 ```
 The guide for this environment can be found here: [train environment documentation](doc/doc/train.md)
 

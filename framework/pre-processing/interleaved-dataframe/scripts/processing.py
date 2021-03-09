@@ -58,7 +58,7 @@ def extract_position_columns(file, jointName):
 #   - Rows: original * number of sensors in the list.
 #   - Columns: 4 in orientation sensors, 3 in position.
 def build_dt(sample: str, subject: str, movement: str):
-  subject_and_activity_file =  main_path + '/framework/dataset/' + subject + '-Trial-' + movement + '-' + sample + '.csv'
+  subject_and_activity_file =  main_path + '/framework/pre-processsing/dataset/' + subject + '-Trial-' + movement + '-' + sample + '.csv'
   orientation_df_list = list()
   position_df_list = list()
 
