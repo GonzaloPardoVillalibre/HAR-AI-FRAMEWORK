@@ -44,7 +44,7 @@ The guide for this environment can be found here: [train environment documentati
 
 
 # What is this project all about?
-This project is the final assignment for Gonzalo Pardo Villalibre. The aim will be to detect which activity is doing a certain subject, minimizing the number of sensors needed. Therefore the student will take advantage of the use of NN (neural networks) from different types such as CN (convolutional networks) or RN (recurrent networks) such LSTM.
+This project is the final assignment for Gonzalo Pardo Villalibre. The aim will be to detect which activity is a certain subject performing, minimizing the number of sensors needed. Therefore the student will take advantage of the use of NN (neural networks) from different types such as CNN (convolutional networks) or RNN (recurrent networks) such LSTM.
 
 On this journey the developer decided to not only solve the concrete problem, but also to create a reusable framework making the process easier for future investigators.
 
