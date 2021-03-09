@@ -4,16 +4,18 @@ services:
     build:
       context: ./docker/pre-processing
     volumes:
-      - ./:/TFG
-    working_dir: /TFG/vicon/pre-processing
+      - ./framework/pre-processing:/TFG/framework/pre-processing
+      - ./framework/final-dataset:/TFG/framework/final-dataset
+    working_dir: /TFG/framework/pre-processing
     command: tail -f /dev/null
 
-  processer:
+  trainer:
     build:
-      context: ./docker/processing
+      context: ./docker/train
     volumes:
-      - ./:/TFG
-    working_dir: /TFG/vicon/processing
+      - ./framework/train:/TFG/framework/train
+      - ./framework/final-dataset:/TFG/framework/final-dataset
+    working_dir: /TFG/framework/train
     command: tail -f /dev/null
     deploy:
       resources:
