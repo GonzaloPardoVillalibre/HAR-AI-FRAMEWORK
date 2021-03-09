@@ -31,14 +31,14 @@ For the reference there is a generic view of the architecture:
 # Enter the pre-processing environment
 make preprocess-sh
 ```
-The guide for this environment can be found here: [pre-process environment documentation](doc/doc/pre-process.md)
+The guide for this environment can be found here: [pre-process environment documentation](framework/pre-processing/pre-process.md)
 
 ## Training environment
 ```sh
 # Enter the training environment
 make train-sh
 ```
-The guide for this environment can be found here: [train environment documentation](doc/doc/train.md)
+The guide for this environment can be found here: [train environment documentation](framework/train/train.md)
 
 
 # What is this project all about?
@@ -46,5 +46,5 @@ This project is the final assignment for Gonzalo Pardo Villalibre. The aim will 
 
 On this journey the developer decided to not only solve the concrete problem, but also to create a reusable framework making the process easier for future investigators.
 
-More info about specific problem can be found here: [more info](doc/doc/this-problem.md)
+More info about specific problem can be found here: [more info](doc/documents/this-problem.md)
 
