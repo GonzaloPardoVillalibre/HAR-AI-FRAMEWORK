@@ -23,21 +23,21 @@ Also a `make help` utility is available to the developer.
 ## Docker architecture 
 For the reference there is a generic view of the architecture:
 
-![Usage_schema](./doc/images/docker-architecture.png)
+![Usage_schema](doc/images/docker-architecture.png)
 
 ## Pre-processing environmnent
 ```sh
 # Enter the pre-processing environment
 make preprocess-sh
 ```
-The guide for this environment can be found here: 
+The guide for this environment can be found here: [pre-process environment documentation](doc/pre-process.md).
 
 ## Training environment
 ```sh
 # Enter the training environment
 make process-sh
 ```
-The guide for this environment can be found here:
+The guide for this environment can be found here: [train environment documentation](doc/train.md).
 
 
 # What is this project all about?
@@ -45,4 +45,5 @@ This project is the final assignment for Gonzalo Pardo Villalibre. The aim will 
 
 On this journey the developer decided to not only solve the concrete problem, but also to create a reusable framework making the process easier for future investigators.
 
-More info about specific problem can be found here:
+More info about specific problem can be found here: [more info](doc/this-problem.md).
+
