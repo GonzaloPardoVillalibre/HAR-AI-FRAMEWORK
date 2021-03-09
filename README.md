@@ -7,8 +7,6 @@ This project provides a framework based on docker and aims to expedite the ***hu
 - Pre-processing environment.
 - Training environment.
 
-![Usage_schema](./doc/images/docker-architecture.png)
-
 While the ***training environment*** has a more general use providing a generic tool to solve a vast amount of problems, the ***pre-processing environment*** has its focus on pre-processing human activity datasets (meassured in a **quaternion** form) to solve the already mentioned ***"human activity classification problem"***.
 Prerequirements:
  - Docker v17
@@ -21,6 +19,10 @@ make develenv-up
 ```
 
 Also a `make help` utility is available for the developer.
+
+## Docker architecture 
+For the reference there is a generic view
+![Usage_schema](./doc/images/docker-architecture.png)
 
 ## Pre-processing environmnet
 ```sh
