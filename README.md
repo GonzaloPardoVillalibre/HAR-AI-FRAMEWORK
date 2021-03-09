@@ -26,6 +26,8 @@ For the reference there is a generic view of the architecture:
 
 ![Usage_schema](doc/images/docker-architecture.png)
 
+More important information can be found here: [data structure documentation](framework/README.md)
+
 ## Pre-processing environmnent
 ```sh
 # Enter the pre-processing environment
