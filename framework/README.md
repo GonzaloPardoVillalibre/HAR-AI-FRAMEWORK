@@ -1,27 +1,22 @@
 -----------------------------------------
-
-# Vicon
+# Framework 
 
 ## Data structure
 
 
        Framework
         │
-        └─── dataset/
+        └─── final-dataset
         │   
         └─── pre-processing
-        │   │
-        │   └─── _output/
-        │   │
-        │   └─── scripts/
-        │   │
-        │   └─── test/
         │   
-        └─── Makefile
+        └─── train
 
-* #### dataset
-    Data extracted from the Cambridge DB.
+* #### final-dataset
+    Volume shared by both environments. In any case, the developer should store the training dataset; either if it comes from the pre-processing environment or it is pre-processed externally.
+
 * #### pre-processing
-    * _output: directory to store composed dataframes.
-    * scripts: final processing scripts & configuration.
-    * test: draft functionalities for final `scripts/`.
+    Contains all the scripts needed for the preprocessing environment. It includes also some test files.
+
+* #### train
+    Contains all the scripts for the training environment. It includes also some test files.
