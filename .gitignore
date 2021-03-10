@@ -20,3 +20,13 @@ framework/pre-processing/final-dataset/position/*
 framework/final-dataset/*
 framework/pre-processing/final-dataset/validation-set/*
 framework/train/trainOutcomes/*
+framework/pre-processing/tunning-examples/Archive-ics-tunning-example/framework-input-dataset/*
+!framework/pre-processing/tunning-examples/Archive-ics-tunning-example/framework-input-dataset/.gitkeep
+framework/pre-processing/dataset/*
+framework/pre-processing/tunning-examples/Archive-ics-tunning-example/original-dataset/*
+!framework/pre-processing/tunning-examples/Archive-ics-tunning-example/original-dataset/.gitkeep
+
+framework/pre-processing/tunning-examples/Harvard-tunning-example/framework-input-dataset/*
+!framework/pre-processing/tunning-examples/Harvard-tunning-example/framework-input-dataset/.gitkeep
+framework/pre-processing/tunning-examples/Harvard-tunning-example/original-dataset/*
+!framework/pre-processing/tunning-examples/Harvard-tunning-example/original-dataset/.gitkeep

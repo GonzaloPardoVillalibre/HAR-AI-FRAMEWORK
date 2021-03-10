@@ -31,7 +31,7 @@ def build_output_directory():
 
 # Extracts orientation information for each line in csv
 def extract_quat_columns(file, jointName):
-    df = pd.read_csv(file, header=None, skiprows=[0,1,2,3,4])
+    df = pd.read_csv(file, header=None)
     first_row = df.iloc[0].values
     df = df.iloc[1:]
     df.columns = first_row
@@ -43,7 +43,7 @@ def extract_quat_columns(file, jointName):
 
 # Extracts position information for each line in csv
 def extract_position_columns(file, jointName):
-    df = pd.read_csv(file, header=None, skiprows=[0,1,2,3,4])
+    df = pd.read_csv(file, header=None)
     first_row = df.iloc[0].values
     df = df.iloc[1:]
     df.columns = first_row
@@ -58,7 +58,7 @@ def extract_position_columns(file, jointName):
 #   - Rows: original * number of sensors in the list.
 #   - Columns: 4 in orientation sensors, 3 in position.
 def build_dt(sample: str, subject: str, movement: str):
-  subject_and_activity_file =  main_path + '/framework/pre-processsing/dataset/' + subject + '-Trial-' + movement + '-' + sample + '.csv'
+  subject_and_activity_file =  main_path + '/framework/pre-processing/dataset/' + subject + '-' + movement + '-' + sample + '.csv'
   orientation_df_list = list()
   position_df_list = list()
 
