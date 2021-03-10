@@ -26,21 +26,21 @@ For the reference there is a generic view of the architecture:
 
 ![Usage_schema](doc/images/docker-architecture.png)
 
-More important information can be found here: [data structure documentation](framework/README.md)
+More important information can be found here: [data structure documentation](framework)
 
 ## Pre-processing environmnent
 ```sh
 # Enter the pre-processing environment
 make preprocess-sh
 ```
-The guide for this environment can be found here: [pre-process environment documentation](framework/pre-processing/README.md)
+The guide for this environment can be found here: [pre-process environment documentation](framework/pre-processing)
 
 ## Training environment
 ```sh
 # Enter the training environment
 make train-sh
 ```
-The guide for this environment can be found here: [train environment documentation](framework/train/README.md)
+The guide for this environment can be found here: [train environment documentation](framework/train)
 
 
 # What is this project all about?

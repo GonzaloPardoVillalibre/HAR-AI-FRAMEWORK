@@ -26,8 +26,8 @@ Some datasets examples could be:
 
 **Important recall:** these are the minimum format requirements in terms of data information. Although, to make use of the environment you might have to tune the naming of your files or make other small changes. Theere is also two tunnning examples for the already mentioned dataset.
 
-- [Harvard-tunning-example](tunning-examples/Harvard-tunning-example/README.md)
-- [Archive-ics-tunning-example](tunning-examples/Archive-ics-tunning-example/README.md)
+- [Harvard-tunning-example](tunning-examples/Harvard-tunning-example)
+- [Archive-ics-tunning-example](tunning-examples/Archive-ics-tunning-example)
 
 **Do not panic, specific format requirements for each module will be detailed along this guide.**
 ## General transformation
