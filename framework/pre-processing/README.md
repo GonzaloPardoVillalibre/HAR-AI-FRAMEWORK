@@ -33,6 +33,9 @@ Some datasets examples could be:
 ## General transformation
 
 
+TO DO
+
+
 ## Environment architecture
 
 ![Usage_schema](doc/images/pre-processing-environment-architecture.png)

@@ -1,3 +1,4 @@
+# Human activity classification problem
 
 The data set will be taken from https://dataverse.harvard.edu/. Named as `Replication Data for Estimating Lower Limb Kinematics using a Reduced Wearable Sensor Count` this data set contains information from **9 totally healthy subjects** performing different activities meassured by two systems: **Vicon & Xsens**.
 
@@ -18,17 +19,11 @@ Download: https://dataverse.harvard.edu/file.xhtml?persistentId=doi:10.7910/DVN/
 | Jumping jacks     | Jumping jacks on the spot                 | ~30   |
 | High kneee        | High knee jog straight and return         | ~30   |
 
-**Disclaimer**: Be very careful here! As seen in the table above, the length of each sample differs. Very serious normalization job must be made here as we don't want to overfit the NN with a particular movement. 
-
 ## Measurement
 
 Each sensor takes samples with ***100Hz*** frecuency (100 samples per second). 
 
-### 1 - IMU (X-sens):
-
-Not analized for now.
-
-### 2 - VICON: 
+### VICON: 
 
 This data set makes use in its format from the class `class +mocapdb.@ViconBody.ViconBody(varargin)`
 * #### Data set structure
@@ -66,6 +61,7 @@ This data set makes use in its format from the class `class +mocapdb.@ViconBody.
     |  LFEO     | Left Ankle    | 
     |  RTIO     | Right toe     | 
     |  LTIO     | Left toe      |
+    |  RTOE     | ?             |
 
 * #### Orientation Variables (sensors):  n x 4 
 
@@ -77,5 +73,4 @@ This data set makes use in its format from the class `class +mocapdb.@ViconBody.
     |  qRSK     | Left tibia        |
     |  qRPV     | Right femur       | 
     |  qRTH     | Lef femur         | 
-    
-    **Unrecognized fields**: qLFT, RTOE (meassured and used -.-)
+    |  qLFT     | ?                 |
