@@ -1,7 +1,7 @@
 -----------------------------------------
 
 # Pre-processing environment
-This environment represents the most specific utility of the framework and it is designed to preprocess time series datasets of ***quaternions*** or ***3D vectors***; such, for example, those obtained while measuring any type of movement with sensors on a certain subject. To ensure your dataset fits the requirements, make sure to have a look at the [input dataset format](README#L8) section.
+This environment represents the most specific utility of the framework and it is designed to preprocess time series datasets of ***quaternions*** or ***3D vectors***; such, for example, those obtained while measuring any type of movement with sensors on a certain subject. To ensure your dataset fits the requirements, make sure to have a look at the [input dataset format](README.md#L8) section.
 
 If you want to know more about quaternions: https://en.wikipedia.org/wiki/Quaternions_and_spatial_rotation
 
@@ -12,10 +12,10 @@ Dataframes (as .csv files) from N subjects performing different activities. Each
 - **Rows must represent timesteps**, that means, one instant per row.
 - **Colums must represent sensor's information**.
     - **Position sensors**. E.g.: 
-      Given a 3D sensor called "KNEE", position sensors columns must be named [KNEE_1, KNEE_2, KNEE_3]. A graphic example can be found here:  [position dataframe example](doc/images/3d_vector_input_dataset.png).  TO REFACTOR
+      Given a 3D sensor called "KNEE", position sensors columns must be named [KNEE_1, KNEE_2, KNEE_3]. A graphic example can be found here:  [position dataframe example](doc/images/3d_vector_input_dataset.png)
 
     - **Orientatin sensors**. E.g:
-      Given a Quaternion sensor called "LFOOT", orientation sensor columns must be named [LFOOT_1, LFOOT_2, LFOOT_3, LFOOT_4]. A graphic example can be found here:  [orientation dataframe example](doc/images/quaternion_input_dataset.png). TO REFACTOR
+      Given a Quaternion sensor called "LFOOT", orientation sensor columns must be named [LFOOT_1, LFOOT_2, LFOOT_3, LFOOT_4]. A graphic example can be found here:  [orientation dataframe example](doc/images/quaternion_input_dataset.png)
 
 Some datasets examples could be:
 
@@ -30,12 +30,16 @@ I'll leave an example of the mentioned tunning for both databases in (route to t
 
 
 ## Environment architecture
+
+![Usage_schema](doc/images/pre-processing-environment-architecture.png)
+
 The architecture is composed from 4 pseudo-independent modules:
 
 - Interleaved dataframe
 - Image builder
 - Image enricher
 - Final dataset
+
 
 
 As said, this modules can be used independetly as long as the input fits the specification.
