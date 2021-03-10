@@ -48,45 +48,23 @@ The architecture is composed from 4 pseudo-independent modules:
 - Final dataset
 
 
-### Composed interleaved dataframes
-According to the information recorded by the sensors there will be `two` types of composed dataframes; one for `orientation` data (four inputs per row); and another one for `position` data (three inputs per row). Pre -processing of each type can be enabled via `config.json` and composed-dataframes csv will be named using the `subject` number (1-10), `movement` or activity, `sample` number (1-2) and dataframe type.
+### Interleaved dataframes
 
-``` 
-    Subject-Movement-Orientationjoints-Samplenumber.csv
-    Subject-Movement-Positionjoints-Samplenumber.csv
-```
+TO DO
 
-#### Orientation dataframes
+### Image builder
 
-+ #### Build individual dataframes per sensor
-    Choosing at least one element from the available orientation sensor list:
-    ```
-     ["qRPV", "qRTH", "qRSK", "qRFT", "qLTH", "qLSK", "qLFT"]
-    ```
-    The script will build its individual dataframe. p.e. (qRPV):
-    
-    ![Usage_schema](../doc/images/individual-orientation-df.png)
-    
-+ #### Build composed & interleaved dataframe for a certain activity and subject:
-    
-    For every sensor chosen beforewards, the script will interleave its dataframes. p.e. (qRPV, qRTH & qRSK) : 
+TO DO
 
-    ![Usage_schema](../doc/images/composed-orientation-df.png)
-    
+### Image enrihcer
 
-#### Positon dataframes
+TO DO
 
-+ #### Build individual dataframes per sensor
-    Choosing at least one element from the available position sensor list:
-    ```
-     ["LTOE", "PELV", "RFEP", "LFEP", "RFEO", "LFEO", "RTIO", "LTIO"]
-    ```
-    The script will build its individual dataframe. p.e. (LTOE):
-    
-    ![Usage_schema](../doc/images/individual-position-df.png)
+### Final dataset
 
-+ #### Build composed & interleaved dataframe for a certain activity and subject:
+TO DO
 
-    For every sensor chosen beforewards, the script will interleave its dataframes. p.e. (LTOE, PELV & RFEP) : 
 
-    ![Usage_schema](../doc/images/composed-position-df.png)
+## Usage guide & configuration file
+
+TO DO
