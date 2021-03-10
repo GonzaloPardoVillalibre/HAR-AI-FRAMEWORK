@@ -12,7 +12,7 @@ Dataframes (as .csv files) from N subjects performing different activities. Each
 - **Rows must represent timesteps**, that means, one instant per row.
 - **Colums must represent sensor's information**.
     - **Position sensors**
-    
+
       Given a 3D sensor called "KNEE", position sensors columns must be named [KNEE_1, KNEE_2, KNEE_3]. A graphic example can be found here:  [position dataframe example](doc/images/3d_vector_input_dataset.png)
 
     - **Orientatin sensors**
@@ -24,8 +24,10 @@ Some datasets examples could be:
 - https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/9QDD5J
 - https://archive.ics.uci.edu/ml/datasets/REALDISP+Activity+Recognition+Dataset
 
-**Important recall:** these are the minimum format requirements in terms of data information. Although, to make use of the environment you might have to tune the naming of your files or make other small changes.
-I'll leave an example of the mentioned tunning for both databases in (route to tunning scripts).
+**Important recall:** these are the minimum format requirements in terms of data information. Although, to make use of the environment you might have to tune the naming of your files or make other small changes. Theere is also two tunnning examples for the already mentioned dataset.
+
+- [Harvard-tunning-example](tunning-examples/Harvard-tunning-example/README.md)
+- [Archive-ics-tunning-example](tunning-examples/Archive-ics-tunning-example/README.md)
 
 **Do not panic, specific format requirements for each module will be detailed along this guide.**
 ## General transformation
