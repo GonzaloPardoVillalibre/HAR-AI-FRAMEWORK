@@ -1,7 +1,7 @@
 -----------------------------------------
 
 # Pre-processing environment
-This environment represents the most specific utility of the framework and it is designed to preprocess time series datasets of ***quaternions*** or ***3D vectors***; such, for example, those obtained while measuring any type of movement with sensors on a certain subject. To ensure your dataset fits the requirements, make sure to have a look at the [input dataset format](README.md#L8) section.
+This environment represents the most specific utility of the framework and it is designed to preprocess time series datasets of ***quaternions*** or ***3D vectors***; such, for example, those obtained while measuring any type of movement with sensors on a certain subject. To ensure your dataset fits the requirements, make sure to have a look at the **input dataset format** section.
 
 If you want to know more about quaternions: https://en.wikipedia.org/wiki/Quaternions_and_spatial_rotation
 
@@ -11,10 +11,12 @@ As said, if your original dataset does not contain such type of data, this envir
 Dataframes (as .csv files) from N subjects performing different activities. Each dataframe must have the following format:
 - **Rows must represent timesteps**, that means, one instant per row.
 - **Colums must represent sensor's information**.
-    - **Position sensors**. E.g.: 
+    - **Position sensors**
+    
       Given a 3D sensor called "KNEE", position sensors columns must be named [KNEE_1, KNEE_2, KNEE_3]. A graphic example can be found here:  [position dataframe example](doc/images/3d_vector_input_dataset.png)
 
-    - **Orientatin sensors**. E.g:
+    - **Orientatin sensors**
+
       Given a Quaternion sensor called "LFOOT", orientation sensor columns must be named [LFOOT_1, LFOOT_2, LFOOT_3, LFOOT_4]. A graphic example can be found here:  [orientation dataframe example](doc/images/quaternion_input_dataset.png)
 
 Some datasets examples could be:
@@ -40,9 +42,6 @@ The architecture is composed from 4 pseudo-independent modules:
 - Image enricher
 - Final dataset
 
-
-
-As said, this modules can be used independetly as long as the input fits the specification.
 
 ### Composed interleaved dataframes
 According to the information recorded by the sensors there will be `two` types of composed dataframes; one for `orientation` data (four inputs per row); and another one for `position` data (three inputs per row). Pre -processing of each type can be enabled via `config.json` and composed-dataframes csv will be named using the `subject` number (1-10), `movement` or activity, `sample` number (1-2) and dataframe type.
