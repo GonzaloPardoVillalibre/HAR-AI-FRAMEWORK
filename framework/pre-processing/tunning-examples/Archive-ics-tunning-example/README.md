@@ -13,6 +13,8 @@
         └─── tune.py
         │   
         └─── framewokr-config-example.json 
+        │   
+        └─── framewokr-config-sergio.json 
 
 
 This example will help the developer to understand how the data must be tuned in order to feed the framework correctly. The already mentioned dataset (https://archive.ics.uci.edu/ml/datasets/REALDISP+Activity+Recognition+Dataset ) will be used.
@@ -30,3 +32,6 @@ Make yourself sure to correctly understand the database after proceeding with th
 
 * #### framework-config-example.json
     This is an example of the framework's configuration file. It can be useful to understand how to correctly configure the framework (based on the database) to act as disered.
+
+* #### framework-config-example.json
+    This is another example of the framework's configuration file. As this dataset contains errors, this configuration file should be the one suggested to feed the framework.
