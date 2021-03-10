@@ -21,8 +21,8 @@ Dataframes (as .csv files) from N subjects performing different activities. Each
 
 Some datasets examples could be:
 
-- https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/9QDD5J
-- https://archive.ics.uci.edu/ml/datasets/REALDISP+Activity+Recognition+Dataset
+- https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/9QDD5J (Harvard dataset)
+- https://archive.ics.uci.edu/ml/datasets/REALDISP+Activity+Recognition+Dataset (Archive-ics dataset)
 
 **Important recall:** these are the minimum format requirements in terms of data information. Although, to make use of the environment you might have to tune the naming of your files or make other small changes. Theere is also two tunnning examples for the already mentioned dataset.
 
