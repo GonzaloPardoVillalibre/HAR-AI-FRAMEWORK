@@ -17,7 +17,7 @@
 
 This example will help the developer to understand how the data must be tuned in order to feed the framework correctly. The already mentioned dataset (https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/9QDD5J ) will be used.
 
-As this database was the origin of this project a more detailed explanation can be found [here](../../../doc/documents/this-problem.md).
+As this database was the origin of this project a more detailed explanation can be found [here](../../../../doc/documents/this-problem.md).
 
 * #### framework-input-dataset
     This folder will contain the tuned dataset ready to feed the framework.
