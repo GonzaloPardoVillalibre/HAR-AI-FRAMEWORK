@@ -33,5 +33,5 @@ Make yourself sure to correctly understand the database after proceeding with th
 * #### framework-config-example.json
     This is an example of the framework's configuration file. It can be useful to understand how to correctly configure the framework (based on the database) to act as disered.
 
-* #### framework-config-example.json
+* #### framework-config-sergio.json
     This is another example of the framework's configuration file. As this dataset contains errors, this configuration file should be the one suggested to feed the framework.
