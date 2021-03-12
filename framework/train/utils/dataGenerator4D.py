@@ -18,7 +18,6 @@ def tf_data_generator(input_path:str, file_list: list, batch_size: int, movement
             label_classes = tf.constant(movements)
             for file in file_chunk:
                 temp = pd.read_csv(open(input_path+file,'r')) # Change this line to read any other type of file
-                temp = temp.drop(temp.columns[0], axis=1)
                 filtered_df_1 = temp.filter(regex='0.*$', axis=1).values
                 filtered_df_2 = temp.filter(regex='-1.*$', axis=1).values
                 filtered_df_3 = temp.filter(regex='-2.*$', axis=1).values

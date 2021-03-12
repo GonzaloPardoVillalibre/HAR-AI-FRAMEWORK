@@ -48,7 +48,7 @@ def extract_position_columns(file, jointName):
     df = df.iloc[1:]
     df.columns = first_row
     df = df.filter(regex=jointName)
-    df = df[:].astype(float)
+    df = df[:].astype('float32')
     df.insert(loc=0, column='3D vector', value=jointName)
     df.columns = ['3D vecotr', '0', '1', '2']
     return df
@@ -77,7 +77,7 @@ def build_dt(sample: str, subject: str, movement: str):
         orientation_df_list.append(df.values)
     final_df = pd.DataFrame(interleave(orientation_df_list))
     subject_and_activity_file_output = output_path + subject + '-' + movement + '-Orientationjoints-' + sample + '.csv'
-    final_df.to_csv(subject_and_activity_file_output)
+    final_df.to_csv(subject_and_activity_file_output, index=False)
 
   if cfg["positionSensors"]["enabled"]: 
     jointNamesListVicon = cfg["positionSensors"]["list"]
@@ -86,7 +86,7 @@ def build_dt(sample: str, subject: str, movement: str):
         position_df_list.append(df.values)
     final_df = pd.DataFrame(interleave(position_df_list))
     subject_and_activity_file_output = output_path + subject + '-' + movement + '-Positionjoints-' + sample + '.csv'
-    final_df.to_csv(subject_and_activity_file_output)
+    final_df.to_csv(subject_and_activity_file_output, index=False)
 
 # Analyzes configured movements and samples
 def  create_dt_by_movement(subject: str):

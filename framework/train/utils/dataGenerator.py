@@ -18,7 +18,6 @@ def tf_data_generator(input_path:str, file_list: list, batch_size: int, movement
             label_classes = tf.constant(movements)
             for file in file_chunk:
                 temp = pd.read_csv(open(input_path+file,'r')) # Change this line to read any other type of file
-                temp = temp.drop(temp.columns[0], axis=1)
                 data.append(temp.values.reshape(rows,columns,1)) # Convert column data to matrix like data with one channel
                 pieces = file.decode("utf-8").split('/')
                 activity = pieces[-1].split('-')[1]

@@ -91,14 +91,13 @@ def build_position_images(file: str):
   # Build individual images
   for i in range(images_number):
     final_df = df.iloc[(i*jump_diff)+1:(i*jump_diff)+ 1 + position_sample_size]
-    del final_df[0]
     final_df.columns = ['3D vecotr', '0', '1', '2']
-    final_df[['0', '1', '2']] = final_df[['0', '1', '2']].astype(float)
+    final_df[['0', '1', '2']] = final_df[['0', '1', '2']].astype('float32')
     if (len(final_df) == position_sample_size):
       path = path_to_save(file, 'position/')
       if path != None:
         image_name = path + file[:-4] +'-' + str(i+1) + '.csv'
-        final_df.to_csv(image_name)
+        final_df.to_csv(image_name, index=False)
 
 def build_orientation_images(file:str):
   print("Building images for orientation file: " + file)
@@ -110,14 +109,13 @@ def build_orientation_images(file:str):
   # Build individual images
   for i in range(images_number):
     final_df = df.iloc[(i*jump_diff)+1:(i*jump_diff)+1 + orientation_sample_size]
-    del final_df[0]
     final_df.columns = ['quat', '0', '1', '2', '3']
-    final_df[['0', '1', '2', '3']] = final_df[['0', '1', '2', '3']].astype(dtype=float)
+    final_df[['0', '1', '2', '3']] = final_df[['0', '1', '2', '3']].astype(dtype='float32')
     if (len(final_df) == orientation_sample_size):
       path = path_to_save(file, 'orientation/')
       if path != None:
         image_name= path + str(file[:-4]) +'-' + str(i+1) + '.csv'
-        final_df.to_csv(image_name )
+        final_df.to_csv(image_name, index=False)
 
 def build_images(files : str):
   if 'Position' in files and cfg["positionSensors"]["enabled"]:
@@ -129,14 +127,7 @@ def build_images(files : str):
 # Main                  #
 #########################
 if cfg["enabled"]:
-  if cfg["interleavedOutput"]["useOlder"]["enabled"]:
-    # TO DO unzip old file in /tmp to use
-    # input_path = this tmp folder
-    # cfg = stored_CFG
-    print('Using zipped output')
-  else:
-    print('Using non zipped output')
-    files = load_files()
+  files = load_files()
   
   # Prepare output directory
   build_output_directory()
