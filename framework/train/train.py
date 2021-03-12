@@ -40,7 +40,7 @@ def train_main(cfg: json, outcome_path:str):
 
 # Load model
   nn = importlib.import_module('neuralNetworks.' + cfg["neural-network"])
-  model = nn.load_model(rows, columns, channels)
+  model = nn.load_model(rows, columns, channels, len(movements))
 
 # Add callbacks to model
   callbacks = []

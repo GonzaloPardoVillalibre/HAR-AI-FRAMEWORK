@@ -1,7 +1,7 @@
 import tensorflow as tf 
 from tensorflow.keras import layers
 
-def load_model(input_rows:int, input_columns:int, channels:int):
+def load_model(input_rows:int, input_columns:int, channels:int, movements_number:int):
     model = tf.keras.Sequential([
         layers.Conv2D(16, activation = "relu", input_shape = (input_rows,input_columns,channels), kernel_size=3,padding='same',strides=1, data_format='channels_last'),
         layers.MaxPooling2D(pool_size=2, strides=2, padding='same'),
@@ -17,7 +17,7 @@ def load_model(input_rows:int, input_columns:int, channels:int):
         layers.BatchNormalization(axis=1),
         layers.Dropout(0.5),
         layers.Flatten(),
-        layers.Dense(9, activation = "softmax")
+        layers.Dense(movements_number, activation = "softmax")
     ])
 
     # model.summary()
