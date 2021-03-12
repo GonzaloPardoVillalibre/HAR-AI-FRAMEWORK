@@ -193,9 +193,10 @@ def create_confusion_matrix(prediction:list, file_path:str, movements:list):
         test_labels= []
         for row in csv_reader:
             array = row[0].replace("\n", " ").replace("[", " ").replace("]", " ")[1:]
-            for char in array:
-                if char.isdigit():
-                    test_labels.append(int(char))
+            labels = array.split(" ")
+            for label in labels:
+                if label.isdigit():
+                    test_labels.append(int(label))
         test_labels = np.array(test_labels)
         final_confusion_matrix = confusion_matrix(test_labels, predicted_labels)
     os.remove(file_path+ '/test.csv')
