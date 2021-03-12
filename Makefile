@@ -1,13 +1,16 @@
 # LINUX Makefile
 
 define help
+
 Usage: make <command>
+
 Commands:
   help:                 Show this help information
-  develenv-up:			Launch the development environment with a docker-compose of the service
-  preprocessing-sh:		Access to a shell of a launched preprocessing environment
-  train-sh:		Access to a shell of a launched preprocessing environment
-  develenv-down:		Stop the development environment
+  develenv-up:          Launch the development environment with a docker-compose of the service
+  preprocessing-sh:     Access to a shell of a launched preprocessing environment
+  train-sh:             Access to a shell of a launched preprocessing environment
+  develenv-down:        Stop the development environment
+
 endef
 export help
 
