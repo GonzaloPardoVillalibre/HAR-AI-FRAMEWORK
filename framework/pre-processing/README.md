@@ -62,31 +62,31 @@ Given one original dataframe build from position sensors this is a graphical exa
 
 ### Image builder & image enricher
 
-This both moduls recover the original format to slide the dataframes in windows of N time-steps to fit the neural network, for the reference we will call them ***images***. That means, each .csv/dataframe will create a vast number of images. 
+This both modules recover the original format and slide the dataframes in windows of **N time-steps** to fit the neural network, for the reference we will call them ***images***. That means, each .csv/dataframe will create a vast number of images. 
 
-Given one original dataframe compound from position sensors, the subject with name ***S01*** and activity ***walk*** this is a graphical example for the building of images with size **5** time-steps:
+Given one original dataframe compound from position sensors, the subject with name ***S01*** and activity ***walk***; this is a graphical example for the image building process with size **5** time-steps:
 
 ![Usage_schema](doc/images/Image_builder.png)
 
 
-Also overlap between images can be configured (given the same example with **2** steps of overlap):
+Overlap between images can also be configured (given the same example with **2** steps of overlap):
 
 
 ![Usage_schema](doc/images/Image_builder_overlap.png)
 
 
 This transformation is made in two steps: 
-- 1- **Image builder**: taking the unity compatible format from the previous layer (interleaved dataframe) the utility builds the images with sizes:
+- 1- **Image builder**: taking the unity compatible format dataframes from the previous layer (interleaved dataframe) the utility builds multiple images with sizes:
     - **rows**: n-timeSteps\*numberOfSensors.
     - **columns**: 3 columns if position sensors are used 4 if orientation sensors are used.
  
-    This allows the developer to test each image in unity.
+    This allows the developer to test each image in unity. The output of this step is not represented but will be stored at `framework/pre-processing/image-builder/_output`
 
-- 2- **Image enricher**: from each image with the unity compatible format this utility builds images with sizes:
+- 2- **Image enricher**: this utility resizes each image outputed from the *image builder* with sizes:
     - **rows**: n-timeSteps.
     - **columns**: 3\*numberOfSensors if position sensors are used 4\*numberOfSensors if orientation sensors are used.
  
-    This final step outputs the format represented upwards.
+    The output is the one represented upwards.
 
 ### Final dataset
 
