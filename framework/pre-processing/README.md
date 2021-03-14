@@ -113,9 +113,11 @@ But this is not everything yet, the ***image enricher*** module can perform anot
 
 - **DFFT calculation**:  this operation can be performed in both types of images.
     
-    The 2D fast fourier transformation is calculated for each image, then the value es splited in two matrices, one for real and another one for imaginary values. This two new matrices are horizontally concatenated to the initial image.
+    The 2D fast fourier transformation is calculated for each image, then the value es splited in two matrices, one for real and another one for imaginary values. 
     
-    This is a graphical example:
+    It is optional to save the image without the 2D FFT, save only the 2D FTT new matrices or horizontally concatenate this matrices to the initial image.
+    
+    This is a graphical example for this last option:
 
     ![Usage_schema](doc/images/2DFFT.png)
 
