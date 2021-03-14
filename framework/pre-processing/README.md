@@ -23,6 +23,11 @@ Dataframes (as .csv files) from N subjects performing different activities. Each
     - **Orientatin sensors**
 
       Given a Quaternion sensor called "LFOOT", orientation sensors columns must be named [LFOOT_1, LFOOT_2, LFOOT_3, LFOOT_4]. A graphic example can be found here:  [orientation dataframe example](doc/images/quaternion_input_dataset.png)
+- **CSV files naming**, the name for each file must follow this rule **subject-activity-trial.csv**:
+    
+    - **subject**: name of the subject performing the activity. Each subject name must be unique and cannot be a substring of other subject name.
+    - **activity**: label for the activity. Each activity label must be unique and cannot be a substring of other activity label.
+    - **trial**: identifier to specify trial number in case there are multiple records for the same subject and activity. This can be the case, e.g. for measures performed under different conditions/scenarios (ideal, usual, abnormal) or movements recorded twice. 
 
 Some valid datasets examples could be:
 
@@ -43,12 +48,11 @@ Some valid datasets examples could be:
 As detalied earlier, this environment is inteded to work with time-series dataframes build either from **position** (3D) or **orientation** (quaternions) sensors. The architecture is composed from 4 pseudo-independent modules and each one perfmors a specific pre-processing operation; those layers are:
 
 - Interleaved dataframe
-- Image builder
-- Image enricher
+- Image builder & image enricher
 - Final dataset
 
 
-### Interleaved dataframes
+### Interleaved dataframe 
 
 This module may be irrelevant for the general use as it provides an easy way to tunne the data for representing the movement in an Unity framework. This may be useful to check whether any sensor has corrupted data. 
 
@@ -56,11 +60,11 @@ Given one original dataframe build from position sensors this is a graphical exa
 
 ![Usage_schema](doc/images/Interleaved_dataframe.png)
 
-### Image builder
+### Image builder & image enricher
 
-This module recovers the original format to slide the dataframes in windows of N time-steps to fit the neural network, for the reference we will call them ***images***. That means, each .csv/dataframe will create a vast number of images. 
+This both moduls recover the original format to slide the dataframes in windows of N time-steps to fit the neural network, for the reference we will call them ***images***. That means, each .csv/dataframe will create a vast number of images. 
 
-Given one original dataframe build from position sensors, the subject with name ***S01*** and activity ***walk*** this is a graphical example for the building of images with size **5** time-steps:
+Given one original dataframe compound from position sensors, the subject with name ***S01*** and activity ***walk*** this is a graphical example for the building of images with size **5** time-steps:
 
 ![Usage_schema](doc/images/Image_builder.png)
 
@@ -70,9 +74,19 @@ Also overlap between images can be configured (given the same example with **2**
 
 ![Usage_schema](doc/images/Image_builder_overlap.png)
 
-### Image enrihcer
 
-TO DO
+This transformation is made in two steps: 
+- 1- **Image builder**: taking the unity compatible format from the previous layer (interleaved dataframe) the utility builds the images with sizes:
+    - **rows**: n-timeSteps\*numberOfSensors.
+    - **columns**: 3 columns if position sensors are used 4 if orientation sensors are used.
+ 
+    This allows the developer to test each image in unity.
+
+- 2- **Image enricher**: from each image with the unity compatible format this utility builds images with sizes:
+    - **rows**: n-timeSteps.
+    - **columns**: 3\*numberOfSensors if position sensors are used 4\*numberOfSensors if orientation sensors are used.
+ 
+    This final step outputs the format represented upwards.
 
 ### Final dataset
 
