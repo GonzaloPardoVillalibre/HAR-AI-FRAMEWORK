@@ -54,15 +54,26 @@ As detalied earlier, this environment is inteded to work with time-series datafr
 
 ### Interleaved dataframe 
 
-This module may be irrelevant for the general use as it provides an easy way to tunne the data for representing the movement in an Unity framework. This may be useful to check whether any sensor has corrupted data. 
+Input dataframes/csvs can contain only 3D sensor's information, only orientaiton sensor's, or both. As orientation and position sensors will be treated independently for now on, this module will split position data and orientation data from the input files.
 
-Given one original dataframe build from position sensors this is a graphical example for the transformation:
+Given a input file called `S01-Walk-1.csv` containing both orientation and position sensors the graphical example for this transforamtion will be:
+
+![Usage_schema](doc/images/Interleaved_dataframe_split.png)
+
+As represented two new files will be generated:
+
+- `S01-Walk-Positionjoints-1.csv`: contains only position sensors data.
+- `S01-Walk-Orientationjoints-1.csv`: contains only orientation sensors data.
+
+The second operation of this module may be irrelevant for the general use as it provides an easy way to tune the data for representing the movement in an Unity framework. This may be useful to check whether any sensor has corrupted data. 
+
+Given one dataframe/csv called `S01-Walk-Positionjoints-1.csv` (only from position sensors) this is a graphical example for this second transformation:
 
 ![Usage_schema](doc/images/Interleaved_dataframe.png)
 
 ### Image builder & image enricher
 
-This both modules recover the original format and slide the dataframes in windows of **N time-steps** to fit the neural network, for the reference we will call them ***images***. That means, each .csv/dataframe will create a vast number of images. 
+This both modules recover the original format and slice the dataframes in windows of **N time-steps** to fit the neural network, for the reference we will call them ***images***. That means, each .csv/dataframe will create a vast number of images. 
 
 Given one original dataframe compound from position sensors, the subject with name ***S01*** and activity ***walk***; this is a graphical example for the image building process with size **5** time-steps:
 
@@ -77,16 +88,32 @@ Overlap between images can also be configured (given the same example with **2**
 
 This transformation is made in two steps: 
 - 1- **Image builder**: taking the unity compatible format dataframes from the previous layer (interleaved dataframe) the utility builds multiple images with sizes:
-    - **rows**: n-timeSteps\*numberOfSensors.
+    - **rows**: n-timeSteps * numberOfSensors.
     - **columns**: 3 columns if position sensors are used 4 if orientation sensors are used.
  
     This allows the developer to test each image in unity. The output of this step is not represented but will be stored at `framework/pre-processing/image-builder/_output`
 
 - 2- **Image enricher**: this utility resizes each image outputed from the *image builder* with sizes:
     - **rows**: n-timeSteps.
-    - **columns**: 3\*numberOfSensors if position sensors are used 4\*numberOfSensors if orientation sensors are used.
+    - **columns**: 3 * numberOfSensors if position sensors are used 4 * numberOfSensors if orientation sensors are used.
  
-    The output is the one represented upwards.
+    The output will be alike the one represented upwards.
+
+But this is not everything yet, the ***image enricher*** module can perform another two operations:
+- **Data augmentation**: this operation is exclusive for Orientationjoints type images. 
+
+    For a list of grades to rotate (see reference in ***Usage guide & configuration file*** section) this step will rotate each quaternion over Z axis (assuming this is the vertical axis) and save the output in a newer image.
+    
+    This means, from a hipothetical image called `S01-Walk-Orientationjoints-1-1.csv` and a list of [0,90,180] three new images will be generated:
+
+    - `S01-Walk-Orientationjoints-1-1-0.csv` (no rotation actually).
+    - `S01-Walk-Orientationjoints-1-1-90.csv` (90º grades rotation over vertical axis).
+    - `S01-Walk-Orientationjoints-1-1-180.csv` (180º grades rotation over vertical axis).
+    
+
+- **DFFT calculation**:  this operation can be performed in both types of images.
+
+
 
 ### Final dataset
 
