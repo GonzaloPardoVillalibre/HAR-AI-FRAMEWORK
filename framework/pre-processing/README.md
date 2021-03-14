@@ -128,7 +128,7 @@ This is the very last module of this environment, its unique function is to move
 
 
 ## Usage guide & configuration file
-Once you enter the preprocess environment, you can use make to perform the following operations:
+Once you enter the preprocess environment, you can use `make` to perform the following operations:
 ```
 Usage: make <command>
 Commands:
