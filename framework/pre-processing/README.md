@@ -160,7 +160,7 @@ Fields inside `in-dt` block in `config.json`
 | Field | Type | Description |
 | -------- |--------- | ----------- |
 | enabled  | boolean | Enables interleaved dataframe script execution. |
-| subjects.list  | Array<String> | List of subjects to include in preprocess. |
+| subjects.list  | Array\<String> | List of subjects to include in preprocess. |
 | movements.list | Array<String> |  List of activities to include in preprocess. |
 | movements.samples | Array<String> | List of trials to include in preprocess. |
 | orientationSensors.enabled   | boolean | Enables orientation sensors processing. |
@@ -202,6 +202,6 @@ Fields inside `final-dataset` block in `config.json`
 
 | Field | Type | Description |
 | -------- |--------- | ----------- |
-| movements.list | Array<String> |  List of activities to include in preprocess. |
-| FFT-input | Array<Int> | In case **FFT.combined** and **FFT-saveWithOutFFT** are both enabled this will select which image-enricher output propagate to the shared folder.|
+| movements.list | Array\<String> |  List of activities to include in preprocess. |
+| FFT-input | Array\<Int> | In case **FFT.combined** and **FFT-saveWithOutFFT** are both enabled this will select which image-enricher output propagate to the shared folder.|
 
