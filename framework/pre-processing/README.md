@@ -70,8 +70,6 @@ Also overlap between images can be configured (given the same example with **2**
 
 ![Usage_schema](doc/images/Image_builder_overlap.png)
 
-For this example 
-
 ### Image enrihcer
 
 TO DO
