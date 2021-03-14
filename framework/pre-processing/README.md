@@ -128,13 +128,38 @@ This is the very last module of this environment, its unique function is to move
 
 
 ## Usage guide & configuration file
-Once you enter the pre-process environment some comands are available:
+Once you enter the preprocess environment, you can use make to perform the following operations:
+```
+Usage: make <command>
+Commands:
+  help:                                  Show this help information
+  build-interleaved-dataframes           Excute interleaved dataframe script.
+  build-images                           Excute image builder script.
+  enrich-images                          Excute image enricher script.
+  build-final-dataset                    Excute final dataset script.
+  build-all:                             Execute all preprocessing steps by order.
+
+Usual order:
+  1. build-interleaved-dataframes
+  2. build-images
+  3. enrich-images
+  4. build-final-dataset
+```
+
+But the real key of this environment is the vast amount of configurable parameters. This is done via the `framework/pre-processing/config.json` and should also be adapted for every different dataset. Also a preprocessing environment configuration file is included for the two already mentioned datasets:
+- ![Harvard dataset pre-process config file example](tunning-examples/Harvard-tunning-example/framework-config-example.json)
+- ![Archive-ics dataset pre-process config file exmple](tunning-examples/Archive-ics-tunning-example/framework-config-sergio.json)
+
+**Reminder**: the name and path for the configuration file must always be `framework/pre-processing/config.json`
+
+The following tables will detail the confiragution parameters for each module: 
+
+### Interleaved dataframe 
+
+### Image builder 
+
+### Image enricher
+
+### Final dataset
 
 
-
-But the real key of this environment is that almost every parameter is configurable. This is done via the `framework/pre-processing/config.json` and should also be adapted for every different dataset. Also a preprocessing environment configuration file is included for the two already mentioned datasets:
-- ![Harvard dataset pre-process config file](tunning-examples/Harvard-tunning-example/framework-config-example.json)
-- ![Archive-ics dataset pre-process config file](tunning-examples/Archive-ics-tunning-example/framework-config-sergio.json)
-
-
-The following tables will detail the confiragution parameters for each module. 
