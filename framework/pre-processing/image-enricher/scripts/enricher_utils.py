@@ -68,7 +68,7 @@ def fold_position_image(input_file: str, output_file: str, image_size, sensors_n
     df = df.drop(df.columns[[0]], axis=1)
     df = df.astype(np.float32).round(7)
     pd.options.display.float_format = '{:.4f}'.format
-    image_size = im_bu_cfg["images"]["batch-size"]
+    image_size = im_bu_cfg["images"]["window-size"]
     final_df = pd.DataFrame(df.values.reshape(image_size, sensors_number*3), columns=column_names)
     if cfg["FFT"]["enabled"]:
       build_and_save_image_with_FFT(final_df, fft_output_file, cfg)
@@ -80,7 +80,7 @@ def fold_orientation_image(input_file: str, output_file: str, image_size, sensor
     df = df.iloc[1:]
     df = df.drop(df.columns[[0]], axis=1)
     df = df.astype(np.float32).round(7)
-    image_size = im_bu_cfg["images"]["batch-size"]
+    image_size = im_bu_cfg["images"]["window-size"]
     for rotation_grades in cfg["dataAugmentationRotation"]["gradeList"]:
       rotated_df = create_rotated_images(rotation_grades, df)
       final_df = pd.DataFrame(rotated_df.reshape(image_size, sensors_number*4), columns=column_names)
@@ -97,7 +97,7 @@ def table_orientation_image(input_file: str, output_file: str, image_size, senso
     for rotation_grades in cfg["dataAugmentationRotation"]["gradeList"]:
       rotated_array = create_rotated_images(rotation_grades, df)
       rotated_df = pd.DataFrame(data=rotated_array)
-      total_cells = cfg["table_images"]["size"]
+      total_cells = cfg["table-images"]["size"]
       df_cells = {}
       i = 0
       for cell in range(total_cells*total_cells):
@@ -107,7 +107,7 @@ def table_orientation_image(input_file: str, output_file: str, image_size, senso
         i = i +1
       df_rows = {}
       for row in range(total_cells):
-        row_selector = cfg["table_images"]["table"][row]
+        row_selector = cfg["table-images"]["table"][row]
         df_row = df_cells[row_selector[0]]
         for cell in range(total_cells-1):
           prueba2 = df_cells[row_selector[cell+1]].values

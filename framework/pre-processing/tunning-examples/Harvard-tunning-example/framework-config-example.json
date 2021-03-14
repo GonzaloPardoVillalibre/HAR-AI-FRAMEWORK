@@ -26,14 +26,8 @@
             "list": ["LTOE", "PELV", "RFEP", "LFEP", "RFEO", "LFEO", "RTIO", "LTIO"]
         }
         },
-    "im-bu":{
-        "enabled": true, 
-        "interleavedOutput":{
-            "useOlder":{
-                "enabled": false,
-                "number": 1
-            }    
-        },
+    "image-builder":{
+        "enabled": true,
         "orientationSensors":{
             "enabled": true
         },
@@ -41,16 +35,16 @@
             "enabled": true
         },
         "images":{
-            "batch-size": 350,
+            "window-size": 350,
             "overlap": 280
         },
         "deletePrevious": true
     }, 
-    "im-en":{
-        "deepen_images":{
+    "image-enricher":{
+        "deepen-images":{
             "enabled": true
         },
-        "table_images":{
+        "table-images":{
             "enabled": false,
             "size": 11,
             "table": [[1,2,6,7,15,16,28,29,45,46,66],

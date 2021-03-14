@@ -21,8 +21,8 @@ cfg_filename = main_path + '/framework/pre-processing/config.json'
 with open(cfg_filename) as f:
   full_config = json.load(f)
   dt_cfg = full_config["in-dt"]
-  im_bu_cfg = full_config["im-bu"]
-  cfg = full_config["im-en"]
+  im_bu_cfg = full_config["image-builder"]
+  cfg = full_config["image-enricher"]
 
 # Path to _output file
 input_path = main_path + '/framework/pre-processing/image-builder/_output/'
@@ -69,7 +69,7 @@ def fold_images():
     #   output_folder = general_output_path + 'position/' + position_folder_name + '/'
     #   fft_output_folder = fft_output_path + 'position/' + position_folder_name + '/'
     #   _, _, files = next(os.walk(input_folder))
-    #   image_size = im_bu_cfg["images"]["batch-size"]
+    #   image_size = im_bu_cfg["images"]["window-size"]
     #   sensors_number = len(dt_cfg["positionSensors"]["list"])
     #   column_names = []
     #   for sensor in dt_cfg["positionSensors"]["list"]:
@@ -85,7 +85,7 @@ def fold_images():
       output_folder = output_path + 'orientation/' + orientation_folder_name + '/'
       fft_output_folder = fft_output_path + 'orientation/' + orientation_folder_name + '/'
       _, _, files = next(os.walk(input_folder))
-      image_size = im_bu_cfg["images"]["batch-size"]
+      image_size = im_bu_cfg["images"]["window-size"]
       sensors_number = len(dt_cfg["orientationSensors"]["list"])
       column_names = []
       for sensor in dt_cfg["orientationSensors"]["list"]:
@@ -101,14 +101,14 @@ def fold_images():
           if(total_number % percentage == 0):
             print( "   - " + str(total_number) + " files remaining")
 
-def table_images():
+def table-images():
     for orientation_folder_name in dt_cfg["movements"]["list"]:
       print("\nBuilding folded images for orientation movement: " + orientation_folder_name)
       input_folder = input_path + 'orientation/' +orientation_folder_name + '/'
       output_folder = output_path + 'orientation/' + orientation_folder_name + '/'
       fft_output_folder = fft_output_path + 'orientation/' + orientation_folder_name + '/'
       _, _, files = next(os.walk(input_folder))
-      image_size = im_bu_cfg["images"]["batch-size"]
+      image_size = im_bu_cfg["images"]["window-size"]
       sensors_number = len(dt_cfg["orientationSensors"]["list"])
       column_names = []
       for sensor in dt_cfg["orientationSensors"]["list"]:
@@ -130,17 +130,17 @@ if cfg["FFT"]["enabled"]:
   output_path = fft_output_path
   build_output_directory()
 
-if cfg["deepen_images"]["enabled"]:
+if cfg["deepen-images"]["enabled"]:
   # Prepare output directory
   output_path = general_output_path
   build_output_directory()
   fold_images()
 
 # Trial/draft not working
-if cfg["table_images"]["enabled"]:
+if cfg["table-images"]["enabled"]:
   # Prepare output directory
   output_path = general_output_path
-  table_images()
+  table-images()
 
 print("\nIMAGE ENRICHMENT FINISHED")
 

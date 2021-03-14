@@ -15,7 +15,7 @@ cfg_filename = main_path + '/framework/pre-processing/config.json'
 with open(cfg_filename) as f:
   full_config = json.load(f)
   dt_cfg = full_config["in-dt"]
-  cfg = full_config["im-bu"]
+  cfg = full_config["image-builder"]
 
 # Path to _output file
 input_path = main_path + '/framework/pre-processing/interleaved-dataframe/_output/'
@@ -67,7 +67,7 @@ def calculate_sample_size():
   global orientation_sample_size_overlap
   global position_sample_size_overlap
   sensors_size =  len(dt_cfg["orientationSensors"]["list"])
-  batch_size = cfg["images"]["batch-size"]
+  batch_size = cfg["images"]["window-size"]
   overlap = cfg["images"]["overlap"]
   orientation_sample_size = sensors_size * batch_size
   orientation_sample_size_overlap = overlap * sensors_size

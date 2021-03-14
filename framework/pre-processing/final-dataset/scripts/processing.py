@@ -19,8 +19,8 @@ final_output_path = main_path + '/framework/final-dataset/'
 with open(cfg_filename) as f:
   full_config = json.load(f)
   dt_cfg = full_config["in-dt"]
-  im_bu_cfg = full_config["im-bu"]
-  im_en_cfg = full_config["im-en"]
+  im_bu_cfg = full_config["image-builder"]
+  im_en_cfg = full_config["image-enricher"]
   cfg = full_config["final-dataset"]
 
 # The input depends if we want to use the FFT results or not

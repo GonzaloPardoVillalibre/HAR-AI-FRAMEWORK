@@ -2,30 +2,24 @@
     "in-dt":{
         "enabled": true,
         "subjects":{
-            "list": [ "S01", "S02", "S03", "S05", "S08", "S09", "S10", "S11", "S13", "S14", "S16", "S17"] 
+            "list": [] 
  
         },
         "movements":{
-            "list": ["A09", "A10", "A11", "A12", "A13", "A19", "A20", "A21", "A24", "A25", "A31"],
-            "samples": ["1"]
+            "list": [],
+            "samples": []
         },
         "orientationSensors":{
             "enabled": true,
-            "list":  ["RLA", "RUA", "BACK", "LUA", "LLA"]
+            "list":  []
         },
         "positionSensors":{
             "enabled": false,
             "list": []
         }
         },
-    "im-bu":{
+    "image-builder":{
         "enabled": true, 
-        "interleavedOutput":{
-            "useOlder":{
-                "enabled": false,
-                "number": 1
-            }    
-        },
         "orientationSensors":{
             "enabled": true
         },
@@ -33,20 +27,20 @@
             "enabled": false
         },
         "images":{
-            "batch-size": 128,
-            "overlap": 96
+            "window-size": 5,
+            "overlap": 2 
         },
         "deletePrevious": true
     }, 
-    "im-en":{
-        "deepen_images":{
+    "image-enricher":{
+        "deepen-images":{
             "enabled": true
         },
-        "table_images":{
+        "table-images":{
             "enabled": false
         },
         "dataAugmentationRotation":{
-            "gradeList":[0,15,30,45,60,75,90,105,120,135,150,165,180]
+            "gradeList":[]
         },
         "FFT":{
             "enabled": true,
@@ -57,7 +51,7 @@
     },
     "final-dataset":{
         "movements":{
-            "list": ["A09", "A10", "A11", "A12", "A13", "A19", "A20", "A21", "A24", "A25", "A31"]
+            "list": []
         },
         "FFT-input": true
     }

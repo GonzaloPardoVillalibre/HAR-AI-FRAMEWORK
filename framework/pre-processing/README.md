@@ -155,11 +155,53 @@ But the real key of this environment is the vast amount of configurable paramete
 The following tables will detail the confiragution parameters for each module: 
 
 ### Interleaved dataframe 
+Fields inside `in-dt` block in `config.json`
+
+| Field | type | Description |
+| -------- |--------- | ----------- |
+| enabled  | boolean | Enables interleaved dataframe script execution. |
+| subjects.list  | Array<String> | List of subjects to include in preprocess. |
+| movements.list | Array<String> |  List of activities to include in preprocess. |
+| movements.samples | Array<String> | List of trials to include in preprocess. |
+| orientationSensors.enabled   | boolean | Enables orientation sensors processing. |
+| orientationSensors.list | Array<String>  |  List of orientation sensors to include in preprocess. |
+| position.enabled   | boolean | Enables position sensors processing. |
+| position.list | Array<String> |  List of position sensors to include in preprocess. |
+
+**Disclaimer**: fields such ***movements.list*** or ***sensors lists*** will have impact in other modules too.
 
 ### Image builder 
+Fields inside `image-builder` block in `config.json`
+
+| Field | type | Description |
+| -------- |--------- | ----------- |
+| enabled  | boolean | Enables image builder script execution. |
+| orientationSensors.enabled   | boolean | Enables orientation sensors processing. |
+| positionSensors.enabled   | boolean | Enables position sensors processing. |
+| images.window-size | int |  Time-steps per image. |
+| images.overlap | int |  Time-steps shared with previous image. |
+| deletePrevious | boolean | deletes output folder from the interleaved dataframe module. |
 
 ### Image enricher
+Fields inside `image-enricher` block in `config.json`
+
+| Field | type | Description |
+| -------- |--------- | ----------- |
+| deepen-images   | boolean | Enables image enricher script execution. |
+| table-images   | boolean | DRAFT: Enables table-images script execution. |
+| dataAugmentationRotation.gradeList | Array<Int> | List of grades to perform data augmentation via rotation.**\*** |
+| FFT.enabled | boolean | Enables 2D FFT calcuation. |
+| FFT.combined | boolean | Enables combination of the initial image with the 2D FFT output. |
+| FFT.saveWithoutFFT | int |  To save the initial image without the 2D FFT or not. |
+| deletePrevious | boolean | deletes output folder from the interleaved dataframe module. |
+
+**\***  "gradeList":[0] will mean no rotation is should be done.
 
 ### Final dataset
+Fields inside `final-dataset` block in `config.json`
 
+| Field | type | Description |
+| -------- |--------- | ----------- |
+| movements.list | Array<String> |  List of activities to include in preprocess. |
+| FFT-input | Array<Int> | In case **FFT.combined** and **FFT-saveWithOutFFT** are both enabled this will select which image-enricher output propagate to the shared folder.|
 
