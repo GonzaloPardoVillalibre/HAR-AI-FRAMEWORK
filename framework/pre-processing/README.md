@@ -160,13 +160,13 @@ Fields inside `in-dt` block in `config.json`
 | Field | Type | Description |
 | -------- |--------- | ----------- |
 | enabled  | boolean | Enables interleaved dataframe script execution. |
-| subjects.list  | Array\<String> | List of subjects to include in preprocess. |
-| movements.list | Array<String> |  List of activities to include in preprocess. |
-| movements.samples | Array<String> | List of trials to include in preprocess. |
+| subjects.list  | `Array<String>`| List of subjects to include in preprocess. |
+| movements.list |`Array<String>` |  List of activities to include in preprocess. |
+| movements.samples | `Array<String>` | List of trials to include in preprocess. |
 | orientationSensors.enabled   | boolean | Enables orientation sensors processing. |
-| orientationSensors.list | Array<String>  |  List of orientation sensors to include in preprocess. |
+| orientationSensors.list | `Array<String>`  |  List of orientation sensors to include in preprocess. |
 | position.enabled   | boolean | Enables position sensors processing. |
-| position.list | Array<String> |  List of position sensors to include in preprocess. |
+| position.list | `Array<String>` |  List of position sensors to include in preprocess. |
 
 **Disclaimer**: fields such ***movements.list*** or ***sensors lists*** will have impact in other modules too.
 
@@ -189,7 +189,7 @@ Fields inside `image-enricher` block in `config.json`
 | -------- |--------- | ----------- |
 | deepen-images   | boolean | Enables image enricher script execution. |
 | table-images   | boolean | DRAFT: Enables table-images script execution. |
-| dataAugmentationRotation.gradeList | Array<Int> | List of grades to perform data augmentation via rotation.**\*** |
+| dataAugmentationRotation.gradeList | `Array<Int>` | List of grades to perform data augmentation via rotation.**\*** |
 | FFT.enabled | boolean | Enables 2D FFT calcuation. |
 | FFT.combined | boolean | Enables combination of the initial image with the 2D FFT output. |
 | FFT.saveWithoutFFT | boolean |  To save the initial image without the 2D FFT or not. |
@@ -202,6 +202,6 @@ Fields inside `final-dataset` block in `config.json`
 
 | Field | Type | Description |
 | -------- |--------- | ----------- |
-| movements.list | Array\<String> |  List of activities to include in preprocess. |
-| FFT-input | Array\<Int> | In case **FFT.combined** and **FFT-saveWithOutFFT** are both enabled this will select which image-enricher output propagate to the shared folder.|
+| movements.list | `Array<String>` |  List of activities to include in preprocess. |
+| FFT-input | `Array<Int>` | In case **FFT.combined** and **FFT-saveWithOutFFT** are both enabled this will select which image-enricher output propagate to the shared folder.|
 
