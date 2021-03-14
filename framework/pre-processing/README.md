@@ -54,7 +54,7 @@ As detalied earlier, this environment is inteded to work with time-series datafr
 
 ### Interleaved dataframe 
 
-Input dataframes/csvs can contain only 3D sensor's information, only orientaiton sensor's, or both. As orientation and position sensors will be treated independently for now on, this module will split position data and orientation data from the input files.
+Input dataframes/.csv can contain only 3D sensors information, only orientaiton sensors, or both. As orientation and position sensors will be treated independently for now on, this module will split position data and orientation data from the input files.
 
 Given a input file called `S01-Walk-1.csv` containing both orientation and position sensors the graphical example for this transforamtion will be:
 
@@ -67,13 +67,13 @@ As represented two new files will be generated:
 
 The second operation of this module may be irrelevant for the general use as it provides an easy way to tune the data for representing the movement in an Unity framework. This may be useful to check whether any sensor has corrupted data. 
 
-Given one dataframe/csv called `S01-Walk-Positionjoints-1.csv` (only from position sensors) this is a graphical example for this second transformation:
+Given one dataframe/.csv called `S01-Walk-Positionjoints-1.csv` (only from position sensors) this is a graphical example for this second transformation:
 
 ![Usage_schema](doc/images/Interleaved_dataframe.png)
 
 ### Image builder & image enricher
 
-This both modules recover the original format and slice the dataframes in windows of **N time-steps** to fit the neural network, for the reference we will call them ***images***. That means, each .csv/dataframe will create a vast number of images. 
+This both modules recover the previuos non-unity format and slice the dataframes in windows of **N time-steps** to fit the neural network, for the reference we will call them ***images***. That means, each .csv/dataframe will create a vast number of images. 
 
 Given one original dataframe compound from position sensors, the subject with name ***S01*** and activity ***walk***; this is a graphical example for the image building process with size **5** time-steps:
 
@@ -100,7 +100,7 @@ This transformation is made in two steps:
     The output will be alike the one represented upwards.
 
 But this is not everything yet, the ***image enricher*** module can perform another two operations:
-- **Data augmentation**: this operation is exclusive for Orientationjoints type images. 
+- **Data augmentation**: this operation is exclusive for ***Orientationjoints*** images. 
 
     For a list of grades to rotate (see reference in ***Usage guide & configuration file*** section) this step will rotate each quaternion over Z axis (assuming this is the vertical axis) and save the output in a newer image.
     
@@ -112,6 +112,12 @@ But this is not everything yet, the ***image enricher*** module can perform anot
     
 
 - **DFFT calculation**:  this operation can be performed in both types of images.
+    
+    The 2D fast fourier transformation is calculated for each image, then the value es splited in two matrices, one for real and another one for imaginary values. This two new matrices are horizontally concatenated to the initial image.
+    
+    This is a graphical example:
+
+    ![Usage_schema](doc/images/2DFFT.png)
 
 
 
