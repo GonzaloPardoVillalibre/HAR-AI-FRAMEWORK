@@ -124,7 +124,7 @@ But this is not everything yet, the ***image enricher*** module can perform anot
 
 ### Final dataset
 
-This is the very last module of this environment, its unique function is to move the output from the ***image enricher*** to the shared volume ***"final-dataset"***.
+This is the very last module of this environment, its unique function is to move the output from the ***image enricher*** to the shared volume ***"final-dataset"***. Activities can be filtered here.
 
 
 ## Usage guide & configuration file
