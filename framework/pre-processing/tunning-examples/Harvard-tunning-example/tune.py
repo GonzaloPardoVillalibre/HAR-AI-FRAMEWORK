@@ -8,14 +8,14 @@ import shutil
 main_path = os.getcwd()
 # main_path = '/TFG'
 
-input_folder = main_path +  '/framework/pre-processing/tunnin-examples/Harvard-tunning-example/original-dataset/'
+input_folder = main_path +  '/framework/pre-processing/tunning-examples/Harvard-tunning-example/original-dataset'
 _, _, files = next(os.walk(input_folder))
-output_file = main_path +  '/framework/pre-processing/tunnin-examples/Harvard-tunning-example/framework-input-dataset/'
+output_file = main_path +  '/framework/pre-processing/tunning-examples/Harvard-tunning-example/framework-input-dataset/'
 
 files.remove('.gitkeep')
 
 for file in files:
-    df = pd.read_csv(input_folder + file, header=None, skiprows=[0,1,2,3,4], low_memory=False)
+    df = pd.read_csv(input_folder + '/' + file, header=None, skiprows=[0,1,2,3,4], low_memory=False)
     column_names = df.iloc[0].values
     df = df.iloc[1:]
     df.columns = column_names

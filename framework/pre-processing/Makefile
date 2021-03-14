@@ -36,4 +36,4 @@ enrich-images:
 build-final-dataset:
 	python3 ./final-dataset/scripts/processing.py
 
-build-all: build-interleaved-dataframe build-image-builder build-image-enricher build-final-dataset
+build-all: build-interleaved-dataframes build-images enrich-images build-final-dataset

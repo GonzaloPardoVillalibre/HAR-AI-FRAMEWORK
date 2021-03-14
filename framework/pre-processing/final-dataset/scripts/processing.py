@@ -52,6 +52,7 @@ def create_orientation_final_dataset():
     orientation_input_path = input_path + 'orientation/'+movement+'/'
     orientation_final_output_path =  final_output_path +'orientation/'
     _, _, files = next(os.walk(orientation_input_path))
+    files.remove('.gitkeep')
     original_list =[val for val in files if re.search(r'-0.csv$', val)]
     print("Total original orientation images for movement " + movement + " : " + str(len(original_list)))
     print("Total orientation images for movement " + movement + " : " + str(len(files)))
@@ -62,6 +63,7 @@ def create_position_final_dataset():
     position_input_path = input_path + 'position/'+movement+'/'
     position_final_output_path = final_output_path +'position/'
     _, _, files = next(os.walk(position_input_path))
+    files.remove('.gitkeep')
     original_list =[val for val in files if re.search(r'-0.csv$', val)]
     print("Total original position images for movement " + movement + " : " + str(len(original_list)))
     print("Total position images for movement " + movement + " : " + str(len(files)))

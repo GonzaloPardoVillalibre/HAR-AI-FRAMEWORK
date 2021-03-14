@@ -101,7 +101,7 @@ def fold_images():
           if(total_number % percentage == 0):
             print( "   - " + str(total_number) + " files remaining")
 
-def table-images():
+def table_images():
     for orientation_folder_name in dt_cfg["movements"]["list"]:
       print("\nBuilding folded images for orientation movement: " + orientation_folder_name)
       input_folder = input_path + 'orientation/' +orientation_folder_name + '/'
@@ -140,7 +140,7 @@ if cfg["deepen-images"]["enabled"]:
 if cfg["table-images"]["enabled"]:
   # Prepare output directory
   output_path = general_output_path
-  table-images()
+  table_images()
 
 print("\nIMAGE ENRICHMENT FINISHED")
 
