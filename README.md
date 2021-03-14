@@ -52,11 +52,11 @@ More info about specific problem can be found here: [more info](doc/documents/th
 
 # Contact
 
-You can contact the creator via gmail at: `gonzalopmb@gmail.com`
+You can contact the creator via e-mail at: `gonzalopmb@gmail.com`
 
 # Licensing
 
-Copyright (C) Gonzalo Pardo ( https://github.com/GonzaloPardoVillalibre )
+Copyright (C) Gonzalo Pardo Villalibre ( https://github.com/GonzaloPardoVillalibre )
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
