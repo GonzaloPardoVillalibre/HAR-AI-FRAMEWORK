@@ -150,7 +150,7 @@ But the real key of this environment is the vast amount of configurable paramete
 - ![Harvard dataset pre-process config file example](tunning-examples/Harvard-tunning-example/framework-config-example.json)
 - ![Archive-ics dataset pre-process config file exmple](tunning-examples/Archive-ics-tunning-example/framework-config-sergio.json)
 
-**Reminder**: the name and path for the configuration file must always be `framework/pre-processing/config.json`
+**Reminder**: the name and path for the configuration file must always be ![framework/pre-processing/config.json](config.json)
 
 The following tables will detail the confiragution parameters for each module: 
 
