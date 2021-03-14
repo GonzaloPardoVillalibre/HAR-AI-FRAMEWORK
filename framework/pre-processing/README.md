@@ -128,6 +128,13 @@ This is the very last module of this environment, its unique function is to move
 
 
 ## Usage guide & configuration file
+Once you enter the pre-process environment some comands are available:
 
 
 
+But the real key of this environment is that almost every parameter is configurable. This is made via the `framework/pre-processing/config.json` and should also be addapted for every different dataset. Also a preprocessing environment configuration file is included for the two already mentioned datasets:
+- ![Usage_schema](tunning-examples/Harvard-tunning-example/framework-config-example.json) (Harvard dataset)
+- ![Usage_schema](tunning-examples/Archive-ics-tunning-example/framework-config-sergio.json) (Archive-ics dataset)
+
+
+The following tables will detail the confiragution parameters for each module. 
