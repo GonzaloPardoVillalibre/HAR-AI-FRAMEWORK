@@ -40,7 +40,7 @@ Some valid datasets examples could be:
 
 ![Usage_schema](doc/images/pre-processing-environment-architecture.png)
 
-The architecture is composed from 4 pseudo-independent modules:
+As detalied earlier, this environment is inteded to work with time-series dataframes build either from **position** (3D) or **orientation** (quaternions) sensors. The architecture is composed from 4 pseudo-independent modules and each one perfmors a specific pre-processing operation; those layers are:
 
 - Interleaved dataframe
 - Image builder
@@ -50,7 +50,11 @@ The architecture is composed from 4 pseudo-independent modules:
 
 ### Interleaved dataframes
 
-TO DO
+This layer may be irrelevant for the general use as it provides an easy way to tunne the data for representing the movement in an Unity framework. This may be useful to check whether any sensor has corrupted data. 
+
+Given one original dataframe build from position sensors this is a graphical example for the transformation:
+
+![Usage_schema](doc/images/Interleaved_dataframe.png)
 
 ### Image builder
 
