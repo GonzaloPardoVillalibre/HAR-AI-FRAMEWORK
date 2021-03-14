@@ -34,7 +34,7 @@ Some valid datasets examples could be:
 - [Harvard-tunning-example](tunning-examples/Harvard-tunning-example)
 - [Archive-ics-tunning-example](tunning-examples/Archive-ics-tunning-example)
 
-**Do not panic, specific format requirements for each module will be detailed along this guide.**
+
 
 ## Environment architecture & performance
 
@@ -50,7 +50,7 @@ As detalied earlier, this environment is inteded to work with time-series datafr
 
 ### Interleaved dataframes
 
-This layer may be irrelevant for the general use as it provides an easy way to tunne the data for representing the movement in an Unity framework. This may be useful to check whether any sensor has corrupted data. 
+This module may be irrelevant for the general use as it provides an easy way to tunne the data for representing the movement in an Unity framework. This may be useful to check whether any sensor has corrupted data. 
 
 Given one original dataframe build from position sensors this is a graphical example for the transformation:
 
@@ -58,7 +58,19 @@ Given one original dataframe build from position sensors this is a graphical exa
 
 ### Image builder
 
-TO DO
+This module recovers the original format to slide the dataframes in windows of N time-steps to fit the neural network, for the reference we will call them *images*. That means, each .csv/dataframe will create a vast number of images. 
+
+Given one original dataframe build from position sensors, the subject with name *S01* and activity *walk* this is a graphical example for the building of images with size 5 time-steps:
+
+![Usage_schema](doc/images/Image_builder.png)
+
+
+Also override between images can be configured (given the same example with 2 steps of override):
+
+
+![Usage_schema](doc/images/Image_builder_overriden.png)
+
+For this example 
 
 ### Image enrihcer
 
