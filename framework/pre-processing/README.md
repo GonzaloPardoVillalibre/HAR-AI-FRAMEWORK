@@ -58,17 +58,17 @@ Given one original dataframe build from position sensors this is a graphical exa
 
 ### Image builder
 
-This module recovers the original format to slide the dataframes in windows of N time-steps to fit the neural network, for the reference we will call them *images*. That means, each .csv/dataframe will create a vast number of images. 
+This module recovers the original format to slide the dataframes in windows of N time-steps to fit the neural network, for the reference we will call them ***images***. That means, each .csv/dataframe will create a vast number of images. 
 
-Given one original dataframe build from position sensors, the subject with name *S01* and activity *walk* this is a graphical example for the building of images with size 5 time-steps:
+Given one original dataframe build from position sensors, the subject with name ***S01*** and activity ***walk*** this is a graphical example for the building of images with size **5** time-steps:
 
 ![Usage_schema](doc/images/Image_builder.png)
 
 
-Also override between images can be configured (given the same example with 2 steps of override):
+Also overlap between images can be configured (given the same example with **2** steps of overlap):
 
 
-![Usage_schema](doc/images/Image_builder_overriden.png)
+![Usage_schema](doc/images/Image_builder_overlap.png)
 
 For this example 
 
