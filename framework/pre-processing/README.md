@@ -195,7 +195,7 @@ Fields inside `image-enricher` block in `config.json`
 | FFT.saveWithoutFFT | boolean |  To save the initial image without the 2D FFT or not. |
 | deletePrevious | boolean | deletes output folder from the interleaved dataframe module. |
 
-**\***  "gradeList":[0] will mean no rotation is should be done.
+**\***  "gradeList":[0] will mean no rotation is done.
 
 ### Final dataset
 Fields inside `final-dataset` block in `config.json`
