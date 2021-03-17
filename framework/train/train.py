@@ -1,6 +1,4 @@
 import utils.utils as utils
-import utils.dataGenerator as datagen
-import utils.dataGenerator4D as datagen4D
 import tensorflow as tf 
 import re, os, json
 import importlib
@@ -26,17 +24,13 @@ def train_main(cfg: json, outcome_path:str):
 #   validation_set = utils.balance_data_set(validation_set, cfg, "validation")
 #   test_set = utils.balance_data_set(test_set, cfg, "test")
 
-# Create datasets generators
+# Create datasets from tensorflow custom data generators
   if channels == 1:
-    train_dataset = tf.data.Dataset.from_generator(datagen.tf_data_generator,args= [final_input_path, train_set, batch_size, movements, rows, columns, ""],output_types = (tf.float32, tf.float32), output_shapes = ((None,rows,columns,channels),(None,)))
-    test_dataset = tf.data.Dataset.from_generator(datagen.tf_data_generator,args= [final_input_path, test_set, batch_size, movements, rows, columns, ""],output_types = (tf.float32, tf.float32), output_shapes = ((None,rows,columns,channels),(None,)))
-    test_dataset_prediction = tf.data.Dataset.from_generator(datagen.tf_data_generator,args= [final_input_path, test_set, batch_size, movements, rows, columns, outcome_path + '/test.csv'],output_types = (tf.float32, tf.float32), output_shapes = ((None,rows,columns,channels),(None,)))
-    validation_dataset = tf.data.Dataset.from_generator(datagen.tf_data_generator,args= [final_input_path, validation_set, batch_size, movements, rows, columns, ""],output_types = (tf.float32, tf.float32), output_shapes = ((None,rows,columns,channels),(None,)))
+    train_dataset, test_dataset, test_dataset_prediction, validation_dataset = \
+    utils.load_one_dimension_datasets(final_input_path, train_set, test_set, validation_set, batch_size, movements, rows, columns, channels, outcome_path)
   elif channels == 4:
-    train_dataset = tf.data.Dataset.from_generator(datagen4D.tf_data_generator,args= [final_input_path, train_set, batch_size, movements, rows, columns, ""],output_types = (tf.float32, tf.float32), output_shapes = ((None,rows,columns,channels),(None,)))
-    test_dataset = tf.data.Dataset.from_generator(datagen4D.tf_data_generator,args= [final_input_path, test_set, batch_size, movements, rows, columns, ""],output_types = (tf.float32, tf.float32), output_shapes = ((None,rows,columns,channels),(None,)))
-    test_dataset_prediction = tf.data.Dataset.from_generator(datagen4D.tf_data_generator,args= [final_input_path, test_set, batch_size, movements, rows, columns, outcome_path + '/test.csv'],output_types = (tf.float32, tf.float32), output_shapes = ((None,rows,columns,channels),(None,)))
-    validation_dataset = tf.data.Dataset.from_generator(datagen4D.tf_data_generator,args= [final_input_path, validation_set, batch_size, movements, rows, columns, ""],output_types = (tf.float32, tf.float32), output_shapes = ((None,rows,columns,channels),(None,)))
+    train_dataset, test_dataset, test_dataset_prediction, validation_dataset = \
+      utils.load_four_dimension_datasets(final_input_path, train_set, test_set, validation_set, batch_size, movements, rows, columns, channels, outcome_path)
 
 # Load model
   nn = importlib.import_module('neuralNetworks.' + cfg["neural-network"])

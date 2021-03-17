@@ -6,6 +6,8 @@ import pandas as pd
 import numpy as np
 import seaborn as sn
 from string import ascii_uppercase
+import dataGenerator as datagen
+import dataGenerator4D as datagen4D
 
 metrics_index = ['Sensitivity', 'Specificity', 'Precision', 'Negative predictive value', 'Fall out', 'False negative rate', 'False discovery rate', 'Accuracy', 'F1 Score']
 
@@ -291,3 +293,19 @@ def save_dataframe_as_heatMap(nparray:np.array, columNames:list, indexNames:list
     fig.tight_layout()
     plt.savefig(saveFolder + imgBaseName + '.png')
     plt.close(fig)
+
+# Function to load datasets from one dimensional tensorflow custom data generator
+def load_one_dimension_datasets(final_input_path:str, train_set:list, test_set:list, validation_set:list, batch_size:int, movements:list, rows:int, columns:int, channels:int, outcome_path:str):
+    train_dataset = tf.data.Dataset.from_generator(datagen.tf_data_generator,args= [final_input_path, train_set, batch_size, movements, rows, columns, ""],output_types = (tf.float32, tf.float32), output_shapes = ((None,rows,columns,channels),(None,)))
+    test_dataset = tf.data.Dataset.from_generator(datagen.tf_data_generator,args= [final_input_path, test_set, batch_size, movements, rows, columns, ""],output_types = (tf.float32, tf.float32), output_shapes = ((None,rows,columns,channels),(None,)))
+    test_dataset_prediction = tf.data.Dataset.from_generator(datagen.tf_data_generator,args= [final_input_path, test_set, batch_size, movements, rows, columns, outcome_path + '/test.csv'],output_types = (tf.float32, tf.float32), output_shapes = ((None,rows,columns,channels),(None,)))
+    validation_dataset = tf.data.Dataset.from_generator(datagen.tf_data_generator,args= [final_input_path, validation_set, batch_size, movements, rows, columns, ""],output_types = (tf.float32, tf.float32), output_shapes = ((None,rows,columns,channels),(None,)))
+    return train_dataset, test_dataset, test_dataset_prediction, validation_dataset
+
+# Function to load datasets from four dimensional tensorflow custom data generator
+def load_four_dimension_datasets(final_input_path:str, train_set:list, test_set:list, validation_set:list, batch_size:int, movements:list, rows:int, columns:int, channels:int, outcome_path:str):
+    train_dataset = tf.data.Dataset.from_generator(datagen4D.tf_data_generator,args= [final_input_path, train_set, batch_size, movements, rows, columns, ""],output_types = (tf.float32, tf.float32), output_shapes = ((None,rows,columns,channels),(None,)))
+    test_dataset = tf.data.Dataset.from_generator(datagen4D.tf_data_generator,args= [final_input_path, test_set, batch_size, movements, rows, columns, ""],output_types = (tf.float32, tf.float32), output_shapes = ((None,rows,columns,channels),(None,)))
+    test_dataset_prediction = tf.data.Dataset.from_generator(datagen4D.tf_data_generator,args= [final_input_path, test_set, batch_size, movements, rows, columns, outcome_path + '/test.csv'],output_types = (tf.float32, tf.float32), output_shapes = ((None,rows,columns,channels),(None,)))
+    validation_dataset = tf.data.Dataset.from_generator(datagen4D.tf_data_generator,args= [final_input_path, validation_set, batch_size, movements, rows, columns, ""],output_types = (tf.float32, tf.float32), output_shapes = ((None,rows,columns,channels),(None,)))
+    return train_dataset, test_dataset, test_dataset_prediction, validation_dataset

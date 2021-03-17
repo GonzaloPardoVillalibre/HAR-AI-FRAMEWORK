@@ -13,7 +13,7 @@ _, folders, files = next(os.walk(cfg_files_path))
 #  AUXILIAR FUNCION TO MANAGE KFOLD OR INDEPENDENT TRAINS  #
 ############################################################
 def train_all_files(input_directory_path:str, outcome_directory_path:str, file:str):
-    # Clean garbage & load configurations for multiple trains
+    # Clean garbage & load configuration file
     gc.collect()
     outcome_path = utils.create_folder(outcome_directory_path)
     cfg = utils.loadCfgJson(input_directory_path + '/' + file)
