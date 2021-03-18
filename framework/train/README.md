@@ -71,7 +71,7 @@ This environment is not divided in modules such the pre-processing environment. 
 
 ### Individual Training Manager
 #### Config loader
-This logical block training configurations from files stored in `framework/toTrain/`. For each file, the environment will perform a neural network training based on the specified rules and using the dataset stored in the `final-dataset` shared volume.
+This logical block loads training configurations from files stored in `framework/toTrain/`. For each file, the environment will perform a neural network training based on the specified rules and using the dataset stored in the `final-dataset` shared volume.
 
 If the configuration file is directly in this path it will be treated as an individual training; whereas if the file is in a subdirectory (with more other files) the hole subdirectory will be treated as a K-fold training scenario.
 
@@ -79,11 +79,13 @@ This type of training will be reviewed in detail in the ***K-Fold training manag
 
 #### Datasets Generator
 
-![Usage_schema](doc/images/datasets-generator.png)
-
 This logical block is in charge of spliting the input dataset into train, test and validaton sets. The division will be made, as represented, via the ***"Subject"*** label and each group can be modified in the training configuration file. It also provides the utility to filter of  which ***"Activities"*** should  include in the training.
 
 As mentioned, augmented data (marked with non -0.csv ending files) will not be used for validating and testing sets. Its use can also be discarded from training set.
+
+For example:
+
+![Usage_schema](doc/images/datasets-generator.png)
 
 For more information go to the ***Training configuration files (JSON)*** section.
 
