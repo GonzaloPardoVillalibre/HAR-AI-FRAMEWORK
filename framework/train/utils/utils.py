@@ -40,7 +40,7 @@ def split_dataset(files:list, cfg:json):
     train_user_regex_string = build_regex_for_subjects(cfg["train-subjects"])
     train_files = filter_files_by_regex(files, train_user_regex_string)
     train_files = filter_files_by_regex(train_files, movements_regex_string)
-    # Use only original files
+    # Use only original files if desired
     if cfg["no-augmentation"]:
         train_files = filter_files_by_regex(train_files, r'-0.csv$')
 
@@ -48,14 +48,14 @@ def split_dataset(files:list, cfg:json):
     test_user_regex_string = build_regex_for_subjects(cfg["test-subjects"])
     test_files = filter_files_by_regex(files, test_user_regex_string)
     test_files = filter_files_by_regex(test_files, movements_regex_string)
-    # Use only original files
+    # Use only original files for testing
     test_files = filter_files_by_regex(test_files, r'-0.csv$')
 
     # Load validation set
     validation_user_regex_string = build_regex_for_subjects(cfg["validation-subjects"])
     validation_files = filter_files_by_regex(files, validation_user_regex_string)
     validation_files = filter_files_by_regex(validation_files, movements_regex_string)
-    # Use only original files
+    # Use only original files for validation
     validation_files = filter_files_by_regex(validation_files, r'-0.csv$')
 
     print("Original train files: " + str(len(filter_files_by_regex(train_files, r'-0.csv$'))))
