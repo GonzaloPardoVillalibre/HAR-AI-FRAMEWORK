@@ -15,7 +15,7 @@ Finally, it also provides several tools to generate reports after the training p
 For the reference, this document includes the following sections:
 - Input dataset format.
 - Environment architecture & performance.
-- Usage guide & configuration file.
+- Usage guide & training configuration files.
 
 ## Input dataset format: 
 As mentioned, **.CSV files naming** is the key for this environment and must follow this rule:
@@ -23,7 +23,7 @@ As mentioned, **.CSV files naming** is the key for this environment and must fol
     
 - **subject**: name of the subject performing the activity. Each subject name must be unique and cannot be a substring of another subject name. Lookt at the first point of ***Can I still use this framework if...*** section if you don't have subjects.
 - **activity**: label for the activity. Each activity label must be unique and cannot be a substring of other activity label. Look at the second point of ***Can I still use this framework if...*** section if you don't have activities.
-- **authenticity**: identifier to specify whether the .csv proceedes from a original sample or is a result of any kind of augmentation. This is **very important**, as non original files will not be taken into account for validation and tests datasets. Look at the third point of ***Can I still use this framework if...*** section if you don't have subjects.
+- **authenticity**: identifier to specify whether the .csv proceedes from a original sample or is a result of any kind of augmentation. This is **very important**, as non original files will not be taken into account for validation and tests datasets. Look at the third point of ***Can I still use this framework if...*** section if you don't have augmentation.
 
     - 0: If the .csv file comes from an original sample.
     - Not 0 if it comes from any type of augmentation.
@@ -49,7 +49,7 @@ Some valid .csv names could be:
 
 ### Can I still use this framework if...
 `... I dont have multiple subjects?`
-Yes, but you  have to tune your data as dataset split into validation, test and traing sets is made via this tag. Eg:
+Yes, but you  have to tune your data as dataset split into training, validation and test sets is made via this tag. E.g.:
 
 - Train subjects: S01, S02, S03 (only files from this subjects are taken for training).
 - Test subjects: S04 (only files from this subjects are taken for testing).
@@ -67,18 +67,33 @@ Then all your files must end with ***-0.csv***
 
 ![Usage_schema](doc/images/train-environment-architecture.png)
 
-[WORK IN PROGRESS]
+This environment is not divided in modules such the pre-processing environment. Although some logical blocks can be clearly distinguished.
 
 ### Individual Training Manager
 #### Config loader
+This logical block training configurations from files stored in `framework/toTrain/`. For each file, the environment will perform a neural network training based on the specified rules and using the dataset stored in the `final-dataset` shared volume.
+
+If the configuration file is directly in this path it will be treated as an individual training; whereas if the file is in a subdirectory (with more other files) the hole subdirectory will be treated as a K-fold training scenario.
+
+This type of training will be reviewed in detail in the ***K-Fold training manager*** section. If you want to know more about K-Fold cross validation visit https://machinelearningmastery.com/k-fold-cross-validation/. 
+
 #### Datasets Generator
+
+![Usage_schema](doc/images/datasets-generator.png)
+
+This logical block is in charge of spliting the input dataset into train, test and validaton sets. The division will be made, as represented, via the ***"Subject"*** label and each group can be modified in the training configuration file. It also provides the utility to filter of  which ***"Activities"*** should  include in the training.
+
+As mentioned, augmented data (marked with non -0.csv ending files) will not be used for validating and testing sets. Its use can also be discarded from training set.
+
+For more information go to the ***Training configuration files (JSON)*** section.
+
 #### Train Core
 #### Report Generator
 
 ### K-Fold Training Manager
 #### Aggreagated Report Generator
 
-## Usage guide & configuration file
+## Usage guide & training configuration files
 Once you enter the train environment, you can use `make` to perform the following operations:
 ```
 Usage: make <command>
@@ -95,8 +110,8 @@ Also some train environment configuration files are included for the two already
 - ![Harvard dataset train config file examples](framework/train/toTrainDraft/Harvard-tunning-examples) 
 - ![Archive-ics dataset train config file exmples](framework/train/toTrainDraft/Archive-ics-tunning-examples)
 
-### Train configuration.json
-This configuration file should be 
+### Training configuration files (JSON)
+Each configuration file no matter if it belongs to a K-fold directory or and independent train must contain the following parameters.
 
 | Field | Type | Description |
 | -------- |--------- | ----------- |
@@ -115,4 +130,5 @@ This configuration file should be
 | test-steps | Int | Test steps |
 | epochs | Int | Epochs |
 
-
+**Reminder**: All the files belonging to a K-fold should only vary `train-subjects`, `validation-subjects` and 
+`test-subjects` from each-other.
