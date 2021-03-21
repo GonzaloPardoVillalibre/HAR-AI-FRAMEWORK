@@ -99,8 +99,8 @@ For more information go to the ***Training configuration files (JSON)*** section
 This logical block loads the specified neural network model and performs a training phase given the specified hyperparameters in the *training configuration file*. All the available neural network models must be stored in `framework/train/neuralNetworks` and will be dynamically loaded and selected by its name. Several examples for CNN, LSTM or CONVLSTM will be stored for the reference. 
 
 - [CNN model example](neuralNetworks/N2.py)
-- [LSTM model example](neuralNetworks/N2.py)
-- [CONV-LSTM model example](neuralNetworks/N2.py)
+- [LSTM model example](neuralNetworks/N2.py) ***[TO UPDATE]***
+- [CONV-LSTM model example](neuralNetworks/N2.py) ***[TO UPDATE]***
 
 The logical block will also perform two testing phases: 
 - An evaluation phase.
@@ -122,7 +122,9 @@ Also some other files to reload the resultant trained neural network:
 - **Some other files** with, for example, weight values if model checkpoints were used.
 
 ### K-Fold Training Manager
+***[TO UPDATE]***
 #### Aggreagated Report Generator
+***[TO UPDATE]***
 
 ## Usage guide & training configuration files
 Once you enter the train environment, you can use `make` to perform the following operations:
@@ -159,5 +161,7 @@ Each configuration file no matter if it belongs to a K-fold directory or and ind
 | test-steps | Int | Test steps |
 | epochs | Int | Epochs |
 
-**Reminder**: All the files belonging to a K-fold should only vary `train-subjects`, `validation-subjects` and 
-`test-subjects` from each-other.
+\* Implementation of new CallBack types may not be easy.
+\*\* This parameter should almost always value `1` as explained in the **Datasets Generator** section.
+
+**Reminder**: All the files belonging to a K-fold should only vary `train-subjects`, `validation-subjects` and `test-subjects` from each-other.
