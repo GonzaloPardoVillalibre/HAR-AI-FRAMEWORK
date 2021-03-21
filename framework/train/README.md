@@ -87,9 +87,9 @@ For example:
 
 ![Usage_schema](doc/images/datasets-generator.png)
 
-The entire training, test and validation sets are not loaded all at once in the RAM, but by batches of the specified size. Two custom data loaders (custom data generatores) have been created for this pourpose folowing the rules specified in by this [tensorflow custom datagenerator guide](https://www.tensorflow.org/guide/data).
+The entire training, test and validation sets are not loaded all at once in the RAM, but in batches of a fixed size specified in the `batch size`configuration variable. Two custom data loaders (custom data generatores) have been created for this pourpose folowing the rules specified in by this [tensorflow custom datagenerator guide](https://www.tensorflow.org/guide/data).
 
-Both of them take the exact ammount of `.csv` files specified in the `batch size`configuration variable; and label each one given the activity specified in the `.csv` tittle. The first one will use the raw csv as a input matrix for the NN. Whereas the second data generator should one be used with `OrientationJoints.csvs` and will split the data of the csv into a fourth channel matrix; each channel will represent a 4D dimension and will only contain quaternion samples from one dimension. Here there is an example of the ***dataGenerator4D***:
+Both of them take the exact ammount of `.csv` files, and label each one given the activity specified in the `.csv` tittle. The first one will use the raw csv as a input matrix for the NN. Whereas the second data generator should one be used with `OrientationJoints.csvs` and will split the data of the csv into a fourth channel matrix; each channel will represent a 4D dimension and will only contain quaternion samples from one dimension. Here there is an example of the ***dataGenerator4D***:
 
 ![Usage_schema](doc/images/4d_data_generator.png)
 
