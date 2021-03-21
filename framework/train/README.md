@@ -162,6 +162,7 @@ Each configuration file no matter if it belongs to a K-fold directory or and ind
 | epochs | Int | Epochs |
 
 \* Implementation of new CallBack types may not be easy.
+
 \*\* This parameter should almost always value `1` as explained in the **Datasets Generator** section.
 
 **Reminder**: All the files belonging to a K-fold should only vary `train-subjects`, `validation-subjects` and `test-subjects` from each-other.
