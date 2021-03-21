@@ -96,7 +96,30 @@ Both of them take the exact ammount of `.csv` files, and label each one given th
 For more information go to the ***Training configuration files (JSON)*** section.
 
 #### Train Core
+This logical block loads the specified neural network model and performs a training phase given the specified hyperparameters in the *training configuration file*. All the available neural network models must be stored in `framework/train/neuralNetworks` and will be dinamically loaded and selected by its name. Several examples for CNN, LSTM or CONVLSTM will be stored for the reference. 
+
+- [CNN model example](neuralNetworks/N2.py)
+- [LSTM model example](neuralNetworks/N2.py)
+- [CONV-LSTM model example](neuralNetworks/N2.py)
+
+The logical block will also perform two testing phases: 
+- A evaluation phase.
+- A prediction phase to build the report in the next block.
+
 #### Report Generator
+For each individual train a folder in `framework/train/trainOutcomes` is created. The name for each folder is the training starting time (to avoid any type of override). 
+
+Each ouput folder contains the following report files:
+- **outcome.txt** : Training summary; training and evaluation information.
+- **confusion-matrix.png**:  A confusion matrix build up with the data from the prediction phase.
+- **confusion-matrix-normalized.png**:  Normalized confusion matrix.
+- **confusion-matrix-metrics.png**: Performance metrics table build from the confusion matrix.
+
+Also some other files to reload the resultant trained neural network:
+- **model.h5**
+- **model.json**
+- **config.json**: A copy from the training configuration file used for the case.
+- **Some other files** with, for example, weights values if model checkpoints were used.
 
 ### K-Fold Training Manager
 #### Aggreagated Report Generator
