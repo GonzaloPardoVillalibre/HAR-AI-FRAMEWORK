@@ -1,88 +1,65 @@
 -----------------------------------------
+# Deep learning networks for human activity recognition
 
-# Gonzalo Pardo's final degree project
+## Pre-processing and training framework in tensorflow
 
-## Use of neural networks in human activities classification
+This project provides a framework based on docker and aims to expedite the ***human activity classification*** training process. Thus, two separate environments are provided:
+- Pre-processing environment.
+- Training environment.
 
-This project is the final assignment for Gonzalo Pardo Villalibre. The aim will be to detect which activity is doing a certain subject, minimizing the number of sensors needed. Therefore the student will take advantage of the use of NN (neural networks) from different types such as CN (convolutional networks) or RN (recurrent networks).
+While the ***training environment*** has a more general use, providing a generic tool to solve a vast amount of problems, the ***pre-processing environment*** has its focus on pre-processing human activity datasets (measured in a **quaternion** form) to solve the already mentioned ***"human activity classification problem"***.
 
-The data set will be taken from https://dataverse.harvard.edu/. Named as `Replication Data for Estimating Lower Limb Kinematics using a Reduced Wearable Sensor Count` this data set contains information from **9 totally healthy subjects** performing different activities meassured by two systems: **Vicon & Xsens**.
+Pre-requirements:
+ - Docker v17
+ - GNU Make
 
-Download: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/9QDD5J (FULL DATA 2,3GB)
-Download: https://dataverse.harvard.edu/file.xhtml?persistentId=doi:10.7910/DVN/9QDD5J/IAX7GN&version=3.0 (WITHOUT RAW DATA 1GB)
+The following instruction launches both environments:
+```sh
+# Launch the development environment
+make develenv-up
+```
 
-## Movements
+Also a `make help` utility is available to the developer.
 
-| Movement          | Description                               | Time  |
-|---                |---                                        |---    |
-| Static            | Stand stil                                | ~10   |
-| Walk              | Walk straight and back                    | ~30   | 
-| Figure of 8       | Walk in figures of eight                  | ~60   |
-| Zig-Zag           | Walk zigzag                               | ~60   |
-| 5-minute walk     | Undirected walk, side step, and stand     | ~300  |
-| Speedskater       | Speedskater on the spot                   | ~30   |
-| Jog               | Jog straight and return                   | ~30   |
-| Jumping jacks     | Jumping jacks on the spot                 | ~30   |
-| High kneee        | High knee jog straight and return         | ~30   |
+## Docker architecture 
+For the reference there is a generic view of the architecture:
 
-**Disclaimer**: Be very careful here! As seen in the table above, the length of each sample differs. Very serious normalization job must be made here as we don't want to overfit the NN with a particular movement. 
+![Usage_schema](doc/images/docker-architecture.png)
 
-## Measurement
+More important information can be found here: [data structure documentation](framework)
 
-Each sensor takes samples with ***100Hz*** frecuency (100 samples per second). 
+## Pre-processing environmnent
+```sh
+# Enter the pre-processing environment
+make preprocess-sh
+```
+The guide for this environment can be found here: [pre-process environment documentation](framework/pre-processing)
 
-### 1 - IMU (X-sens):
+## Training environment
+```sh
+# Enter the training environment
+make train-sh
+```
+The guide for this environment can be found here: [train environment documentation](framework/train)
 
-Not analized for now.
 
-### 2 - VICON: 
+# What is this project all about?
+This project is the final assignment for Gonzalo Pardo Villalibre. The aim will be to detect which activity is a certain subject performing, minimizing the number of sensors needed. Therefore the student will take advantage of the use of NN (neural networks) from different types such as CNN (convolutional networks) or RNN (recurrent networks) such LSTM.
 
-This data set makes use in its format from the class `class +mocapdb.@ViconBody.ViconBody(varargin)`
-* #### Data set structure
+On this journey the developer decided to not only solve the concrete problem, but also to create a reusable framework making the process easier for future investigators.
 
-        Data set
-        │
-        └───Subject-01
-        │   │
-        │   └───Movement X1
-        │   │       │   First Attempt
-        │   │       │   Second Attempt
-        │   │
-        │   └───Movement X2
-        │   │       │   First Attempt
-        │   │       │   Second Attempt
-        │   │ 
-        │   ... (7 more movements)
-        │   
-        └───Subject-02
-        │   │
-        │   └───Movement X1
-        │   
-        ... (7 more subjects)
-    
+More info about specific problem can be found here: [more info](doc/documents/this-problem.md)
 
- + #### Position Variables (sensors): n x 3
+# Contact
 
-    | Sensor    | Description   |
-    |---        |---            |
-    |  LTOE     | Right hip     | 
-    |  PELV     | Left hip      |
-    |  RFEP     | Right knee    |
-    |  LFEP     | Left knee     |
-    |  RFEO     | Right Ankle   | 
-    |  LFEO     | Left Ankle    | 
-    |  RTIO     | Right toe     | 
-    |  LTIO     | Left toe      |
+You can contact the creator via e-mail at: `gonzalopmb@gmail.com`
 
-* #### Orientation Variables (sensors):  n x 4 
+# Licensing
 
-    | Sensor    | Description       |
-    |---        |---                |
-    |  qLSK     | Right foot        | 
-    |  qRFT     | Left foot         |
-    |  qLTH     | Right tibia       |
-    |  qRSK     | Left tibia        |
-    |  qRPV     | Right femur       | 
-    |  qRTH     | Lef femur         | 
-    
-    **Unrecognized fields**: qLFT, RTOE (meassured and used -.-)
+Copyright (C) Gonzalo Pardo Villalibre ( https://github.com/GonzaloPardoVillalibre )
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License along with this program. If not, see http://www.gnu.org/licenses/.

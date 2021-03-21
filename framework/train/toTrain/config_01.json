@@ -1,0 +1,33 @@
+{
+    "neural-network": "N2",
+    "no-augmentation": false,
+    "movements": ["A09", "A10", "A11", "A12", "A13", "A19", "A20", "A21", "A24", "A25", "A31"],
+    "train-subjects": [ "S01", "S02", "S03", "S05", "S08", "S09", "S10", "S11", "S13", "S14", "S16"],
+    "validation-subjects": [
+        "S17"
+    ],
+    "test-subjects": [
+        "S17"
+    ],
+    "callbacks": {
+        "enabled": true,
+        "list": [
+            {
+                "type": "modelCheckPoint",
+                "save_weights_only":true,
+                "monitor": "loss",
+                "mode":"min",
+                "save_best_only":true
+            }
+        ]
+    },
+    "input-rows": 128,
+    "input-columns": 60,
+    "channels": 1,
+    "batch-size": 70,
+    "train-steps": 81,
+    "validation-steps": 81,
+    "test-steps": 81,
+    "epochs": 3,
+    "comments": "This neural network model is very cool."
+}

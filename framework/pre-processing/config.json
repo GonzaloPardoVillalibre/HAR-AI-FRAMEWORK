@@ -1,0 +1,58 @@
+{   
+    "in-dt":{
+        "enabled": true,
+        "subjects":{
+            "list": [] 
+ 
+        },
+        "movements":{
+            "list": [],
+            "samples": []
+        },
+        "orientationSensors":{
+            "enabled": true,
+            "list":  []
+        },
+        "positionSensors":{
+            "enabled": false,
+            "list": []
+        }
+        },
+    "image-builder":{
+        "enabled": true, 
+        "orientationSensors":{
+            "enabled": true
+        },
+        "positionSensors":{
+            "enabled": false
+        },
+        "images":{
+            "window-size": 5,
+            "overlap": 2 
+        },
+        "deletePrevious": true
+    }, 
+    "image-enricher":{
+        "deepen-images":{
+            "enabled": true
+        },
+        "table-images":{
+            "enabled": false
+        },
+        "dataAugmentationRotation":{
+            "gradeList":[]
+        },
+        "FFT":{
+            "enabled": true,
+            "combined": true,
+            "saveWithoutFFT": false
+        },
+        "deletePrevious": false
+    },
+    "final-dataset":{
+        "movements":{
+            "list": []
+        },
+        "FFT-input": true
+    }
+}

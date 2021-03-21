@@ -8,14 +8,25 @@
 .vscode
 
 # ouput
-vicon/pre-processing/interleaved-dataframe/_output/*
-vicon/pre-processing/image-enricher/_output/*
-vicon/pre-processing/image-enricher/_output-FFT/*
-!vicon/pre-processing/image-enricher/_output/.gitkeep
-vicon/pre-processing/image-builder/_output/*
-!vicon/pre-processing/image-builder/_output/.gitkeep
-!vicon/pre-processing/interleaved-dataframe/_output/.gitkeep
-vicon/pre-processing/final-dataset/orientation/*
-vicon/pre-processing/final-dataset/position/*
-vicon/pre-processing/final-dataset/validation-set/*
-vicon/processing/trainOutcomes/*
+framework/pre-processing/interleaved-dataframe/_output/*
+framework/pre-processing/image-enricher/_output/*
+framework/pre-processing/image-enricher/_output-FFT/*
+!framework/pre-processing/image-enricher/_output/.gitkeep
+framework/pre-processing/image-builder/_output/*
+!framework/pre-processing/image-builder/_output/.gitkeep
+!framework/pre-processing/interleaved-dataframe/_output/.gitkeep
+framework/pre-processing/final-dataset/orientation/*
+framework/pre-processing/final-dataset/position/*
+framework/final-dataset/*
+framework/pre-processing/final-dataset/validation-set/*
+framework/train/trainOutcomes/*
+framework/pre-processing/tunning-examples/Archive-ics-tunning-example/framework-input-dataset/*
+!framework/pre-processing/tunning-examples/Archive-ics-tunning-example/framework-input-dataset/.gitkeep
+framework/pre-processing/dataset/*
+framework/pre-processing/tunning-examples/Archive-ics-tunning-example/original-dataset/*
+!framework/pre-processing/tunning-examples/Archive-ics-tunning-example/original-dataset/.gitkeep
+
+framework/pre-processing/tunning-examples/Harvard-tunning-example/framework-input-dataset/*
+!framework/pre-processing/tunning-examples/Harvard-tunning-example/framework-input-dataset/.gitkeep
+framework/pre-processing/tunning-examples/Harvard-tunning-example/original-dataset/*
+!framework/pre-processing/tunning-examples/Harvard-tunning-example/original-dataset/.gitkeep
