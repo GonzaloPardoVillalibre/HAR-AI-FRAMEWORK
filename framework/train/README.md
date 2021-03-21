@@ -79,13 +79,19 @@ This type of training will be reviewed in detail in the ***K-Fold training manag
 
 #### Datasets Generator
 
-This logical block is in charge of spliting the input dataset into train, test and validaton sets. The division will be made, as represented, via the ***"Subject"*** label and each group can be modified in the training configuration file. It also provides the utility to filter of  which ***"Activities"*** should  include in the training.
+This logical block is in charge of spliting the input dataset into train, test and validaton sets. The division will be made, as represented, via the ***"Subject"*** label and each group can be modified in the training configuration file. It also provides the utility to filter the ***"Activities"*** included for the hole training process.
 
 As mentioned, augmented data (marked with non -0.csv ending files) will not be used for validating and testing sets. Its use can also be discarded from training set.
 
 For example:
 
 ![Usage_schema](doc/images/datasets-generator.png)
+
+The entire training, test and validation sets are not loaded all at once in the RAM, but by batches of the specified size. Two custom data loaders (custom data generator) have been created for this pourpose folowing the rules specified in by this ![tensorflow custom datagenerator guide](https://www.tensorflow.org/guide/data).
+
+As mentioned there are two custom data generators, both of them take the exact ammount of `.csv` files specified in the batch size; and label each one given the activity specified in its tittle. The first one will use the raw csv as a input matrix for the NN. Whereas the second data generator will only be available fot `OrientationJoints.csvs` and will split the data of the csv into a fourth channel matrix; each channel will represent a 4D dimension and will only contain Quaternion samples from one dimension. Here there is an example of the ***dataGenerator4D***:
+
+![Usage_schema](doc/images/4d_data_generator.png)
 
 For more information go to the ***Training configuration files (JSON)*** section.
 
