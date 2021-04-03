@@ -55,7 +55,7 @@ make inference-sh
 Although, the most useful command in this environment may be:
 ```sh
 # Display container logs
-docker logs -f tfg_inferencer_1
+docker logs -f framework_inferencer_1
 ```
 The guide for this environment can be found here: [inference environment documentation](framework/inference)
 
