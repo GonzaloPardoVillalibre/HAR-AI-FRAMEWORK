@@ -6,8 +6,8 @@ import pandas as pd
 import numpy as np
 import seaborn as sn
 from string import ascii_uppercase
-import dataGenerator as datagen
-import dataGenerator4D as datagen4D
+import utils.dataGenerator as datagen
+import utils.dataGenerator4D as datagen4D
 
 metrics_index = ['Sensitivity', 'Specificity', 'Precision', 'Negative predictive value', 'Fall out', 'False negative rate', 'False discovery rate', 'Accuracy', 'F1 Score']
 

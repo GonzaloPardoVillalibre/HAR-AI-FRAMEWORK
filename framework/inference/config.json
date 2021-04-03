@@ -1,0 +1,32 @@
+{
+   "LOCAL": {
+      "nueral-network": "N2-350-28-9-1",
+      "info" : {
+         "movementsList": [
+            "FigureofEight",
+            "HighKneeJog",
+            "Jog",
+            "JumpingJacks",
+            "SpeedSkater",
+            "Static",
+            "Zigzag",
+            "Walk"
+         ],
+         "rows": 250,
+         "columns": 28,
+         "movements": 9,
+         "channels": 1,
+         "FFT": true
+      }
+   },
+   "PRO": {
+      "nueral-network": "N2-PROD",
+      "info" : {
+         "rows": 350,
+         "columns": 28,
+         "movements": 9,
+         "channels": 1,
+         "FFT": true
+      }
+   }
+}
