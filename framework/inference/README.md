@@ -1,11 +1,11 @@
 -----------------------------------------
 
 # Inference environment
-This environment exposes a REST API that can perform predictions based on an already trained neural network model. This API is focused in the human classification problem and, therefore, the input format must be congruent with the dataset used to train the selected neural network.
+This environment exposes a [REST API](https://www.seobility.net/en/wiki/REST_API) that can perform predictions based on an already trained neural network model. This API is focused on the ***human classification problem*** and, therefore, the input format must be congruent with the dataset used to train the selected neural network model.
 
-In this way, time series movement windows will be accepted. This tables must contain the exact number of sensors used in the training phase and must also have the same number of time-steps.
+In this way, time series movement windows will be accepted. This tables (**sent int `csv` format**) must contain the exact number of sensors used in the training phase and must also have the same number of time-steps.
 
-As mentioned the 2D FFT will be commonly used in the training phase; thus, this API will also calculete de 2D FFT, if that were the case, and apply it to the received image following [the same rule](../pre-processing/doc/images/2DFFT.png)
+As mentioned the 2D FFT will be commonly used in the training phase; thus, this API will also calculete de 2D FFT, if that were the case, and apply it to the received image following [the same rule](../pre-processing/doc/images/2DFFT.png).
 
 Similar to the rest of the framework this environment has been designed to server the functionallity over a `JSON configuration file`.  Therefore its configuration is the key to use the API correctly.
 
