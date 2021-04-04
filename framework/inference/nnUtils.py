@@ -3,6 +3,8 @@ import tensorflow as tf
 import numpy as np
 from keras.models import model_from_json
 
+ERROR = "Error"
+
 def load_nueral_network(app, name:str, nn_path:str):
     bestWeightsPath = nn_path + '/' + name + '/best_weights'
     weightsPath = nn_path + '/' + name + '/model.h5'
@@ -29,8 +31,19 @@ def process_input_data(cfg_data, data, app):
         if len(data[0]) != int(cfg_data["columns"])*3:
             app.logger.info('FFT must be calculated')
             final_data = calculate_FFT(data)
-            return final_data.reshape(1,cfg_data["rows"],cfg_data["columns"]*3,1)
+            try:
+                final_data = final_data.reshape(1,cfg_data["rows"],cfg_data["columns"]*3,1)
+                return final_data
+            except:
+                return ERROR
         else:
-            return data.reshape(1,cfg_data["rows"],cfg_data["columns"]*3,1)
-
-    return data.reshape(1,cfg_data["rows"],cfg_data["columns"],1)
+            try:
+                final_data = data.reshape(1,cfg_data["rows"],cfg_data["columns"]*3,1)
+                return final_data
+            except:
+                return ERROR
+    try:
+        final_data = data.reshape(1,cfg_data["rows"],cfg_data["columns"],1)
+        return final_data
+    except:
+        return ERROR

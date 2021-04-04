@@ -62,10 +62,11 @@ def list_all_neural_networks():
 @app.route('/api/inference', methods=['POST'])
 def inference():
     app.logger.info('New image recieved')
-    flask_file = request.files['data_file']
-    if not flask_file:
+    try:
+        flask_file = request.files['data_file']
+    except:
         data = {'message': 'Upload a CSV file', 'code': 'FAILED'}
-        return make_response(jsonify(data), 404)
+        return make_response(jsonify(data), 400)
     
     data = []
     stream = codecs.iterdecode(flask_file.stream, 'utf-8')
@@ -76,6 +77,9 @@ def inference():
     data = np.array(data)
     data = data.astype(np.float)
     data = nn.process_input_data(cfg_data, data, app)
+    if str(data) == nn.ERROR:
+        data = {'message': 'Invalid 2D data format', 'code': 'FAILED'}
+        return make_response(jsonify(data), 422)
     model = nn.load_nueral_network(app, defualt_nn, nn_path)
     result = model.predict(data)
     index = np.argmax(result)
