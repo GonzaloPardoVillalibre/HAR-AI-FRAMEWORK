@@ -9,6 +9,8 @@ As mentioned, the 2D-FFT will be commonly used in the training phase; thus, this
 
 Similar to the rest of the framework this environment has been designed to serve the functionallity over a `JSON configuration file` and its configuration is the key to use the API correctly.
 
+![Usage_schema](doc/images/inference_api.png)
+
 For the reference, this document includes the following sections:
 - Data structure.
 - Infernce configuration file.
