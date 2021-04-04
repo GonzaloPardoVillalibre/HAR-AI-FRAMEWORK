@@ -29,9 +29,9 @@ For the reference there is a generic view of the architecture:
 
 ![Usage_schema](doc/images/docker-architecture.png)
 
-More important information can be found here: [data structure documentation](framework)
-
 As you'd have noticed, the ***inference environment*** has little to do with the previous architecture and can be treated as an individual component. Ideally, this component will be the only one deployed in a production environment.
+
+More information can be found here: [data structure documentation](framework)
 
 ## Pre-processing environmnent
 ```sh
