@@ -53,8 +53,33 @@ Some **neural network examples** can be found here:
 - ![N5-350-28-9-1](neuralNetworks/N5-350-28-9-1)
 
 ## Infernce configuration file
-[TO DO]
+This configuration file is divided in blocks depending on the deployment environment; this value can be set via the `$ENV` variable. Each environment must contain the following parameters:
+
+| Field | Type | Description |
+| -------- |--------- | ----------- |
+| neural-network  | String | Selected neural network model from `framework/inference/neuralNetworks`|
+| info.movementsList  | `Array<String>`| List of movements supported by the server NN |
+| info.sensorsList  | `Array<String>`| List of sensors supported by the server NN |
+| rows  | Int | Input rows supported by the server NN |
+| columns  | Int | Input columns supported by the server NN (without FFT) |
+| channels  | Int | Input channels supported by the server NN |
+| FFT | Boolean | Value to force the server to append the FFT for every inference request |
+
 ## Usage guide
-[TO DO]
+The following operations are supported by the backend:
+```sh
+# Get service status
+curl localhost:8082/api/status
+# Reply: {"code":"SUCCESS","message":"Server is online"}
+
+# Get service config
+curl localhost:8082/api/config
+# Reply: {"info":{"FFT":true,"channels":1,"columns":28,"movementsList":["FigureofEight","HighKneeJog","Jog","JumpingJacks","SpeedSkater","Static","Zigzag","Walk"],"rows":250,"sensorslist":["qRPV","qRTH","qRSK","qRFT","qLTH","qLSK","qLFT"]},"nueral-network":"N2-350-28-9-1"}
+
+# Request inference
+curl --location --request POST 'localhost:8082/api/inference' --form 'data_file=@"SOMEWHERE/S10-Zigzag-Orientationjoints-2-103.csv-0"'
+# Reply: {"code":"SUCCESS","message":"The performed movement is: Zigzag"}
+```
+
 ## Production deployment strategy
 [TO DO]
