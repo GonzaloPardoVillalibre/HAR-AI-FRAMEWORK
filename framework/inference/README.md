@@ -45,7 +45,7 @@ Each neural network must have at least:
 - Its model stored in a `JSON` format and named as follows `model.json`.
 - The weights values stored in another file named as follows `best_weights`.
 
-### config.json
+### Config.json
 Configuration JSON file.
 
 Some **neural network examples** can be found here:
