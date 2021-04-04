@@ -65,6 +65,8 @@ This configuration file is divided in blocks depending on the deployment environ
 | channels  | Int | Input channels supported by the server NN |
 | FFT | Boolean | Value to force the server to append the FFT for every inference request |
 
+You can find one example ![here](config.json)
+
 ## Usage guide
 The following operations are supported by the backend:
 ```sh
