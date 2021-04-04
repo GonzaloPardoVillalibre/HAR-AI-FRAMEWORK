@@ -3,7 +3,7 @@
 
 ## Pre-processing and training framework in tensorflow
 
-This project provides a framework based on docker and aims to expedite the ***human activity classification*** training process. Thus, two separate environments are provided:
+This project provides a framework based on docker and aims to expedite the ***human activity classification*** training process. Thus, three separate environments are provided:
 - Pre-processing environment.
 - Training environment.
 - Inference environment
