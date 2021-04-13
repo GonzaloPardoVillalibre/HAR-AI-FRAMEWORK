@@ -201,7 +201,7 @@ def create_confusion_matrix(prediction:list, file_path:str, movements:list):
                     test_labels.append(int(label))
         test_labels = np.array(test_labels)
         final_confusion_matrix = confusion_matrix(test_labels, predicted_labels)
-    os.remove(file_path+ '/test.csv')
+    # os.remove(file_path+ '/test.csv')
     columns = np.array(movements)
     # Build & save confusion matrix
     save_dataframe_as_heatMap(nparray=final_confusion_matrix, indexNames=columns \

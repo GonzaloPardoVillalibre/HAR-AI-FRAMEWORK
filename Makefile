@@ -8,7 +8,7 @@ Usage: make <command>
 Commands:
   help:                 Show this help information
   develenv-up:          Launch the development environment with a docker-compose of the service
-  preprocessing-sh:     Access to a shell of a launched preprocessing environment
+  preprocess-sh:        Access to a shell of a launched preprocessing environment
   train-sh:             Access to a shell of a launched training environment
   inference-sh:         Access to a shell of a launched inference environment
   develenv-down:        Stop the development environment
