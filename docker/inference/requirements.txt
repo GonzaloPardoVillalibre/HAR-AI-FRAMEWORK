@@ -1,0 +1,9 @@
+matplotlib
+sklearn
+seaborn
+pandas 
+flask 
+flask_restful
+PyJWT==1.7.1
+requests
+keras

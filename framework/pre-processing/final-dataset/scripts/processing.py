@@ -45,7 +45,7 @@ def build_output_directory():
     
 def move_files_to_folder(input:str, output:str, files:[]):
   for file in files:
-    shutil.move(input+file, output+file)
+    shutil.copy(input+file, output+file)
 
 def create_orientation_final_dataset():
   for movement in cfg["movements"]["list"]:

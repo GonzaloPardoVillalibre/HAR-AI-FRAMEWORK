@@ -148,7 +148,7 @@ Each configuration file no matter if it belongs to a K-fold directory or and ind
 | -------- |--------- | ----------- |
 | neural-network  | String | Selected neural network model from `framework/train/neuralNetworks` |
 | no-augmentation | Boolean | If TRUE no data augmentation will be used in train phase |
-| movements  | `Array<String>`| List of subjects to include in preprocess |
+| movements  | `Array<String>`| List of movements to include in preprocess |
 | train-subjects  | `Array<String>`| List of subjects to include in training set |
 | validation-subjects  | `Array<String>`| List of subjects to include in validation set |
 | test-subjects  | `Array<String>`| List of subjects to include in test set |

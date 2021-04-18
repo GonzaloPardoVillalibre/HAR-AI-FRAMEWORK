@@ -3,11 +3,14 @@
 
 ## Pre-processing and training framework in tensorflow
 
-This project provides a framework based on docker and aims to expedite the ***human activity classification*** training process. Thus, two separate environments are provided:
+This project provides a framework based on docker and aims to expedite the ***human activity classification*** training process. Thus, three separate environments are provided:
 - Pre-processing environment.
 - Training environment.
+- Inference environment
 
 While the ***training environment*** has a more general use, providing a generic tool to solve a vast amount of problems, the ***pre-processing environment*** has its focus on pre-processing human activity datasets (measured in a **quaternion** form) to solve the already mentioned ***"human activity classification problem"***.
+
+Meanwhile, the ***inference environment*** serves a development framework to deploy a flask rest API. This API loads the desired neural network model and is able to answer prediction requests. This API is also focused on the human activity classification problem, but can be easily tuned for a more generic purpose. To know more about flask you can visit the [official flask webpage](https://flask.palletsprojects.com/en/1.1.x/). 
 
 Pre-requirements:
  - Docker v17
@@ -26,7 +29,9 @@ For the reference there is a generic view of the architecture:
 
 ![Usage_schema](doc/images/docker-architecture.png)
 
-More important information can be found here: [data structure documentation](framework)
+As you'd have noticed, the ***inference environment*** has little to do with the previous architecture and can be treated as an individual component. Ideally, this component will be the only one deployed in a production environment.
+
+More information can be found here: [data structure documentation](framework)
 
 ## Pre-processing environmnent
 ```sh
@@ -42,6 +47,17 @@ make train-sh
 ```
 The guide for this environment can be found here: [train environment documentation](framework/train)
 
+## Inference environment
+```sh
+# Enter the pre-processing environment
+make inference-sh
+```
+Although, the most useful command in this environment may be:
+```sh
+# Display container logs
+docker logs -f framework_inferencer_1
+```
+The guide for this environment can be found here: [inference environment documentation](framework/inference)
 
 # What is this project all about?
 This project is the final assignment for Gonzalo Pardo Villalibre. The aim will be to detect which activity is a certain subject performing, minimizing the number of sensors needed. Therefore the student will take advantage of the use of NN (neural networks) from different types such as CNN (convolutional networks) or RNN (recurrent networks) such LSTM.

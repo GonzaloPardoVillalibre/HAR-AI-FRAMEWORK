@@ -1,0 +1,42 @@
+{
+   "LOCAL": {
+      "nueral-network": "N5-250-28-9-1",
+      "info" : {
+         "movementsList": [
+            "FigureofEight",
+            "HighKneeJog",
+            "Jog",
+            "JumpingJacks",
+            "SpeedSkater",
+            "Static",
+            "Zigzag",
+            "Walk"
+         ],
+         "sensorslist": ["qRPV", "qRTH", "qRSK", "qRFT", "qLTH", "qLSK", "qLFT"],
+         "rows": 250,
+         "columns": 28,
+         "channels": 1,
+         "FFT": true
+      }
+   },
+   "PRO": {
+      "nueral-network": "N2-PROD",
+      "info" : {
+         "movementsList": [
+            "FigureofEight",
+            "HighKneeJog",
+            "Jog",
+            "JumpingJacks",
+            "SpeedSkater",
+            "Static",
+            "Zigzag",
+            "Walk"
+         ],
+         "sensorslist": ["qRPV", "qRTH", "qRSK", "qRFT", "qLTH", "qLSK", "qLFT"],
+         "rows": 350,
+         "columns": 28,
+         "channels": 1,
+         "FFT": true
+      }
+   }
+}

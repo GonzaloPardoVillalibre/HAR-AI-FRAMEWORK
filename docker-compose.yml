@@ -1,5 +1,9 @@
 version: "3"
 services:
+
+  #######################################
+  # Processing environment
+  #######################################
   preprocesser:
     build:
       context: ./docker/pre-processing
@@ -9,6 +13,9 @@ services:
     working_dir: /TFG/framework/pre-processing
     command: tail -f /dev/null
 
+  #######################################
+  # Training environment
+  #######################################
   trainer:
     build:
       context: ./docker/train
@@ -17,6 +24,29 @@ services:
       - ./framework/final-dataset:/TFG/framework/final-dataset
     working_dir: /TFG/framework/train
     command: tail -f /dev/null
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - capabilities: [gpu]
+
+  #######################################
+  # Inference API
+  #######################################
+  inferencer:
+    build:
+      context: ./docker/inference
+    ports:
+      - "8082:8082"
+    volumes:
+      - ./framework/inference:/TFG/framework/inference
+    working_dir: /TFG/framework/inference
+    command: python3 inferenceServer.py
+    environment:
+        LOG_LEVEL: DEBUG
+        ENV: LOCAL
+        SERVER_PORT: 8082
+        DEFAULT_NN: N5-250-28-9-1
     deploy:
       resources:
         reservations:

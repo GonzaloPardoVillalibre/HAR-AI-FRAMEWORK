@@ -6,8 +6,8 @@ import pandas as pd
 import numpy as np
 import seaborn as sn
 from string import ascii_uppercase
-import dataGenerator as datagen
-import dataGenerator4D as datagen4D
+import utils.dataGenerator as datagen
+import utils.dataGenerator4D as datagen4D
 
 metrics_index = ['Sensitivity', 'Specificity', 'Precision', 'Negative predictive value', 'Fall out', 'False negative rate', 'False discovery rate', 'Accuracy', 'F1 Score']
 
@@ -201,7 +201,7 @@ def create_confusion_matrix(prediction:list, file_path:str, movements:list):
                     test_labels.append(int(label))
         test_labels = np.array(test_labels)
         final_confusion_matrix = confusion_matrix(test_labels, predicted_labels)
-    os.remove(file_path+ '/test.csv')
+    # os.remove(file_path+ '/test.csv')
     columns = np.array(movements)
     # Build & save confusion matrix
     save_dataframe_as_heatMap(nparray=final_confusion_matrix, indexNames=columns \
