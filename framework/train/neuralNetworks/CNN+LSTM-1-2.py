@@ -26,7 +26,7 @@ def load_model(input_rows:int, input_columns:int, channels:int, movements_number
         layers.LSTM(units=256, return_sequences=False),
         layers.Dropout(0.5),
         layers.Flatten(),
-        layers.Dense(516, activation = "sigmoid"),
+        layers.Dense(516, activation = "relu"),                       #This activation function is the change
         layers.Dense(movements_number, activation="softmax")
     ])
 
@@ -36,7 +36,4 @@ def load_model(input_rows:int, input_columns:int, channels:int, movements_number
 
     return model
 
-# The inputshape for the lstm should be:
-# - Samples  --> None
-# - Time     --> Rows after conv layers
-# - Features --> Columns after conv layers * neurons of inmediatly previous conv layer
+# Change of the activation function for the first dense layer. Plot twist "goes wrong".

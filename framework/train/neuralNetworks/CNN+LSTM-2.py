@@ -22,7 +22,7 @@ def load_model(input_rows:int, input_columns:int, channels:int, movements_number
         layers.Conv2D(128, activation='relu', kernel_size=4,padding='same',strides=1),
         layers.MaxPooling2D(pool_size=2, strides=2, padding='same'),
         layers.BatchNormalization(axis=1),
-        layers.Reshape((lstm_input_rows,lstm_input_columns*128)), #For each feauture(rows) squeeze all neurons
+        layers.Reshape((lstm_input_rows*lstm_input_columns,128)), #Squeeze all rows for each image (from each neuron) into a line
         layers.LSTM(units=256, return_sequences=False),
         layers.Dropout(0.5),
         layers.Flatten(),
@@ -36,7 +36,7 @@ def load_model(input_rows:int, input_columns:int, channels:int, movements_number
 
     return model
 
-# The inputshape for the lstm should be:
+# The inputshape for the lstm should be: (I believe this aproach is incorrect as the time correlation is eliminated)
 # - Samples  --> None
-# - Time     --> Rows after conv layers
-# - Features --> Columns after conv layers * neurons of inmediatly previous conv layer
+# - Time     --> Rows after conv layers * Columns after conv layers
+# - Features --> Neurons of inmediatly previous conv layer

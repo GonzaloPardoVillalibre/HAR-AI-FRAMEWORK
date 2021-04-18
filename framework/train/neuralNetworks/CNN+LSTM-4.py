@@ -9,22 +9,21 @@ def load_model(input_rows:int, input_columns:int, channels:int, movements_number
     nnUtils.restrict_to_physcial_gpu()
     nnUtils.set_memory_growth()
 
-    lstm_input_rows = math.ceil(input_rows/8)
-    lstm_input_columns = math.ceil(input_columns/8)
+    lstm_input_rows = math.ceil(input_rows/4)
+    lstm_input_columns = math.ceil(input_columns/4)
 
     model = tf.keras.Sequential([
-        layers.Conv2D(32, activation = "relu", input_shape = (input_rows,input_columns,channels), kernel_size=3,padding='same',strides=1),
-        layers.MaxPooling2D(pool_size=2, strides=2, padding='same'),
-        layers.BatchNormalization(axis=1),
         layers.Conv2D(64, activation='relu', kernel_size=4,padding='same',strides=1),
         layers.MaxPooling2D(pool_size=2, strides=2, padding='same'),
         layers.BatchNormalization(axis=1),
-        layers.Conv2D(128, activation='relu', kernel_size=4,padding='same',strides=1),
+        layers.Dropout(0.2),
+        layers.Conv2D(64, activation='relu', kernel_size=4,padding='same',strides=1),
         layers.MaxPooling2D(pool_size=2, strides=2, padding='same'),
         layers.BatchNormalization(axis=1),
-        layers.Reshape((lstm_input_rows,lstm_input_columns*128)), #For each feauture(rows) squeeze all neurons
+        layers.Dropout(0.2),
+        layers.Reshape((lstm_input_rows,lstm_input_columns*64)), #For each feauture(rows) squeeze all neurons
         layers.LSTM(units=256, return_sequences=False),
-        layers.Dropout(0.5),
+        layers.Dropout(0.2),
         layers.Flatten(),
         layers.Dense(516, activation = "sigmoid"),
         layers.Dense(movements_number, activation="softmax")
@@ -36,7 +35,4 @@ def load_model(input_rows:int, input_columns:int, channels:int, movements_number
 
     return model
 
-# The inputshape for the lstm should be:
-# - Samples  --> None
-# - Time     --> Rows after conv layers
-# - Features --> Columns after conv layers * neurons of inmediatly previous conv layer
+#Try to reduce overfitting from CNN+LSTM-3 by reducing the size for the last conv layer = simplify model. Looks like working well.
