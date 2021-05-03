@@ -1,5 +1,5 @@
 {
-    "neural-network": "N5",
+    "neural-network": "N6",
     "no-augmentation": true,
     "movements": [
         "FigureofEight",
@@ -11,19 +11,19 @@
         "Walk"
     ],
     "train-subjects": [
-        "S01",
-        "S02",
         "S04",
         "S05",
         "S06",
         "S07",
+        "S08",
+        "S09",
         "S10"
     ],
     "validation-subjects": [
-        "S08"
+        "S01"
     ],
     "test-subjects": [
-        "S09"
+        "S02"
     ],
     "callbacks": {
         "enabled": true,
@@ -44,6 +44,6 @@
     "train-steps": 81,
     "validation-steps": 81,
     "test-steps": 81,
-    "epochs": 55,
-    "comments": "K-Fold for neural network model 5. Try with a deeper network as I assume no much noise in measures."  
+    "epochs": 60,
+    "comments": "K-Fold for neural network model 6. Replace first dense by average pooling"  
 }

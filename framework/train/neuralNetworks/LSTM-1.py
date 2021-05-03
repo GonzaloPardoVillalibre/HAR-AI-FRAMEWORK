@@ -10,11 +10,10 @@ def load_model(input_rows:int, input_columns:int, channels:int, movements_number
     model = tf.keras.Sequential([
         # layers.Lambda(lambda x: x[:,:,:,0], input_shape=(*(input_rows,input_columns), 1)), #squeeze channel dimension option 2
         layers.Reshape((input_rows, input_columns)), #squeeze channel dimension
-        layers.LSTM(units=256, return_sequences=True, input_shape=(1, input_rows, input)),
+        layers.LSTM(units=256, return_sequences=True),
         layers.Dropout(0.5),
-        layers.LSTM(units=128, return_sequences=True),
-        layers.LSTM(units=64),
-        layers.Dense(128),
+        layers.LSTM(units=128),
+        # layers.Dense(256),
         layers.Dense(movements_number, activation = "softmax")
     ])
 
@@ -24,3 +23,7 @@ def load_model(input_rows:int, input_columns:int, channels:int, movements_number
 
     return model
 
+# The inputshape for the lstm should be:
+# - Samples  --> None
+# - Time     --> Rows
+# - Features --> Columns

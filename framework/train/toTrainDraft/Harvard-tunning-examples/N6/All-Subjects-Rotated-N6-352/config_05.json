@@ -1,5 +1,5 @@
 {
-    "neural-network": "N5",
+    "neural-network": "N6",
     "no-augmentation": true,
     "movements": [
         "FigureofEight",
@@ -44,6 +44,6 @@
     "train-steps": 81,
     "validation-steps": 81,
     "test-steps": 81,
-    "epochs": 55,
-    "comments": "K-Fold for neural network model 5. Try with a deeper network as I assume no much noise in measures."  
+    "epochs": 60,
+    "comments": "K-Fold for neural network model 6. Replace first dense by average pooling"  
 }
