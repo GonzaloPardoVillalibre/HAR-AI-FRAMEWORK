@@ -19,7 +19,6 @@ def load_model(input_rows:int, input_columns:int, channels:int, movements_number
         layers.BatchNormalization(axis=1),
         layers.Conv2D(256, activation='relu', kernel_size=4,padding='same',strides=1),
         layers.BatchNormalization(axis=1),
-        # layers.Activation(activation='relu'),
         layers.AveragePooling2D(pool_size=(44, 11), padding='same'),
         layers.Flatten(),
         layers.Dense(movements_number, activation = "softmax")

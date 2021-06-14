@@ -32,3 +32,7 @@ framework/pre-processing/tunning-examples/Harvard-tunning-example/original-datas
 !framework/pre-processing/tunning-examples/Harvard-tunning-example/original-dataset/.gitkeep
 
 framework/train/ensemble/models
+framework/train/toTrain
+framework/train/toTrainDraft/Archive-ics-tunning-examples/*
+framework/train/toTrainDraft/Harvard-tunning-examples/*
+framework/pre-processing/tunning-examples/Archive-ics-tunning-example/calibration
