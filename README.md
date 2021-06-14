@@ -18,7 +18,7 @@ Pre-requirements:
 
 The following instruction launches both environments:
 ```sh
-# Launch the development environment
+# Launch the development environment.
 make develenv-up
 ```
 
