@@ -1,0 +1,49 @@
+{
+    "neural-network": "N6",
+    "no-augmentation": true,
+    "movements": [
+        "FigureofEight",
+        "HighKneeJog",
+        "JumpingJacks",
+        "SpeedSkater",
+        "Static",
+        "Zigzag",
+        "Walk"
+    ],
+    "train-subjects": [
+        "S02",
+        "S04",
+        "S05",
+        "S06",
+        "S07",
+        "S08",
+        "S09"
+    ],
+    "validation-subjects": [
+        "S10"
+    ],
+    "test-subjects": [
+        "S01"
+    ],
+    "callbacks": {
+        "enabled": true,
+        "list": [
+            {
+                "type": "modelCheckPoint",
+                "save_weights_only":true,
+                "monitor": "loss",
+                "mode":"min",
+                "save_best_only":true
+            }
+        ]
+    },
+    "input-rows": 352,
+    "input-columns": 84,
+    "channels": 1,
+    "batch-size": 70,
+    "train-steps": 81,
+    "validation-steps": 81,
+    "test-steps": 81,
+    "epochs": 60,
+    "comments": "K-Fold for neural network model 6. Replace first dense by average pooling"  
+}

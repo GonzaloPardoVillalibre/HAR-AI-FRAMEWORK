@@ -9,7 +9,7 @@ from scipy.spatial.transform import Rotation as R
 
 main_path = os.getcwd()
 
-file_path = main_path + '/framework/pre-processing/interleaved-dataframe/_output/S01-FigureofEight-Orientationjoints-1.csv'
+file_path = main_path + '/framework/pre-processing/interleaved-dataframe/_output/S08-A09-Orientationjoints-1.csv'
 out_path = main_path + '/framework/pre-processing/interleaved-dataframe/test/turn_subject_output.csv'
 
 def unitary_rotation_quaternion(x:float, y:float, z:float, a:float):
@@ -49,11 +49,11 @@ def create_rotated_images(grades, original_df):
 #################
 df = pd.read_csv(file_path, header=None)
 df = df.iloc[1:]
-df_first = df.iloc[:,1]
+df_first = df.iloc[:,0].astype(np.float32)
 df_first = df_first.reset_index(drop=True)
-df = df.drop(df.columns[[0, 1]], axis=1)
+df = df.drop(df.columns[[0]], axis=1)
 df = df.astype(np.float32)
 rotated_df = create_rotated_images(180, df)
-final_df = pd.DataFrame(rotated_df.reshape(45290,4), columns=["w","x","y","z"])
+final_df = pd.DataFrame(rotated_df.reshape(15192,4), columns=["w","x","y","z"])
 final_df = pd.concat([df_first, final_df], ignore_index=True, axis=1)
 final_df.to_csv(out_path)

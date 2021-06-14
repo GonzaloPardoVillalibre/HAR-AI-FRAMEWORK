@@ -3,15 +3,66 @@ import os
 import pandas as pd
 import json
 import shutil 
-
+import re
+from pyquaternion import Quaternion
+import numpy as np
+from scipy.spatial.transform import Rotation as R
 # Porject main directory path
 main_path = os.getcwd()
 # main_path = '/TFG'
 
 input_folder = main_path +  '/framework/pre-processing/tunning-examples/Archive-ics-tunning-example/original-dataset'
 _, _, files = next(os.walk(input_folder))
-output_file = main_path +  '/framework/pre-processing/tunning-examples/Archive-ics-tunning-example/framework-input-dataset/'
+output_folder = main_path +  '/framework/pre-processing/tunning-examples/Archive-ics-tunning-example/framework-input-dataset'
+calibration_folder = main_path +  '/framework/pre-processing/tunning-examples/Archive-ics-tunning-example/calibration'
+_, _, calib_files = next(os.walk(calibration_folder))
 files.remove('.gitkeep')
+
+imuBack = Quaternion([ 0.6845527, 0.05967249, 0.7225831, -0.0755007])
+# imuBack =Quaternion([0.05967249,  0.72258314, -0.0755007,   0.68455274])
+# inst_BACK = Quaternion([ -0.3, -0.7, -0.4, 0.5])
+# imuBack =Quaternion([0.68, 0.05, 0.72, -0.07])
+# imuBack_inverse = imuBack.inverse
+# result1 = inst_BACK * imuBack_inverse
+
+# inst_BACK =  R.from_quat([ -0.3, -0.7, -0.4, 0.5])
+# imuBack = R.from_quat([0.68, 0.05, 0.72, -0.07])
+# imuBack_inverse = imuBack.inv()
+# result2= inst_BACK * imuBack_inverse
+
+
+###################
+# Add calibration #
+###################
+def calibrate_activities(i_df, subject):
+    user_regex_string ="^"+subject+"-"
+    calib_file = [val for val in calib_files if re.search(user_regex_string, val)][0]
+
+    if not calib_file:
+        return
+
+    calib_df = pd.read_csv(calibration_folder + '/' + calib_file, header=None)
+    sensors= calib_df[0].to_list()
+    calib_df = calib_df.drop(calib_df.columns[[0]], axis=1)
+    calib_values = calib_df.values
+
+    for i in range(len(calib_values)):
+        sensor_name = sensors[i]
+        calib_vector = calib_values[i]
+        qv = Quaternion(calib_vector)
+        qv_inverted = qv.inverse
+        for index, row in i_df.iterrows():
+            if sensor_name + "_1" in row:
+                vector = Quaternion([row[sensor_name + "_1"], row[sensor_name + "_2"],row[sensor_name + "_3"],row[sensor_name + "_4"]])
+                final_vector = vector * qv_inverted 
+                row[sensor_name + "_1"] = final_vector.w
+                row[sensor_name + "_2"] = final_vector.x
+                row[sensor_name + "_3"] = final_vector.y
+                row[sensor_name + "_4"] = final_vector.z
+
+###################
+# Extract sensors #
+###################
 
 column_names = ['RLA_1', 'RLA_2', 'RLA_3', 'RLA_4', 
          'RUA_1', 'RUA_2', 'RUA_3', 'RUA_4', 
@@ -29,23 +80,25 @@ activities ={ 1:'A01', 2:'A02', 3:'A03', 4:'A04', 5:'A05', 6:'A06', 7:'A07', 8:'
     }
 
 for file in files:
-    df = pd.read_csv(input_folder+ '/' + file, header=None, sep="\t")
-    subject = file.split("_")[0].replace("subject", "")
-    if int(subject)<10:
-        subject = 'S0' + subject
-    else:
-        subject = 'S' + subject
-    
-    for i in range(1,34):
-        i_df = df.loc[ ( df.iloc[:,-1] == i)]
-        i_df = i_df.iloc[:, [11,12,13,14,24,25,26,27,37,38,39,40,50,51,52,53,63,64,65,66,76,77,78,79,89,90,91,92,102,103,104,105,115,116,117,118]]
-        i_df = i_df.astype('float32')
-        i_df.columns = column_names
-        final_df_values = i_df.values
-        if 'ideal' in file:
-            i_df.to_csv(output_file + subject + '-' + activities[i] + '-1.csv', index=False)
-        elif 'mutual' in file:
-            i_df.to_csv(output_file + subject + '-' + activities[i] + '-2.csv', index=False)
+    if 'ideal' in file:
+        df = pd.read_csv(input_folder+ '/' + file, header=None, sep="\t")
+        subject = file.split("_")[0].replace("subject", "")
+        if int(subject)<10:
+            subject = 'S0' + subject
         else:
-            i_df.to_csv(output_file + subject + '-' + activities[i] + '-3.csv', index=False)
-    print(file)
+            subject = 'S' + subject
+        
+        for i in range(9,34):
+            i_df = df.loc[ ( df.iloc[:,-1] == i)]
+            i_df = i_df.iloc[:, [11,12,13,14,24,25,26,27,37,38,39,40,50,51,52,53,63,64,65,66,76,77,78,79,89,90,91,92,102,103,104,105,115,116,117,118]]
+            i_df = i_df.astype('float32')
+            i_df.columns = column_names
+            calibrate_activities(i_df, subject)
+            final_df_values = i_df.values
+            if 'ideal' in file:
+                i_df.to_csv(output_folder + '/' + subject + '-' + activities[i] + '-1.csv', index=False)
+            elif 'mutual' in file:
+                i_df.to_csv(output_folder + '/' + subject + '-' + activities[i] + '-2.csv', index=False)
+            else:
+                i_df.to_csv(output_folder + '/' + subject + '-' + activities[i] + '-3.csv', index=False)
+        print(file)
