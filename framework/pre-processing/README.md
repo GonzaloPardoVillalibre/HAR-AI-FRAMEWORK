@@ -203,5 +203,5 @@ Fields inside `final-dataset` block in `config.json`
 | Field | Type | Description |
 | -------- |--------- | ----------- |
 | movements.list | `Array<String>` |  List of activities to include in preprocess. |
-| FFT-input | `Array<Int>` | In case **FFT.combined** and **FFT-saveWithOutFFT** are both enabled this will select which image-enricher output propagate to the shared folder.|
+| FFT-input | boolean | In case **FFT.combined** and **FFT-saveWithOutFFT** are both enabled this will select which image-enricher output propagate to the shared folder.|
 
