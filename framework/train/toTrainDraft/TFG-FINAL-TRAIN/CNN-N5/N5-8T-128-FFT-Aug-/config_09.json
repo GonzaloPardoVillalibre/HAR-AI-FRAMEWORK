@@ -1,0 +1,56 @@
+{
+    "neural-network": "N5",
+    "no-augmentation": false,
+    "movements": [
+        "FigureofEight",
+        "HighKneeJog",
+        "JumpingJacks",
+        "SpeedSkater",
+        "Static",
+        "Zigzag",
+        "Walk"
+    ],
+    "train-subjects": [
+        "S01",
+        "S02",
+        "S04",
+        "S05",
+        "S06",
+        "S07",
+        "S08",
+        "S10"
+    ],
+    "validation-subjects": [
+        "S09"
+    ],
+    "test-subjects": [
+        "S09"
+    ],
+    "callbacks": {
+        "enabled": true,
+        "list": [
+            {
+                "type": "modelCheckPoint",
+                "save_weights_only":true,
+                "monitor": "accuracy",
+                "mode":"max",
+                "save_best_only":true
+            },
+            {
+                "type": "earlyStop",
+                "monitor": "val_loss",
+                "mode":"min",
+                "patience":7
+            }
+        ]
+    },
+    "input-rows": 128,
+    "input-columns": 84,
+    "channels": 1,
+    "batch-size":  128,
+    "train-steps": 128,
+    "validation-steps": 128,
+    "test-steps": 128,
+    "epochs": 80,
+    "comments": "K-Fold for neural network model 5. With augmentation included. 8 subjects for train. 128 time-steps and FFT"  
+}

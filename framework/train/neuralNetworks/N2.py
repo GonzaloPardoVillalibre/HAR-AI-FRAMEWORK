@@ -28,7 +28,7 @@ def load_model(input_rows:int, input_columns:int, channels:int, movements_number
 
     # model.summary()
 
-    model.compile(loss = "sparse_categorical_crossentropy", optimizer = Adam(lr= 9e-4) , metrics = ["accuracy"])
+    model.compile(loss = "sparse_categorical_crossentropy", optimizer = "adam" , metrics = ["accuracy"])
 
     return model
 

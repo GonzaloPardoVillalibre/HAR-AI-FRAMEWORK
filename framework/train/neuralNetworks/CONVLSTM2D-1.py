@@ -7,10 +7,10 @@ def load_model(input_rows:int, input_columns:int, channels:int, movements_number
     nnUtils.restrict_to_physcial_gpu()
     nnUtils.set_memory_growth()
 
-    input_shape = (1, input_columns, channels)
+    input_shape = (input_rows, input_columns, channels)
 
     model = tf.keras.Sequential([
-        layers.Reshape((input_rows,) + input_shape, input_shape=input_shape),
+        layers.Reshape((1,) + input_shape, input_shape=input_shape),
         layers.ConvLSTM2D(filters=8, kernel_size=(3, 3),
                      data_format= 'channels_last',
                      activation='relu',
