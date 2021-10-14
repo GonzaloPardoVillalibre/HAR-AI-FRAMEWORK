@@ -1,6 +1,7 @@
 import tensorflow as tf
 import utils.utils as nnUtils
 from tensorflow.keras import layers
+from keras.optimizers import Adam
 
 def load_model(input_rows:int, input_columns:int, channels:int, movements_number:int):
 

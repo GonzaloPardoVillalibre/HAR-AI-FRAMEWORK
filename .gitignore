@@ -9,15 +9,18 @@
 
 # ouput
 framework/pre-processing/interleaved-dataframe/_output/*
+!framework/pre-processing/interleaved-dataframe/_output/.gitkeep
 framework/pre-processing/image-enricher/_output/*
 framework/pre-processing/image-enricher/_output-FFT/*
 !framework/pre-processing/image-enricher/_output/.gitkeep
+!framework/pre-processing/image-enricher/_output-FFT/.gitkeep
 framework/pre-processing/image-builder/_output/*
 !framework/pre-processing/image-builder/_output/.gitkeep
 !framework/pre-processing/interleaved-dataframe/_output/.gitkeep
 framework/pre-processing/final-dataset/orientation/*
 framework/pre-processing/final-dataset/position/*
 framework/final-dataset/*
+!framework/final-dataset/.gitkeep
 framework/pre-processing/final-dataset/validation-set/*
 framework/train/trainOutcomes/*
 framework/pre-processing/tunning-examples/Archive-ics-tunning-example/framework-input-dataset/*
@@ -35,4 +38,3 @@ framework/train/ensemble/models
 framework/train/toTrain
 framework/train/toTrainDraft/Archive-ics-tunning-examples/*
 framework/train/toTrainDraft/Harvard-tunning-examples/*
-framework/pre-processing/tunning-examples/Archive-ics-tunning-example/calibration

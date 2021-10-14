@@ -2,24 +2,27 @@
     "in-dt":{
         "enabled": true,
         "subjects":{
-            "list": [] 
- 
+            "list": [ "S01", "S02", "S04", "S05", "S06", "S07", "S08", "S09", "S10"] 
         },
         "movements":{
-            "list": [],
-            "samples": []
+            "list":  [
+                "HighKneeJog",
+                "JumpingJacks",
+                "SpeedSkater"
+                ],
+            "samples": ["1", "2"]
         },
         "orientationSensors":{
             "enabled": true,
-            "list":  []
+            "list":  ["qRPV", "qRTH", "qRSK", "qRFT", "qLTH", "qLSK", "qLFT"]
         },
         "positionSensors":{
             "enabled": false,
-            "list": []
+            "list": ["LTOE", "PELV", "RFEP", "LFEP", "RFEO", "LFEO", "RTIO", "LTIO"]
         }
         },
     "image-builder":{
-        "enabled": true, 
+        "enabled": true,
         "orientationSensors":{
             "enabled": true
         },
@@ -27,8 +30,8 @@
             "enabled": false
         },
         "images":{
-            "window-size": 5,
-            "overlap": 2 
+            "window-size": 352,
+            "overlap": 264
         },
         "deletePrevious": true
     }, 
@@ -40,18 +43,22 @@
             "enabled": false
         },
         "dataAugmentationRotation":{
-            "gradeList":[]
+            "gradeList":[0, 180]
         },
         "FFT":{
             "enabled": true,
             "combined": true,
             "saveWithoutFFT": false
         },
-        "deletePrevious": false
+        "deletePrevious": true
     },
     "final-dataset":{
         "movements":{
-            "list": []
+            "list":  [
+                "HighKneeJog",
+                "JumpingJacks",
+                "SpeedSkater"
+            ]
         },
         "FFT-input": true
     }

@@ -87,7 +87,7 @@ def fold_orientation_image(input_file: str, output_file: str, image_size, sensor
       if cfg["FFT"]["enabled"]:
         build_and_save_image_with_FFT(final_df, fft_output_file[:-4] + '-' + str(rotation_grades) + '.csv', cfg)
       if cfg["FFT"]["saveWithoutFFT"]:
-        final_df.to_csv(output_file + '-' + str(rotation_grades), index=False,float_format='%.7f')
+        final_df.to_csv(output_file[:-4] + '-' + str(rotation_grades) + '.csv', index=False,float_format='%.7f')
 
 def table_orientation_image(input_file: str, output_file: str, image_size, sensors_number, column_names: list, fft_output_file: str, cfg:dict):
     df = pd.read_csv(input_file, header=None)
