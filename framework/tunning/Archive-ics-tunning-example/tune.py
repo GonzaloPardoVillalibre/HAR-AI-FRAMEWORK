@@ -7,14 +7,14 @@ import re
 from pyquaternion import Quaternion
 import numpy as np
 from scipy.spatial.transform import Rotation as R
-# Porject main directory path
-main_path = os.getcwd()
-# main_path = '/TFG'
 
-input_folder = main_path +  '/framework/pre-processing/tunning-examples/Archive-ics-tunning-example/original-dataset'
+# Current directory
+current_path = os.path.dirname(os.path.abspath(__file__))
+
+input_folder = current_path +  '/original-dataset'
 _, _, files = next(os.walk(input_folder))
-output_folder = main_path +  '/framework/pre-processing/tunning-examples/Archive-ics-tunning-example/framework-input-dataset'
-calibration_folder = main_path +  '/framework/pre-processing/tunning-examples/Archive-ics-tunning-example/calibration'
+output_file = current_path +  '/../../pre-processing/dataset/'
+calibration_folder = current_path +  '/calibration'
 _, _, calib_files = next(os.walk(calibration_folder))
 files.remove('.gitkeep')
 

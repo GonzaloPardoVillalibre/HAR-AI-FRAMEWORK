@@ -4,13 +4,12 @@ import pandas as pd
 import json
 import shutil 
 
-# Porject main directory path
-main_path = os.getcwd()
-# main_path = '/TFG'
+# Current directory
+current_path = os.path.dirname(os.path.abspath(__file__))
 
-input_folder = main_path +  '/framework/pre-processing/tunning-examples/Harvard-tunning-example/original-dataset'
+input_folder = current_path+  '/original-dataset'
 _, _, files = next(os.walk(input_folder))
-output_file = main_path +  '/framework/pre-processing/tunning-examples/Harvard-tunning-example/framework-input-dataset/'
+output_file = current_path +  '/../../pre-processing/dataset/'
 
 files.remove('.gitkeep')
 

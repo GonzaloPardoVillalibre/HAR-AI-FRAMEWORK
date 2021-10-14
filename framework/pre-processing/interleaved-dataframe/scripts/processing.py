@@ -7,6 +7,7 @@ import shutil
 # Porject main directory path
 # main_path = os.getcwd()
 main_path = '/TFG'
+current_path = os.path.dirname(os.path.abspath(__file__))
 
 # Loads configuration file
 cfg_filename = main_path + '/framework/pre-processing/config.json'
