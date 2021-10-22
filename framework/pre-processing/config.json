@@ -1,10 +1,9 @@
 {   
-    "in-dt":{
-        "enabled": true,
+    "unity-dt":{
         "subjects":{
             "list": [ "S01", "S02", "S04", "S05", "S06", "S07", "S08", "S09", "S10"] 
         },
-        "movements":{
+        "activities":{
             "list":  [
                 "HighKneeJog",
                 "JumpingJacks",
@@ -12,54 +11,53 @@
                 ],
             "samples": ["1", "2"]
         },
-        "orientationSensors":{
+        "4D-Sensors":{
             "enabled": true,
             "list":  ["qRPV", "qRTH", "qRSK", "qRFT", "qLTH", "qLSK", "qLFT"]
         },
-        "positionSensors":{
+        "3D-Sensors":{
             "enabled": false,
             "list": ["LTOE", "PELV", "RFEP", "LFEP", "RFEO", "LFEO", "RTIO", "LTIO"]
         }
-        },
-    "image-builder":{
-        "enabled": true,
-        "orientationSensors":{
-            "enabled": true
-        },
-        "positionSensors":{
-            "enabled": false
-        },
-        "images":{
-            "window-size": 352,
-            "overlap": 264
-        },
-        "deletePrevious": true
-    }, 
-    "image-enricher":{
-        "deepen-images":{
-            "enabled": true
-        },
-        "table-images":{
-            "enabled": false
-        },
-        "dataAugmentationRotation":{
-            "gradeList":[0, 180]
-        },
-        "FFT":{
-            "enabled": true,
-            "combined": true,
-            "saveWithoutFFT": false
-        },
-        "deletePrevious": true
     },
-    "final-dataset":{
-        "movements":{
-            "list":  [
-                "HighKneeJog",
-                "JumpingJacks",
-                "SpeedSkater"
-            ]
+    "pipeline":{
+        "data-filtering":{
+            "subjects": [],
+            "activities": [],
+            "columns": []
         },
-        "FFT-input": true
+        "segmentation":{
+            "images":{
+                "window-size": 352,
+                "overlap": 264
+            }
+        },
+        "image-enricher":{
+            "deepen-images":{
+                "enabled": true
+            },
+            "table-images":{
+                "enabled": false
+            },
+            "dataAugmentationRotation":{
+                "gradeList":[0, 180]
+            },
+            "FFT":{
+                "enabled": true,
+                "combined": true,
+                "saveWithoutFFT": false
+            },
+            "deletePrevious": true
+        },
+        "final-dataset":{
+            "movements":{
+                "list":  [
+                    "HighKneeJog",
+                    "JumpingJacks",
+                    "SpeedSkater"
+                ]
+            },
+            "FFT-input": true
+        }
     }
 }
