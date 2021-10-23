@@ -4,11 +4,7 @@
             "list": [ "S01", "S02", "S04", "S05", "S06", "S07", "S08", "S09", "S10"] 
         },
         "activities":{
-            "list":  [
-                "HighKneeJog",
-                "JumpingJacks",
-                "SpeedSkater"
-                ],
+            "list":  ["FigureofEight", "HighKneeJog", "Jog", "JumpingJacks", "SpeedSkater", "Static", "Zigzag", "TUG", "Walk"],
             "samples": ["1", "2"]
         },
         "4D-Sensors":{
@@ -22,8 +18,9 @@
     },
     "pipeline":{
         "data-filtering":{
-            "subjects": [],
-            "activities": [],
+            "subjects": ["S01", "S02", "S04", "S05", "S06", "S07", "S08", "S09", "S10"],
+            "activities": ["FigureofEight", "HighKneeJog", "Jog", "JumpingJacks", "SpeedSkater", "Static", "Zigzag", "TUG", "Walk"],
+            "trial": ["-1", "-2"],
             "columns": []
         },
         "segmentation":{

@@ -14,7 +14,7 @@ zippedoutput_path = interleaved_df_path + '/_output-zipped/'
 
 # Load file utils file
 sys.path.append(current_path + '/../../utils')
-import filesUtils
+import fileUtils
 
 # Loads configuration file
 with open(cfg_filename) as f:
@@ -92,7 +92,7 @@ def  create_dt_by_movement(subject: str):
 #########################
 # Main                  #
 #########################
-filesUtils.build_output_directory(output_path)
+fileUtils.build_output_directory(output_path)
 for subject in cfg["subjects"]["list"]:
   create_dt_by_movement(subject)
 print("\nINTERLEAVED DATAFRAMES BUILDING FINISHED")

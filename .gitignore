@@ -8,17 +8,8 @@
 .vscode
 
 # ouput
-framework/pre-processing/interleaved-dataframe/_output/*
-!framework/pre-processing/interleaved-dataframe/_output/.gitkeep
-framework/pre-processing/image-enricher/_output/*
-framework/pre-processing/image-enricher/_output-FFT/*
-!framework/pre-processing/image-enricher/_output/.gitkeep
-!framework/pre-processing/image-enricher/_output-FFT/.gitkeep
-framework/pre-processing/image-builder/_output/*
-!framework/pre-processing/image-builder/_output/.gitkeep
-!framework/pre-processing/interleaved-dataframe/_output/.gitkeep
-framework/pre-processing/final-dataset/orientation/*
-framework/pre-processing/final-dataset/position/*
+framework/pre-processing/unity/_output/*
+framework/pre-processing/pipeline/data-filtering/_output
 framework/final-dataset/*
 !framework/final-dataset/.gitkeep
 framework/pre-processing/final-dataset/validation-set/*
