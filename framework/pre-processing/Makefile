@@ -6,17 +6,14 @@ Usage: make <command>
 
 Commands:
   help:                                  Show this help information
-  build-interleaved-dataframes           Excute interleaved dataframe script.
-  build-images                           Excute image builder script.
-  enrich-images                          Excute image enricher script.
-  build-final-dataset                    Excute final dataset script.
-  build-all:                             Execute all preprocessing steps by order.
+  build-interleaved-dataframes           Build interleaved dataframes for Unity representation
+  filter-data                            Execute data-filtering script
+  segment                                Execute segmentation script
+  run-pipeline                           Execute pre-processing pipeline 
 
 Usual order:
-  1. build-interleaved-dataframes
-  2. build-images
-  3. enrich-images
-  4. build-final-dataset
+  1. filter-data
+  2. segment
 
 endef
 export help
@@ -25,15 +22,12 @@ help:
 	@echo "$$help"
 
 build-interleaved-dataframes:
-	python3 ./interleaved-dataframe/scripts/processing.py
+	python3 -B ./unity/interleaved-dataframe/main.py
 
-build-images:
-	python3 ./image-builder/scripts/processing.py
+filter-data:
+	python3 -B ./pipeline/data-filtering/dataFiltering.py
 
-enrich-images:
-	python3 ./image-enricher/scripts/processing.py
+segment:
+	python3 -B ./pipeline/segmentation/segmentation.py
 
-build-final-dataset:
-	python3 ./final-dataset/scripts/processing.py
-
-build-all: build-interleaved-dataframes build-images enrich-images build-final-dataset
+run-pipeline: filter-data segment

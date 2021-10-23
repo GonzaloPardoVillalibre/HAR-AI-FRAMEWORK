@@ -24,10 +24,8 @@
             "columns": []
         },
         "segmentation":{
-            "images":{
-                "window-size": 352,
-                "overlap": 264
-            }
+            "window-size": 352,
+            "overlap": 264
         },
         "image-enricher":{
             "deepen-images":{
