@@ -21,38 +21,30 @@
             "subjects": ["S01", "S02", "S04", "S05", "S06", "S07", "S08", "S09", "S10"],
             "activities": ["FigureofEight", "HighKneeJog", "Jog", "JumpingJacks", "SpeedSkater", "Static", "Zigzag", "TUG", "Walk"],
             "trial": ["-1", "-2"],
-            "columns": [ "qRPV_1","qRPV_2","qRPV_3","qRPV_4","qRTH_1","qRTH_2","qRTH_3","qRTH_4","qLTH_1","qLTH_2","qLTH_3","qLTH_4","qRSK_1","qRSK_2","qRSK_3","qRSK_4","qLSK_1","qLSK_2","qLSK_3","qLSK_4","qRFT_1","qRFT_2","qRFT_3","qRFT_4","qLFT_1","qLFT_2","qLFT_3","qLFT_4"]
+            "columns": ["qRPV_1","qRPV_2","qRPV_3","qRPV_4","qRTH_1","qRTH_2","qRTH_3","qRTH_4","qLTH_1","qLTH_2","qLTH_3","qLTH_4","qRSK_1","qRSK_2","qRSK_3","qRSK_4","qLSK_1","qLSK_2","qLSK_3","qLSK_4","qRFT_1","qRFT_2","qRFT_3","qRFT_4","qLFT_1","qLFT_2","qLFT_3","qLFT_4"]
+        },
+        "data-augmentation":{
+            "angles": [],
+            "4D-Sensors": ["qRPV", "qRTH", "qRSK", "qRFT", "qLTH", "qLSK", "qLFT"],
+            "3D-Sensors": []
+        },
+        "pre-features-extraction":{
+            "FFT":{
+                "enabled": true,
+                "combined": true,
+                "saveWithoutFFT": false
+            }
         },
         "segmentation":{
             "window-size": 352,
             "overlap": 264
         },
-        "image-enricher":{
-            "deepen-images":{
-                "enabled": true
-            },
-            "table-images":{
-                "enabled": false
-            },
-            "dataAugmentationRotation":{
-                "gradeList":[0, 180]
-            },
+        "post-features-extraction":{
             "FFT":{
                 "enabled": true,
                 "combined": true,
                 "saveWithoutFFT": false
-            },
-            "deletePrevious": true
-        },
-        "final-dataset":{
-            "movements":{
-                "list":  [
-                    "HighKneeJog",
-                    "JumpingJacks",
-                    "SpeedSkater"
-                ]
-            },
-            "FFT-input": true
+            }
         }
     }
 }
