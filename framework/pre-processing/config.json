@@ -17,6 +17,7 @@
         }
     },
     "pipeline":{
+        "detele-previous-output-directory" : true,
         "data-filtering":{
             "subjects": ["S01", "S02", "S04", "S05", "S06", "S07", "S08", "S09", "S10"],
             "activities": ["FigureofEight", "HighKneeJog", "Jog", "JumpingJacks", "SpeedSkater", "Static", "Zigzag", "TUG", "Walk"],
@@ -29,11 +30,6 @@
             "3D-Sensors": []
         },
         "pre-features-extraction":{
-            "FFT":{
-                "enabled": true,
-                "combined": true,
-                "saveWithoutFFT": false
-            }
         },
         "segmentation":{
             "window-size": 352,
@@ -41,9 +37,7 @@
         },
         "post-features-extraction":{
             "FFT":{
-                "enabled": true,
-                "combined": true,
-                "saveWithoutFFT": false
+                "combined": true
             }
         }
     }

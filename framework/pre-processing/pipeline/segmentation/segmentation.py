@@ -11,7 +11,7 @@ cfg_filename = current_path + '/../../config.json'
 output_path = current_path + '/_output/'
 
 # Path to input
-input_path = current_path + '/../data-augmentation/_output/'
+input_path = current_path + '/../features-extraction/pre-segmentation_output/'
 
 # Load file utils file
 sys.path.append(current_path + '/../../utils')
