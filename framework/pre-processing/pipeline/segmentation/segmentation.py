@@ -14,7 +14,7 @@ cfg_filename = segmentation + '/../../config.json'
 output_path = segmentation + '/_output/'
 
 # Path to input
-input_path = segmentation + '/../data-filtering/_output/'
+input_path = segmentation + '/../data-augmentation/_output/'
 
 
 # Load file utils file
