@@ -38,3 +38,6 @@ for idx, file in enumerate(files):
   segmentationUtils.segmentate(file, input_path, output_path, cfg["window-size"], cfg["overlap"])
 
 print("\nSegmentation completed.\n")
+
+if full_config["pipeline"]["detele-previous-output-directory"]:
+  fileUtils.removeInputDirectory(input_path)

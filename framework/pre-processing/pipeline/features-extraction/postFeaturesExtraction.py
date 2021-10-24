@@ -48,3 +48,6 @@ else:
       shutil.copy(input_path + file, output_path + file)
 
 print("\nPost-segmentation features extraction completed.\n")
+
+if full_config["pipeline"]["detele-previous-output-directory"]:
+  fileUtils.removeInputDirectory(input_path)

@@ -35,3 +35,6 @@ def initialize_progress_bar(size:int):
   pbar = progressbar.ProgressBar(maxval=size)
   pbar.start()
   return pbar
+
+def removeInputDirectory(input_path):
+  shutil.rmtree(input_path) 

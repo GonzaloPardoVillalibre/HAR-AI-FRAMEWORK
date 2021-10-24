@@ -47,3 +47,6 @@ else:
       shutil.copy(input_path + file, output_path + str(file[:-4]) +'-0°.csv')
 
 print("\nData augmentation completed.\n")
+
+if full_config["pipeline"]["detele-previous-output-directory"]:
+  fileUtils.removeInputDirectory(input_path)
