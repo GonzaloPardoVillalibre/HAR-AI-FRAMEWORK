@@ -8,13 +8,13 @@ def segmentate(file, input_path, output_path, window_size, overlap):
     total_segments = calculate_total_segment_number(rows, window_size, overlap)
     
     first_segment = create_segment(df, 0, window_size)
-    first_segment.to_csv(output_path + str(file[:-4]) +'-0.csv', index=False, float_format='%.15f')
-    total_segments = total_segments - 1
+    first_segment.to_csv(output_path + str(file[:-4]) +'-1.csv', index=False, float_format='%.15f')
+    total_segments = total_segments
 
     second_segment_starting_point = window_size - overlap
     for i in range(total_segments):
         segment = create_segment(df, (i+1)*second_segment_starting_point, window_size)
-        segment.to_csv(output_path + str(file[:-4]) +'-' + str(i+1) + '.csv', index=False, float_format='%.15f')
+        segment.to_csv(output_path + str(file[:-4]) +'-' + str(i+2) + '.csv', index=False, float_format='%.15f')
 
 
 def calculate_total_segment_number(rows, window_size, overlap):
