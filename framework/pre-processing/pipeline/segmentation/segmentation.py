@@ -3,19 +3,15 @@ import os, sys, json, progressbar
 import pandas as pd
 import segmentationUtils
 
-global  orientation_image_number
-
 # Current file path
 current_path = os.path.dirname(os.path.abspath(__file__))
-segmentation = current_path
-cfg_filename = segmentation + '/../../config.json'
+cfg_filename = current_path + '/../../config.json'
 
 # Path to _output file
-output_path = segmentation + '/_output/'
+output_path = current_path + '/_output/'
 
 # Path to input
-input_path = segmentation + '/../data-augmentation/_output/'
-
+input_path = current_path + '/../data-augmentation/_output/'
 
 # Load file utils file
 sys.path.append(current_path + '/../../utils')

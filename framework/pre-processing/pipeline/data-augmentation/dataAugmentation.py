@@ -4,17 +4,15 @@ import pandas as pd
 import dataAugmentationUtils
 import shutil
 
-
 # Current file path
 current_path = os.path.dirname(os.path.abspath(__file__))
-data_augmentation = current_path
-cfg_filename = data_augmentation + '/../../config.json'
+cfg_filename = current_path + '/../../config.json'
 
 # Path to _output file
-output_path = data_augmentation + '/_output/'
+output_path = current_path + '/_output/'
 
 # Path to input
-input_path = data_augmentation + '/../data-filtering/_output/'
+input_path = current_path + '/../data-filtering/_output/'
 
 
 # Load file utils file
