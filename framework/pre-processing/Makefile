@@ -10,8 +10,9 @@ Commands:
   filter-data                            Execute data-filtering script
   augment-data                           Execute data augmentation script
   pre-segmentation-fe                    Execute pre-segmentation feature extraction
-  post-segmentation-fe                    Execute post-segmentation feature extraction
+  post-segmentation-fe                   Execute post-segmentation feature extraction
   segment                                Execute segmentation script
+  populate-fd                            Execute populate-final-dataset script
   run-pipeline                           Execute pre-processing pipeline 
 
 Usual order:
@@ -20,6 +21,7 @@ Usual order:
   3. pre-segmentation-fe
   4. segment
   5. post-segmentation-fe
+  6. populate-fd
 
 endef
 export help
@@ -45,4 +47,7 @@ post-fe:
 segment:
 	python3 -B ./pipeline/segmentation/segmentation.py
 
-run-pipeline: filter-data augment-data pre-fe segment post-fe
+populate-fd:
+	python3 -B ./pipeline/populate-final-dataset/populateFinalDataset.py
+
+run-pipeline: filter-data augment-data pre-fe segment post-fe populate-fd

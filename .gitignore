@@ -14,17 +14,15 @@ framework/pre-processing/pipeline/data-augmentation/_output
 framework/pre-processing/pipeline/features-extraction/post-segmentation_output
 framework/pre-processing/pipeline/features-extraction/pre-segmentation_output
 framework/pre-processing/pipeline/segmentation/_output
-framework/train/trainOutcomes/*
-framework/pre-processing/tunning-examples/Archive-ics-tunning-example/framework-input-dataset/*
-!framework/pre-processing/tunning-examples/Archive-ics-tunning-example/framework-input-dataset/.gitkeep
-framework/pre-processing/dataset/*
-framework/pre-processing/tunning-examples/Archive-ics-tunning-example/original-dataset/*
-!framework/pre-processing/tunning-examples/Archive-ics-tunning-example/original-dataset/.gitkeep
+framework/final-dataset/*
+!framework/final-dataset/.gitkeep
+framework/pre-processing/dataset
 
-framework/pre-processing/tunning-examples/Harvard-tunning-example/framework-input-dataset/*
-!framework/pre-processing/tunning-examples/Harvard-tunning-example/framework-input-dataset/.gitkeep
-framework/pre-processing/tunning-examples/Harvard-tunning-example/original-dataset/*
-!framework/pre-processing/tunning-examples/Harvard-tunning-example/original-dataset/.gitkeep
+# tunning input
+framework/tunning/Archive-ics-tunning-example/original-dataset
+framework/tunning/Harvard-tunning-example/original-dataset
+
+framework/train/trainOutcomes/*
 
 framework/train/ensemble/models
 framework/train/toTrain

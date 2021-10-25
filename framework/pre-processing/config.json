@@ -39,6 +39,9 @@
             "FFT":{
                 "combined": true
             }
+        },
+        "populate-final-dataset":{
+            "clean-before": true
         }
     }
 }
