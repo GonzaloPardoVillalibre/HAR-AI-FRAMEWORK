@@ -3,9 +3,8 @@ import tensorflow as tf
 import re, os, json
 import importlib
 
-# main_path = os.getcwd()
-main_path = '/TFG'
-final_input_path = main_path + '/framework/final-dataset/orientation/'
+current_path = os.path.dirname(os.path.abspath(__file__))
+final_input_path = current_path + '/../final-dataset/'
 _, _, files = next(os.walk(final_input_path))
 
 #########################

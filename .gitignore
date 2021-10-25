@@ -22,9 +22,11 @@ framework/pre-processing/dataset
 framework/tunning/Archive-ics-tunning-example/original-dataset
 framework/tunning/Harvard-tunning-example/original-dataset
 
+framework/train/toTrain/*
+!framework/train/toTrain/.gitkeep
 framework/train/trainOutcomes/*
+!framework/train/trainOutcomes/.gitkeep
 
 framework/train/ensemble/models
-framework/train/toTrain
 framework/train/toTrainDraft/Archive-ics-tunning-examples/*
 framework/train/toTrainDraft/Harvard-tunning-examples/*

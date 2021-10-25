@@ -42,27 +42,27 @@ def split_dataset(files:list, cfg:json):
     train_files = filter_files_by_regex(train_files, movements_regex_string)
     # Use only original files if desired
     if cfg["no-augmentation"]:
-        train_files = filter_files_by_regex(train_files, r'-0.csv$')
+        train_files = filter_files_by_regex(train_files, r'-0°-')
 
     # Load test set
     test_user_regex_string = build_regex_for_subjects(cfg["test-subjects"])
     test_files = filter_files_by_regex(files, test_user_regex_string)
     test_files = filter_files_by_regex(test_files, movements_regex_string)
     # Use only original files for testing
-    test_files = filter_files_by_regex(test_files, r'-0.csv$')
+    test_files = filter_files_by_regex(test_files, r'-0°-')
 
     # Load validation set
     validation_user_regex_string = build_regex_for_subjects(cfg["validation-subjects"])
     validation_files = filter_files_by_regex(files, validation_user_regex_string)
     validation_files = filter_files_by_regex(validation_files, movements_regex_string)
     # Use only original files for validation
-    validation_files = filter_files_by_regex(validation_files, r'-0.csv$')
+    validation_files = filter_files_by_regex(validation_files, r'-0°-')
 
-    print("Original train files: " + str(len(filter_files_by_regex(train_files, r'-0.csv$'))))
+    print("Original train files: " + str(len(filter_files_by_regex(train_files, r'-0°-'))))
     print("Total train files: " + str(len(train_files)))
-    print("Original validation files: " + str(len(filter_files_by_regex(validation_files, r'-0.csv$'))))
+    print("Original validation files: " + str(len(filter_files_by_regex(validation_files, r'-0°-'))))
     print("Total validation files: " + str(len(validation_files)))
-    print("Original test files: " + str(len(filter_files_by_regex(test_files, r'-0.csv$'))))
+    print("Original test files: " + str(len(filter_files_by_regex(test_files, r'-0°-'))))
     print("Total test files: " + str(len(test_files)))
 
     return train_files, validation_files, test_files
