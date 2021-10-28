@@ -16,7 +16,8 @@ framework/pre-processing/pipeline/features-extraction/pre-segmentation_output
 framework/pre-processing/pipeline/segmentation/_output
 framework/final-dataset/*
 !framework/final-dataset/.gitkeep
-framework/pre-processing/dataset
+framework/pre-processing/dataset/*
+!framework/pre-processing/dataset/.gitkeep
 
 # tunning input
 framework/tunning/Archive-ics-tunning-example/original-dataset
