@@ -21,7 +21,7 @@
     Contains all the data for the inference API.
 
 * #### pre-process
-    Contains all the scripts for the preprocessing environment.
+    Contains all the scripts for the pre-process environment.
 
 * #### train
     Contains all the scripts for the training environment.

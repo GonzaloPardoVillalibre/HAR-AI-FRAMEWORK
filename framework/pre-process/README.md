@@ -137,7 +137,7 @@ Commands:
   build-images                           Excute image builder script.
   enrich-images                          Excute image enricher script.
   build-final-dataset                    Excute final dataset script.
-  build-all:                             Execute all preprocessing steps by order.
+  build-all:                             Execute all pre-process steps by order.
 
 Usual order:
   1. build-interleaved-dataframes
@@ -146,7 +146,7 @@ Usual order:
   4. build-final-dataset
 ```
 
-But the real key of this environment is the vast amount of configurable parameters. This is done via the `framework/pre-process/config.json` and should also be adapted for every different dataset. Also a preprocessing environment configuration file is included for the two already mentioned datasets:
+But the real key of this environment is the vast amount of configurable parameters. This is done via the `framework/pre-process/config.json` and should also be adapted for every different dataset. Also a pre-process environment configuration file is included for the two already mentioned datasets:
 - ![Harvard dataset pre-process config file example](tunning-examples/Harvard-tunning-example/framework-config-example.json)
 - ![Archive-ics dataset pre-process config file exmple](tunning-examples/Archive-ics-tunning-example/framework-config-sergio.json)
 

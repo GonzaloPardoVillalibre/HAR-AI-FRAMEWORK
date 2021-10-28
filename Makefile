@@ -9,7 +9,7 @@ Commands:
   help:                 Show this help information
   develenv-up:          Launch the development environment with a docker-compose of the service
   develenv-up-recreate: Launch the development environment with a docker-compose of the service recreating images
-  preprocess-sh:        Access to a shell of a launched preprocessing environment
+  preprocess-sh:        Access to a shell of a launched pre-process environment
   train-sh:             Access to a shell of a launched training environment
   inference-sh:         Access to a shell of a launched inference environment
   develenv-down:        Stop the development environment
@@ -35,7 +35,7 @@ develenv-down:
 	docker-compose -p $(PROJECT_NAME) down --remove-orphans
 
 preprocess-sh:
-	@echo "Entering preprocessing environment"
+	@echo "Entering pre-process environment"
 	docker exec -it "preprocesser" bash
 
 train-sh:
