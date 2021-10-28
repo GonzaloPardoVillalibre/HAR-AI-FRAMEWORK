@@ -4,8 +4,8 @@ services:
   #######################################
   # Processing environment
   #######################################
-  preprocesser:
-    container_name: preprocesser
+  preprocess:
+    container_name: preprocess
     build:
       context: ./delivery/docker/pre-process
     volumes:
@@ -18,8 +18,8 @@ services:
   #######################################
   # Training environment
   #######################################
-  trainer:
-    container_name: trainer
+  train:
+    container_name: train
     build:
       context: ./delivery/docker/train
     volumes:
@@ -37,8 +37,8 @@ services:
   #######################################
   # Inference API
   #######################################
-  inferencer:
-    container_name: inferencer
+  inference:
+    container_name: inference
     build:
       context: ./delivery/docker/inference
     ports:

@@ -1,22 +1,26 @@
------------------------------------------
+---
+
 # Deep learning networks for human activity recognition
 
 ## Pre-process and training framework in tensorflow
 
 This project provides a framework based on docker and aims to expedite the ***human activity classification*** training process. Thus, three separate environments are provided:
+
 - Pre-process environment.
 - Training environment.
 - Inference environment
 
 While the ***training environment*** has a more general use, providing a generic tool to solve a vast amount of problems, the ***pre-process environment*** has its focus on pre-process human activity datasets (measured in a **quaternion** form) to solve the already mentioned ***"human activity classification problem"***.
 
-Meanwhile, the ***inference environment*** serves a development framework to deploy a flask rest API. This API loads the desired neural network model and is able to answer prediction requests. This API is also focused on the human activity classification problem, but can be easily tuned for a more generic purpose. To know more about flask you can visit the [official flask webpage](https://flask.palletsprojects.com/en/1.1.x/). 
+Meanwhile, the ***inference environment*** serves a development framework to deploy a flask rest API. This API loads the desired neural network model and is able to answer prediction requests. This API is also focused on the human activity classification problem, but can be easily tuned for a more generic purpose. To know more about flask you can visit the [official flask webpage](https://flask.palletsprojects.com/en/1.1.x/).
 
 Pre-requirements:
- - Docker v17
- - GNU Make
+
+- Docker v17
+- GNU Make
 
 The following instruction launches both environments:
+
 ```sh
 # Launch the development environment.
 make develenv-up
@@ -24,7 +28,8 @@ make develenv-up
 
 Also a `make help` utility is available to the developer.
 
-## Docker architecture 
+## Docker architecture
+
 For the reference there is a generic view of the architecture:
 
 ![Usage_schema](doc/images/docker-architecture.png)
@@ -34,32 +39,41 @@ As you'd have noticed, the ***inference environment*** has little to do with the
 More information can be found here: [data structure documentation](framework)
 
 ## Pre-process environmnent
+
 ```sh
 # Enter the pre-process environment
 make preprocess-sh
 ```
+
 The guide for this environment can be found here: [pre-process environment documentation](framework/pre-process)
 
 ## Training environment
+
 ```sh
 # Enter the training environment
 make train-sh
 ```
+
 The guide for this environment can be found here: [train environment documentation](framework/train)
 
 ## Inference environment
+
 ```sh
 # Enter the pre-process environment
 make inference-sh
 ```
+
 Although, the most useful command in this environment may be:
+
 ```sh
 # Display container logs
-docker logs -f framework_inferencer_1
+docker logs -f inference
 ```
+
 The guide for this environment can be found here: [inference environment documentation](framework/inference)
 
 # What is this project all about?
+
 This project is the final assignment for Gonzalo Pardo Villalibre. The aim will be to detect which activity is a certain subject performing, minimizing the number of sensors needed. Therefore the student will take advantage of the use of NN (neural networks) from different types such as CNN (convolutional networks) or RNN (recurrent networks) such LSTM.
 
 On this journey the developer decided to not only solve the concrete problem, but also to create a reusable framework making the process easier for future investigators.

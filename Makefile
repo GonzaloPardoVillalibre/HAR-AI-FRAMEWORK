@@ -36,12 +36,12 @@ develenv-down:
 
 preprocess-sh:
 	@echo "Entering pre-process environment"
-	docker exec -it "preprocesser" bash
+	docker exec -it "preprocess" bash
 
 train-sh:
 	@echo "Entering train environment"
-	docker exec -it "trainer" bash
+	docker exec -it "train" bash
 
 inference-sh:
 	@echo "Entering inference environment"
-	docker exec -it "inferencer" bash
+	docker exec -it "inference" bash
