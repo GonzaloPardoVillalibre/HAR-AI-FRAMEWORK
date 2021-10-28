@@ -11,6 +11,7 @@ services:
     volumes:
       - ./framework/pre-processing:/TFG/framework/pre-processing
       - ./framework/final-dataset:/TFG/framework/final-dataset
+    user: docker
     working_dir: /TFG/framework/pre-processing
     command: tail -f /dev/null
 
@@ -24,6 +25,7 @@ services:
     volumes:
       - ./framework/train:/TFG/framework/train
       - ./framework/final-dataset:/TFG/framework/final-dataset
+    user: docker
     working_dir: /TFG/framework/train
     command: tail -f /dev/null
     deploy:
@@ -43,6 +45,7 @@ services:
       - "8082:8082"
     volumes:
       - ./framework/inference:/TFG/framework/inference
+    user: docker
     working_dir: /TFG/framework/inference
     command: python3 inferenceServer.py
     environment:
