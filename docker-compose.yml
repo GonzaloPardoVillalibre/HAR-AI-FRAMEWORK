@@ -7,12 +7,12 @@ services:
   preprocesser:
     container_name: preprocesser
     build:
-      context: ./docker/pre-process
+      context: ./delivery/docker/pre-process
     volumes:
-      - ./framework/pre-process:/TFG/framework/pre-process
-      - ./framework/final-dataset:/TFG/framework/final-dataset
+      - ./framework/pre-process:/framework/pre-process
+      - ./framework/final-dataset:/framework/final-dataset
     user: docker
-    working_dir: /TFG/framework/pre-process
+    working_dir: /framework/pre-process
     command: tail -f /dev/null
 
   #######################################
@@ -21,12 +21,12 @@ services:
   trainer:
     container_name: trainer
     build:
-      context: ./docker/train
+      context: ./delivery/docker/train
     volumes:
-      - ./framework/train:/TFG/framework/train
-      - ./framework/final-dataset:/TFG/framework/final-dataset
+      - ./framework/train:/framework/train
+      - ./framework/final-dataset:/framework/final-dataset
     user: docker
-    working_dir: /TFG/framework/train
+    working_dir: /framework/train
     command: tail -f /dev/null
     # deploy:
     #   resources:
@@ -40,13 +40,13 @@ services:
   inferencer:
     container_name: inferencer
     build:
-      context: ./docker/inference
+      context: ./delivery/docker/inference
     ports:
       - "8082:8082"
     volumes:
-      - ./framework/inference:/TFG/framework/inference
+      - ./framework/inference:/framework/inference
     user: docker
-    working_dir: /TFG/framework/inference
+    working_dir: /framework/inference
     command: python3 inferenceServer.py
     environment:
         LOG_LEVEL: DEBUG
