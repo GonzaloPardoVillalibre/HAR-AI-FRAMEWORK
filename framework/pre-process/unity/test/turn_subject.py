@@ -9,8 +9,8 @@ from scipy.spatial.transform import Rotation as R
 
 main_path = os.getcwd()
 
-file_path = main_path + '/framework/pre-processing/interleaved-dataframe/_output/S08-A09-Orientationjoints-1.csv'
-out_path = main_path + '/framework/pre-processing/interleaved-dataframe/test/turn_subject_output.csv'
+file_path = main_path + '/framework/pre-process/interleaved-dataframe/_output/S08-A09-Orientationjoints-1.csv'
+out_path = main_path + '/framework/pre-process/interleaved-dataframe/test/turn_subject_output.csv'
 
 def unitary_rotation_quaternion(x:float, y:float, z:float, a:float):
   rotation_factor = np.sin( a / 2.0 )

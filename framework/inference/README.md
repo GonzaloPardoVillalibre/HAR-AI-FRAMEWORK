@@ -5,7 +5,7 @@ This environment exposes a [REST API ](https://www.seobility.net/en/wiki/REST_AP
 
 In this way, time series movement windows will be accepted. This windows/tables (**sent int `csv` format**) must contain the exact number of sensors used in the training phase and must also have the same number of time-steps (A.K.A must have the same 2D dimensions).
 
-As mentioned, the 2D-FFT will be commonly used in the training phase; thus, this API will also calculete de 2D-FFT, if that were the case, and apply it to the received image following [the same rule](../pre-processing/doc/images/2DFFT.png).
+As mentioned, the 2D-FFT will be commonly used in the training phase; thus, this API will also calculete de 2D-FFT, if that were the case, and apply it to the received image following [the same rule](../pre-process/doc/images/2DFFT.png).
 
 Similar to the rest of the framework this environment has been designed to serve the functionallity over a `JSON configuration file` and its configuration is the key to use the API correctly.
 

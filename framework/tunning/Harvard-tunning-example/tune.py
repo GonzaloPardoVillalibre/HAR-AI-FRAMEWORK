@@ -9,7 +9,7 @@ current_path = os.path.dirname(os.path.abspath(__file__))
 
 input_folder = current_path+  '/original-dataset'
 _, _, files = next(os.walk(input_folder))
-output_file = current_path +  '/../../pre-processing/dataset/'
+output_file = current_path +  '/../../pre-process/dataset/'
 
 files.remove('.gitkeep')
 

@@ -1,14 +1,14 @@
 -----------------------------------------
 # Deep learning networks for human activity recognition
 
-## Pre-processing and training framework in tensorflow
+## Pre-process and training framework in tensorflow
 
 This project provides a framework based on docker and aims to expedite the ***human activity classification*** training process. Thus, three separate environments are provided:
-- Pre-processing environment.
+- Pre-process environment.
 - Training environment.
 - Inference environment
 
-While the ***training environment*** has a more general use, providing a generic tool to solve a vast amount of problems, the ***pre-processing environment*** has its focus on pre-processing human activity datasets (measured in a **quaternion** form) to solve the already mentioned ***"human activity classification problem"***.
+While the ***training environment*** has a more general use, providing a generic tool to solve a vast amount of problems, the ***pre-process environment*** has its focus on pre-process human activity datasets (measured in a **quaternion** form) to solve the already mentioned ***"human activity classification problem"***.
 
 Meanwhile, the ***inference environment*** serves a development framework to deploy a flask rest API. This API loads the desired neural network model and is able to answer prediction requests. This API is also focused on the human activity classification problem, but can be easily tuned for a more generic purpose. To know more about flask you can visit the [official flask webpage](https://flask.palletsprojects.com/en/1.1.x/). 
 
@@ -33,12 +33,12 @@ As you'd have noticed, the ***inference environment*** has little to do with the
 
 More information can be found here: [data structure documentation](framework)
 
-## Pre-processing environmnent
+## Pre-process environmnent
 ```sh
-# Enter the pre-processing environment
+# Enter the pre-process environment
 make preprocess-sh
 ```
-The guide for this environment can be found here: [pre-process environment documentation](framework/pre-processing)
+The guide for this environment can be found here: [pre-process environment documentation](framework/pre-process)
 
 ## Training environment
 ```sh
@@ -49,7 +49,7 @@ The guide for this environment can be found here: [train environment documentati
 
 ## Inference environment
 ```sh
-# Enter the pre-processing environment
+# Enter the pre-process environment
 make inference-sh
 ```
 Although, the most useful command in this environment may be:

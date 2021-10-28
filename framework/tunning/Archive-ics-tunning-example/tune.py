@@ -13,7 +13,7 @@ current_path = os.path.dirname(os.path.abspath(__file__))
 
 input_folder = current_path +  '/original-dataset'
 _, _, files = next(os.walk(input_folder))
-output_file = current_path +  '/../../pre-processing/dataset/'
+output_file = current_path +  '/../../pre-process/dataset/'
 calibration_folder = current_path +  '/calibration'
 _, _, calib_files = next(os.walk(calibration_folder))
 files.remove('.gitkeep')

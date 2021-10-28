@@ -1,6 +1,6 @@
 -----------------------------------------
 
-# Pre-processing environment
+# Pre-process environment
 This environment represents the most specific utility of the framework and it is designed to preprocess time series datasets of ***quaternions*** or ***3D vectors***; such, for example, those obtained while measuring any type of movement with sensors on a certain subject. To ensure your dataset fits the requirements, make sure to have a look at the **input dataset format** section.
 
 This document includes the following sections:
@@ -43,9 +43,9 @@ Some valid datasets examples could be:
 
 ## Environment architecture & performance
 
-![Usage_schema](doc/images/pre-processing-environment-architecture.png)
+![Usage_schema](doc/images/pre-process-environment-architecture.png)
 
-As detailed earlier, this environment is intended to work with time-series dataframes build, either from **position** (3D) or **orientation** (quaternions) sensors. The architecture is composed from 4 pseudo-independent modules, and each one performs a specific pre-processing operation; those layers are:
+As detailed earlier, this environment is intended to work with time-series dataframes build, either from **position** (3D) or **orientation** (quaternions) sensors. The architecture is composed from 4 pseudo-independent modules, and each one performs a specific pre-process operation; those layers are:
 
 - Interleaved dataframe
 - Image builder & image enricher
@@ -91,7 +91,7 @@ This transformation is made in two steps:
     - **rows**: n-timeSteps * numberOfSensors.
     - **columns**: 3 columns if position sensors are used 4 if orientation sensors are used.
  
-    This allows the developer to test each image in unity. The output of this step is not represented, but will be stored in `framework/pre-processing/image-builder/_output`
+    This allows the developer to test each image in unity. The output of this step is not represented, but will be stored in `framework/pre-process/image-builder/_output`
 
 - 2- **Image enricher**: this utility resizes each image output from the *image builder* with sizes:
     - **rows**: n-timeSteps.
@@ -146,11 +146,11 @@ Usual order:
   4. build-final-dataset
 ```
 
-But the real key of this environment is the vast amount of configurable parameters. This is done via the `framework/pre-processing/config.json` and should also be adapted for every different dataset. Also a preprocessing environment configuration file is included for the two already mentioned datasets:
+But the real key of this environment is the vast amount of configurable parameters. This is done via the `framework/pre-process/config.json` and should also be adapted for every different dataset. Also a preprocessing environment configuration file is included for the two already mentioned datasets:
 - ![Harvard dataset pre-process config file example](tunning-examples/Harvard-tunning-example/framework-config-example.json)
 - ![Archive-ics dataset pre-process config file exmple](tunning-examples/Archive-ics-tunning-example/framework-config-sergio.json)
 
-**Reminder**: the name and path for the configuration file must always be ![framework/pre-processing/config.json](config.json)
+**Reminder**: the name and path for the configuration file must always be ![framework/pre-process/config.json](config.json)
 
 The following tables will detail the confiragution parameters for each module: 
 

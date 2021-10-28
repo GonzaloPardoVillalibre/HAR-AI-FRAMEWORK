@@ -13,7 +13,7 @@ Commands:
   post-segmentation-fe                   Execute post-segmentation feature extraction
   segment                                Execute segmentation script
   populate-fd                            Execute populate-final-dataset script
-  run-pipeline                           Execute pre-processing pipeline 
+  run-pipeline                           Execute pre-process pipeline 
 
 Usual order:
   1. filter-data
