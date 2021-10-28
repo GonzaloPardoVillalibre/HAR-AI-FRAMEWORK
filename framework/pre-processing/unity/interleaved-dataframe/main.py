@@ -6,7 +6,7 @@ import json, sys
 # Current file path
 current_path = os.path.dirname(os.path.abspath(__file__))
 interleaved_df_path = current_path + '/..'
-cfg_filename = interleaved_df_path + '/../config.json'
+cfg_filename = interleaved_df_path + '/unityConfig.json'
 
 # Path to _output file
 output_path = interleaved_df_path + '/_output/'
@@ -18,8 +18,7 @@ import fileUtils
 
 # Loads configuration file
 with open(cfg_filename) as f:
-  full_config = json.load(f)
-  cfg = full_config["unity-dt"]
+  cfg = json.load(f)
 
 # Extracts orientation information for each line in csv
 def extract_quat_columns(file, jointName):

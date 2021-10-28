@@ -6,7 +6,7 @@ import shutil
 
 # Current file path
 current_path = os.path.dirname(os.path.abspath(__file__))
-cfg_filename = current_path + '/../../config.json'
+cfg_filename = current_path + '/../pipelineConfig.json'
 
 # Path to _output file
 output_path = current_path + '/_output/'
@@ -22,7 +22,7 @@ import fileUtils
 # Loads configuration file
 with open(cfg_filename) as f:
   full_config = json.load(f)
-  cfg = full_config["pipeline"]["data-augmentation"]
+  cfg = full_config["data-augmentation"]
 
 #########################
 # Main                  #
@@ -48,5 +48,5 @@ else:
 
 print("\nData augmentation completed.\n")
 
-if full_config["pipeline"]["detele-previous-output-directory"]:
+if full_config["detele-previous-output-directory"]:
   fileUtils.removeInputDirectory(input_path)

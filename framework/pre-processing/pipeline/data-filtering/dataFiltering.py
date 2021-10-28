@@ -7,7 +7,7 @@ import progressbar
 
 # Current file path
 current_path = os.path.dirname(os.path.abspath(__file__))
-cfg_filename = current_path + '/../../config.json'
+cfg_filename = current_path + '/../pipelineConfig.json'
 
 # Path to _output file
 output_path = current_path + '/_output/'
@@ -22,7 +22,7 @@ import fileUtils
 # Loads configuration file
 with open(cfg_filename) as f:
   full_config = json.load(f)
-  cfg = full_config["pipeline"]["data-filtering"]
+  cfg = full_config["data-filtering"]
 
 #########################
 # Main                  #
