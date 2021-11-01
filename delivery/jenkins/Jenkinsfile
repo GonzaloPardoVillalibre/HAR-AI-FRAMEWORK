@@ -25,9 +25,6 @@ pipeline {
     options {
         buildDiscarder(logRotator(numToKeepStr: '10'))
     }
-    environment {
-        GITHUB-TOKEN = credentials('HAR-AI-FRAMEWORK-GITHUB-TOKEN')
-    }
     parameters {
         string name: 'DATASET_INPUT_PATH', 
                defaultValue: '/home/gonzalopardo/Documents/jenkins/HAR-AI-FRAMEWORK/harvard-tunned-dataset', 
