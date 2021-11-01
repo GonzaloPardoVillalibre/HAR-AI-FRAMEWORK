@@ -45,7 +45,7 @@ pipeline {
         stage('Run pre-process scripts') {
             agent { label "TORRE-UBUNTU" }
             steps{ 
-                url: 'https://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@github.com/GonzaloPardoVillalibre/HAR-AI-FRAMEWORK.git', branch: "$BRANCH_NAME"
+                url: 'https://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@github.com/GonzaloPardoVillalibre/HAR-AI-FRAMEWORK.git', branch: "add-ci-integration"
                 launch_env()
                 run_pipeline()
                 stop_env()
