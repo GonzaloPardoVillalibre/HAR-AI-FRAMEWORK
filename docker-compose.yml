@@ -10,7 +10,7 @@ services:
       context: ./delivery/docker/pre-process
     volumes:
       - ./framework/pre-process:/framework/pre-process
-      - ${SHARED_VOLUME_PATH:-./framework}/final-dataset:/framework/final-dataset
+      - ${SHARED_VOLUME_PATH:-./framework/final-dataset}:/framework/final-dataset
     user: docker
     working_dir: /framework/pre-process
     command: tail -f /dev/null
@@ -24,7 +24,7 @@ services:
       context: ./delivery/docker/train
     volumes:
       - ./framework/train:/framework/train
-      - ${SHARED_VOLUME_PATH:-./framework}/final-dataset:/framework/final-dataset
+      - ${SHARED_VOLUME_PATH:-./framework/final-dataset}:/framework/final-dataset
     user: docker
     working_dir: /framework/train
     command: tail -f /dev/null
