@@ -42,11 +42,21 @@ pipeline {
                      description: 'Select a branch to run pre-process scripts'
     }
     stages{
-        stage('Run pre-process scripts') {
+        stage('Launch environment') {
             agent { label "TORRE-UBUNTU" }
             steps{ 
                 launch_env()
+            }  
+        }
+        stage('Run pipeline') {
+            agent { label "TORRE-UBUNTU" }
+            steps{ 
                 run_pipeline()
+            }  
+        }
+        stage('Stop environment') {
+            agent { label "TORRE-UBUNTU" }
+            steps{ 
                 stop_env()
             }  
         }
