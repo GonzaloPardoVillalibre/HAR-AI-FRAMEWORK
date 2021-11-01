@@ -36,13 +36,11 @@ pipeline {
     }
     stages{
         stage('Launch environment') {
-            agent { label "TORRE-UBUNTU" }
             steps{ 
                 launch_env()
             }  
         }
         stage('Data filtering') {
-            agent { label "TORRE-UBUNTU" }
             steps{ 
                     sh """
                         #!/bin/bash
@@ -51,7 +49,6 @@ pipeline {
             }  
         }
         stage('Data augmentation') {
-            agent { label "TORRE-UBUNTU" }
             steps{ 
                     sh """
                         #!/bin/bash
@@ -60,16 +57,14 @@ pipeline {
             }  
         }
         stage('Pre segmentation feature extraction') {
-            agent { label "TORRE-UBUNTU" }
             steps{ 
                     sh """
                         #!/bin/bash
-                        make -C ./delivery/jenkins pre-segmentation-fe
+                        make -C ./delivery/jenkins pre-fe
                     """
             }  
         }
         stage('Data segmentation') {
-            agent { label "TORRE-UBUNTU" }
             steps{ 
                     sh """
                         #!/bin/bash
@@ -78,16 +73,14 @@ pipeline {
             }  
         }
         stage('Post segmentation feature extraction') {
-            agent { label "TORRE-UBUNTU" }
             steps{ 
                     sh """
                         #!/bin/bash
-                        make -C ./delivery/jenkins post-segmentation-fe
+                        make -C ./delivery/jenkins post-fe
                     """
             }  
         }
         stage('Final dataset population') {
-            agent { label "TORRE-UBUNTU" }
             steps{ 
                     sh """
                         #!/bin/bash
@@ -96,7 +89,6 @@ pipeline {
             }  
         }
         stage('Stop environment') {
-            agent { label "TORRE-UBUNTU" }
             steps{ 
                 stop_env()
             }  

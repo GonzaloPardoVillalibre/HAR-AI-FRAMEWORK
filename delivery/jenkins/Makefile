@@ -12,8 +12,8 @@ Commands:
   build-interleaved-dataframes           Build interleaved dataframes for Unity representation
   filter-data                            Execute data-filtering script
   augment-data                           Execute data augmentation script
-  pre-segmentation-fe                    Execute pre-segmentation feature extraction
-  post-segmentation-fe                   Execute post-segmentation feature extraction
+  pre-fe                                 Execute pre-segmentation feature extraction
+  post-fe                                Execute post-segmentation feature extraction
   segment                                Execute segmentation script
   populate-fd                            Execute populate-final-dataset script
   run-pipeline                           Execute pre-process pipeline
@@ -22,9 +22,9 @@ Commands:
 Usual order:
   1. filter-data
   2. augment-data
-  3. pre-segmentation-fe
+  3. pre-fe
   4. segment
-  5. post-segmentation-fe
+  5. post-fe
   6. populate-fd
 
 endef
