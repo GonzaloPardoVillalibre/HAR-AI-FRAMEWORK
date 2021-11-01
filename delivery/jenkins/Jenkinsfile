@@ -48,7 +48,6 @@ pipeline {
         stage('Run pre-process scripts') {
             agent { label "TORRE-UBUNTU" }
             steps{ 
-                url: 'https://${GITHUB-TOKEN}@github.com/GonzaloPardoVillalibre/HAR-AI-FRAMEWORK.git', branch: "$BRANCH_NAME"
                 launch_env()
                 run_pipeline()
                 stop_env()
