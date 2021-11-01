@@ -6,13 +6,6 @@ def launch_env() {
     """
 }
 
-def run_pipeline() {
-    sh """
-        #!/bin/bash
-        make -C ./delivery/jenkins run-pipeline
-    """
-}
-
 def stop_env() {
     sh """
         #!/bin/bash
@@ -48,10 +41,58 @@ pipeline {
                 launch_env()
             }  
         }
-        stage('Run pipeline') {
+        stage('Data filtering') {
             agent { label "TORRE-UBUNTU" }
             steps{ 
-                run_pipeline()
+                    sh """
+                        #!/bin/bash
+                        make -C ./delivery/jenkins filter-data
+                    """
+            }  
+        }
+        stage('Data augmentation') {
+            agent { label "TORRE-UBUNTU" }
+            steps{ 
+                    sh """
+                        #!/bin/bash
+                        make -C ./delivery/jenkins augment-data
+                    """
+            }  
+        }
+        stage('Pre segmentation feature extraction') {
+            agent { label "TORRE-UBUNTU" }
+            steps{ 
+                    sh """
+                        #!/bin/bash
+                        make -C ./delivery/jenkins pre-segmentation-fe
+                    """
+            }  
+        }
+        stage('Data segmentation') {
+            agent { label "TORRE-UBUNTU" }
+            steps{ 
+                    sh """
+                        #!/bin/bash
+                        make -C ./delivery/jenkins segment
+                    """
+            }  
+        }
+        stage('Post segmentation feature extraction') {
+            agent { label "TORRE-UBUNTU" }
+            steps{ 
+                    sh """
+                        #!/bin/bash
+                        make -C ./delivery/jenkins post-segmentation-fe
+                    """
+            }  
+        }
+        stage('Final dataset population') {
+            agent { label "TORRE-UBUNTU" }
+            steps{ 
+                    sh """
+                        #!/bin/bash
+                        make -C ./delivery/jenkins populate-fd
+                    """
             }  
         }
         stage('Stop environment') {
