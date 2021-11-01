@@ -25,6 +25,9 @@ pipeline {
     options {
         buildDiscarder(logRotator(numToKeepStr: '10'))
     }
+    environment {
+        GITHUB-TOKEN = credentials('HAR-AI-FRAMEWORK-GITHUB-TOKEN')
+    }
     parameters {
         string name: 'DATASET_INPUT_PATH', 
                defaultValue: '/home/gonzalopardo/Documents/jenkins/HAR-AI-FRAMEWORK/harvard-tunned-dataset', 
@@ -45,7 +48,7 @@ pipeline {
         stage('Run pre-process scripts') {
             agent { label "TORRE-UBUNTU" }
             steps{ 
-                url: 'https://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@github.com/GonzaloPardoVillalibre/HAR-AI-FRAMEWORK.git', branch: "add-ci-integration"
+                url: 'https://${GITHUB-TOKEN}@github.com/GonzaloPardoVillalibre/HAR-AI-FRAMEWORK.git', branch: "$BRANCH_NAME"
                 launch_env()
                 run_pipeline()
                 stop_env()
