@@ -15,9 +15,6 @@ def stop_env() {
 
 pipeline {
     agent { label "${EXECUTION_NODE}" }
-    options {
-        buildDiscarder(logRotator(numToKeepStr: '10'))
-    }
     stages{
         stage('Launch environment') {
             steps{ 
