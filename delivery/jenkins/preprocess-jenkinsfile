@@ -14,7 +14,7 @@ def stop_env() {
 }
 
 pipeline {
-    agent { label ${EXECUTION_NODE} }
+    agent { label "${EXECUTION_NODE}" }
     options {
         buildDiscarder(logRotator(numToKeepStr: '10'))
     }
