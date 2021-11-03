@@ -1,14 +1,14 @@
 def launch_env() {
     sh """
         #!/bin/bash
-        make make train-up
+        make train-up
     """
 }
 
 def stop_env() {
     sh """
         #!/bin/bash
-        make make train-down
+        make train-down
     """
 }
 
