@@ -9,9 +9,13 @@ Commands:
   help:                 Show this help information
   develenv-up:          Launch the development environment with a docker-compose of the service
   develenv-up-recreate: Launch the development environment with a docker-compose of the service recreating images
+  preprocess-up:        Launch only the preprocess environment from the docker-compose recreating images
+  train-up:             Launch only the train environment from the docker-compose recreating images
   preprocess-sh:        Access to a shell of a launched pre-process environment
   train-sh:             Access to a shell of a launched training environment
   inference-sh:         Access to a shell of a launched inference environment
+  preprocess-down:      Stop the only the preprocess environment
+  train-down:           Stop the only the train environment
   develenv-down:        Stop the development environment
 
 endef
@@ -24,6 +28,26 @@ develenv-up:
 	@echo "Launching development environments"
 	docker-compose build 
 	docker-compose -p $(PROJECT_NAME) up -d
+
+preprocess-up:	
+	@echo "Launching preprocess environment"
+	docker-compose build 
+	docker-compose -p $(PROJECT_NAME) up -d --build --force-recreate preprocess
+
+preprocess-down:	
+	@echo "Shutting down preprocess environment"
+	docker kill preprocess
+	docker rm preprocess
+
+train-up:	
+	@echo "Launching preprocess environment"
+	docker-compose build 
+	docker-compose -p $(PROJECT_NAME) up -d --build --force-recreate train
+
+train-down:	
+	@echo "Shutting down train environment"
+	docker kill train
+	docker rm train
 
 develenv-up-recreate:	
 	@echo "Launching development environments"

@@ -2,14 +2,14 @@ def launch_env() {
     sh """
         #!/bin/bash
         cp -a ${DATASET_INPUT_PATH}/. ./framework/pre-process/dataset
-        make develenv-up-recreate
+        make make train-up
     """
 }
 
 def stop_env() {
     sh """
         #!/bin/bash
-        make develenv-down
+        make make train-down
     """
 }
 
@@ -40,51 +40,11 @@ pipeline {
                 launch_env()
             }  
         }
-        stage('Data filtering') {
+        stage('Train') {
             steps{ 
                     sh """
                         #!/bin/bash
-                        make -C ./delivery/jenkins filter-data
-                    """
-            }  
-        }
-        stage('Data augmentation') {
-            steps{ 
-                    sh """
-                        #!/bin/bash
-                        make -C ./delivery/jenkins augment-data
-                    """
-            }  
-        }
-        stage('Pre segmentation feature extraction') {
-            steps{ 
-                    sh """
-                        #!/bin/bash
-                        make -C ./delivery/jenkins pre-fe
-                    """
-            }  
-        }
-        stage('Data segmentation') {
-            steps{ 
-                    sh """
-                        #!/bin/bash
-                        make -C ./delivery/jenkins segment
-                    """
-            }  
-        }
-        stage('Post segmentation feature extraction') {
-            steps{ 
-                    sh """
-                        #!/bin/bash
-                        make -C ./delivery/jenkins post-fe
-                    """
-            }  
-        }
-        stage('Final dataset population') {
-            steps{ 
-                    sh """
-                        #!/bin/bash
-                        make -C ./delivery/jenkins populate-fd
+                        make -C ./delivery/jenkins train
                     """
             }  
         }

@@ -1,0 +1,98 @@
+def launch_env() {
+    sh """
+        #!/bin/bash
+        cp -a ${DATASET_INPUT_PATH}/. ./framework/pre-process/dataset
+        make preprocess-up
+    """
+}
+
+def stop_env() {
+    sh """
+        #!/bin/bash
+        make preprocess-down
+    """
+}
+
+pipeline {
+    agent { label "TORRE-UBUNTU" }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10'))
+    }
+    parameters {
+        string name: 'DATASET_INPUT_PATH', 
+               defaultValue: '/home/gonzalopardo/Documents/jenkins/HAR-AI-FRAMEWORK/harvard-tunned-dataset', 
+               description: 'Path to retrieve tuned data to pre-process'
+        
+        string name: 'SHARED_VOLUME_PATH', 
+               defaultValue: '/home/gonzalopardo/Documents/jenkins/HAR-AI-FRAMEWORK/final-dataset', 
+               description: 'Path to store dataset shared volume in remote node'
+
+        gitParameter name: 'BRANCH_NAME',
+                     type: 'PT_BRANCH_TAG',
+                     branchFilter: 'origin/(.*)',
+                     defaultValue: 'main',
+                     sortMode: 'DESCENDING_SMART',
+                     description: 'Select a branch to run pre-process scripts'
+    }
+    stages{
+        stage('Launch environment') {
+            steps{ 
+                launch_env()
+            }  
+        }
+        stage('Data filtering') {
+            steps{ 
+                    sh """
+                        #!/bin/bash
+                        make -C ./delivery/jenkins filter-data
+                    """
+            }  
+        }
+        stage('Data augmentation') {
+            steps{ 
+                    sh """
+                        #!/bin/bash
+                        make -C ./delivery/jenkins augment-data
+                    """
+            }  
+        }
+        stage('Pre segmentation feature extraction') {
+            steps{ 
+                    sh """
+                        #!/bin/bash
+                        make -C ./delivery/jenkins pre-fe
+                    """
+            }  
+        }
+        stage('Data segmentation') {
+            steps{ 
+                    sh """
+                        #!/bin/bash
+                        make -C ./delivery/jenkins segment
+                    """
+            }  
+        }
+        stage('Post segmentation feature extraction') {
+            steps{ 
+                    sh """
+                        #!/bin/bash
+                        make -C ./delivery/jenkins post-fe
+                    """
+            }  
+        }
+        stage('Final dataset population') {
+            steps{ 
+                    sh """
+                        #!/bin/bash
+                        make -C ./delivery/jenkins populate-fd
+                    """
+            }  
+        }
+        stage('Stop environment') {
+            steps{ 
+                stop_env()
+            }  
+        }
+    }
+}
+
