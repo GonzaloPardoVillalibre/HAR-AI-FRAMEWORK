@@ -16,7 +16,8 @@ pipeline {
     agent { label "${EXECUTION_NODE}" }
     parameters {
         string(name: 'SHARED_VOLUME_PATH', defaultValue: '/home/gonzalopardo/Documents/jenkins/HAR-AI-FRAMEWORK/final-dataset', description: 'Path to store dataset shared volume in remote node')
-        gitParameter name: 'BRANCH_NAME', type: 'PT_BRANCH_TAG', defaultValue: 'master'    }
+        gitParameter(name: 'BRANCH_NAME', type: 'PT_BRANCH_TAG', defaultValue: 'master', description: 'Branch to build')
+    }
     stages{
         stage('Launch environment') {
             steps{ 
@@ -35,6 +36,11 @@ pipeline {
             steps{ 
                 stop_env()
             }  
+        }
+    }
+    post {
+        always{
+            stop_env()
         }
     }
 }

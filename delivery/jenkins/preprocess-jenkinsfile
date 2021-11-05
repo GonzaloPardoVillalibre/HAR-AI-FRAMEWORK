@@ -18,6 +18,7 @@ pipeline {
     parameters {
         string(name: 'DATASET_INPUT_PATH', defaultValue: '/home/gonzalopardo/Documents/jenkins/HAR-AI-FRAMEWORK/harvard-tunned-dataset', description: 'Path to retrieve tuned data to pre-process')
         string(name: 'SHARED_VOLUME_PATH', defaultValue: '/home/gonzalopardo/Documents/jenkins/HAR-AI-FRAMEWORK/final-dataset', description: 'Path to store dataset shared volume in remote node')
+        gitParameter(name: 'BRANCH_NAME', type: 'PT_BRANCH_TAG', defaultValue: 'master', description: 'Branch to build')
     }
     stages{
         stage('Launch environment') {
