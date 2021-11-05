@@ -32,11 +32,6 @@ pipeline {
                     """
             }  
         }
-        stage('Stop environment') {
-            steps{ 
-                stop_env()
-            }  
-        }
     }
     post {
         always{
