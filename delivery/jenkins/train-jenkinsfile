@@ -14,6 +14,9 @@ def stop_env() {
 
 pipeline {
     agent { label "${EXECUTION_NODE}" }
+    parameters {
+        string(name: 'SHARED_VOLUME_PATH', defaultValue: '/home/gonzalopardo/Documents/jenkins/HAR-AI-FRAMEWORK/final-dataset', description: 'Path to store dataset shared volume in remote node')
+    }
     stages{
         stage('Launch environment') {
             steps{ 
