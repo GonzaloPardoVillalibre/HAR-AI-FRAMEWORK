@@ -4,9 +4,9 @@
 This environment represents the most specific utility of the framework and it is designed to preprocess time series datasets of ***quaternions*** or ***3D vectors***; such, for example, those obtained while measuring any type of movement with sensors on a certain subject. To ensure your dataset fits the requirements, make sure to have a look at the **input dataset format** section.
 
 This document includes the following sections:
-- Input dataset format.
+- Input dataset format
 - Environment architecture
-- Usage guide & configuration file.
+- Usage guide
 
 If you also want to know more about quaternions: https://en.wikipedia.org/wiki/Quaternions_and_spatial_rotation
 
@@ -18,11 +18,11 @@ Dataframes (as .csv files) from N subjects performing different activities. Each
 - **Colums must represent sensor's information**.
     - **Position sensors**
 
-      Given a 3D sensor called "KNEE", position sensors columns must be named [KNEE_1, KNEE_2, KNEE_3]. A graphic example can be found here:  [position dataframe example](doc/images/3d_vector_input_dataset.png)
+      Given a 3D sensor called "KNEE", position sensors columns must be named [KNEE_1, KNEE_2, KNEE_3]. A graphic example can be found here:  [position dataframe example](../../doc/images/pre-process/3d_vector_input_dataset.png)
 
     - **Orientatin sensors**
 
-      Given a Quaternion sensor called "LFOOT", orientation sensors columns must be named [LFOOT_1, LFOOT_2, LFOOT_3, LFOOT_4]. A graphic example can be found here:  [orientation dataframe example](doc/images/quaternion_input_dataset.png)
+      Given a Quaternion sensor called "LFOOT", orientation sensors columns must be named [LFOOT_1, LFOOT_2, LFOOT_3, LFOOT_4]. A graphic example can be found here:  [orientation dataframe example](../../doc/images/pre-process/quaternion_input_dataset.png)
 - **CSV files naming**, the name for each file must follow this rule **subject-activity-trial.csv**:
     
     - **subject**: name of the subject performing the activity. Each subject name must be unique and cannot be a substring of another subject name.
@@ -36,8 +36,8 @@ Some valid datasets examples could be:
 
 **Important recall:** these are the minimum format requirements in terms of data information. Although, to make use of the environment you might have to tune the naming of your files or make other small changes. There are also included two tunning examples for the already mentioned datasets.
 
-- [Harvard-tunning-example](tunning-examples/Harvard-tunning-example)
-- [Archive-ics-tunning-example](tunning-examples/Archive-ics-tunning-example)
+- [Harvard-tunning-example](../tunning/Harvard-tunning-example)
+- [Archive-ics-tunning-example](../tunning/Archive-ics-tunning-example)
 
 
 
