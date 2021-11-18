@@ -47,8 +47,8 @@ Some valid datasets examples could be:
 
 As detailed earlier, this environment is intended to work with time-series dataframes build either from **position** (3D) or **orientation** (quaternions) sensors. The architecture has to main functionalities:
 
-- Unity representation: dataset processing for Unity representation.
-- Pre-processing pipeline: dataset pre-processing for input neural networks.
+- **Unity representation**: dataset processing for Unity representation.
+- **Pre-processing pipeline**: dataset pre-processing for input neural networks.
 
 
 ## Unity representation
@@ -82,7 +82,8 @@ As probably not all the data from the original dataset is worth representing in 
 
 ## Pre-processing pipeline
 
-This both modules recover the previous non-unity format and slice the dataframes in windows of **N time-steps** to fit the neural network, for the reference we will call them ***images***. That means, each .csv/dataframe will create a vast number of images. 
+WORK IN PROGRESS
+<!-- This both modules recover the previous non-unity format and slice the dataframes in windows of **N time-steps** to fit the neural network, for the reference we will call them ***images***. That means, each .csv/dataframe will create a vast number of images. 
 
 Given one original dataframe compound from position sensors, the subject with name ***S01*** and activity ***walk***; this is a graphical example of the image building process with size **5** time-steps:
 
@@ -213,4 +214,4 @@ Fields inside `final-dataset` block in `config.json`
 | -------- |--------- | ----------- |
 | movements.list | `Array<String>` |  List of activities to include in preprocess. |
 | FFT-input | boolean | In case **FFT.combined** and **FFT-saveWithOutFFT** are both enabled this will select which image-enricher output propagate to the shared folder.|
-
+ -->
