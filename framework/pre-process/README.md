@@ -5,7 +5,7 @@ This environment represents the most specific utility of the framework and it is
 
 This document includes the following sections:
 - Input dataset format.
-- Environment architecture & performance.
+- Environment architecture
 - Usage guide & configuration file.
 
 If you also want to know more about quaternions: https://en.wikipedia.org/wiki/Quaternions_and_spatial_rotation
@@ -41,37 +41,36 @@ Some valid datasets examples could be:
 
 
 
-## Environment architecture & performance
+## Environment architecture
 
-![Usage_schema](doc/images/pre-process-environment-architecture.png)
+![Usage_schema](../../doc/images/pre-process/preprocess-utility.png)
 
-As detailed earlier, this environment is intended to work with time-series dataframes build, either from **position** (3D) or **orientation** (quaternions) sensors. The architecture is composed from 4 pseudo-independent modules, and each one performs a specific pre-process operation; those layers are:
+As detailed earlier, this environment is intended to work with time-series dataframes build either from **position** (3D) or **orientation** (quaternions) sensors. The architecture has to main functionalities:
 
-- Interleaved dataframe
-- Image builder & image enricher
-- Final dataset
+- Unity representation: dataset processing for Unity representation.
+- Pre-processing pipeline: dataset pre-processing for input neural networks.
 
 
-### Interleaved dataframe 
+## Unity representation
 
-Input dataframes/.csv can contain only 3D sensors information, only orientation sensors, or both. As orientation and position sensors will be treated independently for now on, this module will split position data and orientation data from the input files.
+With only one main module (interleaved-dataframe) it takes every csv from the input directory and builds dataframes ready to be represented in Unity. As 4D and 3D sensors will be treated independently by Unity, this module will split position(3D) original data from orientation(4D) original data to create the output files.
 
-Given an input file called `S01-Walk-1.csv` containing both orientation and position sensors the graphical example of this transformation will be:
+Given an input file called `S01-Walk-1.csv` containing both orientation and position sensors the graphical example for this transformation will be:
 
-![Usage_schema](doc/images/Interleaved_dataframe_split.png)
+![Usage_schema](../../doc/images/Interleaved_dataframe_split.png)
 
 As represented two new files will be generated:
 
 - `S01-Walk-Positionjoints-1.csv`: contains only position sensors data.
 - `S01-Walk-Orientationjoints-1.csv`: contains only orientation sensors data.
 
-The second operation of this module may be irrelevant to the general use as it provides an easy way to tune the data for representing the movement in a Unity framework. This may be useful to check whether any sensor has corrupted data. 
+Then given one of those two files p.e. `S01-Walk-Positionjoints-1.csv` (only from position sensors) this is a graphical example for the final output file (a equivalent transformation will be applied to the orientation file):
 
-Given one dataframe/.csv called `S01-Walk-Positionjoints-1.csv` (only from position sensors) this is a graphical example for this second transformation:
+![Usage_schema](../../doc/images/Interleaved_dataframe.png)
 
-![Usage_schema](doc/images/Interleaved_dataframe.png)
+As probably not all the data from the original dataset is worth representing in Unity, it is possible to filter the desired subjects, activities, 4D sensors or 3D sensors. At this point you may want to check the ![interleaved dataframe configuration file template](../../doc/templates/unityConfig.json).
 
-### Image builder & image enricher
+## Pre-processing pipeline
 
 This both modules recover the previous non-unity format and slice the dataframes in windows of **N time-steps** to fit the neural network, for the reference we will call them ***images***. That means, each .csv/dataframe will create a vast number of images. 
 
