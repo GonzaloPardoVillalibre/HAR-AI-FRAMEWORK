@@ -48,10 +48,10 @@ def train_main(cfg: json, outcome_path:str):
 # Evaluation & prediction phases
   if modelCheckPoint:
     model.load_weights(bestWeightsPath)
-    test_loss, test_accuracy = model.evaluate(test_dataset, steps = test_steps)
-    prediction = model.predict(test_dataset_prediction, steps = test_steps)
+    test_loss, test_accuracy = model.evaluate(test_dataset, steps = test_steps, verbose=0)
+    prediction = model.predict(test_dataset_prediction, steps = test_steps, verbose=0)
   else:
-    test_loss, test_accuracy = model.evaluate(test_dataset, steps = test_steps)
-    prediction = model.predict(test_dataset_prediction, steps = test_steps)
+    test_loss, test_accuracy = model.evaluate(test_dataset, steps = test_steps, verbose=0)
+    prediction = model.predict(test_dataset_prediction, steps = test_steps, verbose=0)
 
   return model, test_loss, test_accuracy, prediction, history_callback
