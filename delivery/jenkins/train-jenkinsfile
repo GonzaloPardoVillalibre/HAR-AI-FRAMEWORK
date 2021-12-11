@@ -37,6 +37,7 @@ pipeline {
         always{
             archiveArtifacts 'framework/train/trainOutcomes/*'
             stop_env()
+            cleanWs()
         }
     }
 }
