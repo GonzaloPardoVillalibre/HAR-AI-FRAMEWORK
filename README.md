@@ -4,7 +4,7 @@
 
 ## Pre-process and training framework in tensorflow
 
-This project provides a framework based on docker and aims to expedite the ***human activity classification*** training process. Thus, three separate environments are provided:
+This project provides a framework based on docker and aims to expedite the ***human activity classification*** training process. Thus, three separate components are provided:
 
 - Pre-process environment.
 - Training environment.
@@ -22,8 +22,23 @@ Pre-requirements:
 The following instruction launches both environments:
 
 ```sh
-# Launch the development environment.
+# Launch the hole development environment.
 make develenv-up
+
+# Launch the hole development environment recreating images.
+make develenv-up-recreate
+```
+
+You can also use one of these instructions to launch a single component:
+```sh
+# Launch only the preprocess environment.
+make preprocess-up
+
+# Launch train environment.
+make train-up
+
+# Launch the inference API.
+make inference-sh
 ```
 
 Also a `make help` utility is available to the developer.
