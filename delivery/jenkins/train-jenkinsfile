@@ -35,6 +35,7 @@ pipeline {
     }
     post {
         always{
+            archiveArtifacts 'framework/train/trainOutcomes/*'
             stop_env()
         }
     }
