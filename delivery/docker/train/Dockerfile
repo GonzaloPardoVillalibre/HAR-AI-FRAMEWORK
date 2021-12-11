@@ -3,9 +3,9 @@ FROM nvcr.io/nvidia/tensorflow:20.12-tf2-py3
 COPY requirements.txt /src/
 RUN pip install -r /src/requirements.txt
 
-RUN apt-get update
-RUN apt-get upgrade -y
-RUN apt-get install sudo
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install sudo bash-completion
 
 ARG USER=docker
 ARG UID=1000
