@@ -5,8 +5,8 @@ This environment represents the most specific utility of the framework and it is
 
 This document includes the following sections:
 - [Input dataset format](#Input-dataset-format)
-- Environment architecture
-- Usage guide
+- [Environment architecture](#Environment-architecture)
+- [Usage guide](#Usage-guide)
 
 If you also want to know more about quaternions: https://en.wikipedia.org/wiki/Quaternions_and_spatial_rotation
 
@@ -47,8 +47,8 @@ Some valid datasets examples could be:
 
 As detailed earlier, this environment is intended to work with time-series dataframes composed either from **position** (3D) or **orientation** (quaternions) sensors. The architecture has two main functionalities:
 
-- **Unity representation**: dataset processing for Unity representation.
-- **Pre-processing pipeline**: dataset pre-processing for input neural networks.
+- [Unity representation](#Unity-representation): dataset processing for Unity representation.
+- [Pre-processing pipeline](#Pre-processing-pipeline): dataset pre-processing for input neural networks.
 
 
 ## Unity representation
