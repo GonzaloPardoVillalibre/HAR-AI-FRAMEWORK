@@ -6,6 +6,8 @@ This environment represents the most specific utility of the framework and it is
 This document includes the following sections:
 - [Input dataset format](#Input-dataset-format)
 - [Environment architecture](#Environment-architecture)
+  - [Unity representation](#Unity-representation)
+  - [Pre-processing pipeline](#Pre-processing-pipeline)
 - [Usage guide](#Usage-guide)
 
 If you also want to know more about quaternions: https://en.wikipedia.org/wiki/Quaternions_and_spatial_rotation
