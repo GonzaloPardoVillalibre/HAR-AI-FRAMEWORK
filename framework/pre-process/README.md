@@ -1,10 +1,10 @@
 -----------------------------------------
 
 # Pre-process environment
-This environment represents the most specific utility of the framework and it is designed to preprocess time series datasets of ***quaternions*** or ***3D vectors***; such, for example, those obtained while measuring any type of movement with sensors on a certain subject. To ensure your dataset fits the requirements, make sure to have a look at the **input dataset format** section.
+This environment represents the most specific utility of the framework and it is designed to preprocess time series datasets of ***quaternions*** or ***3D vectors***; such, for example, those obtained while measuring a certain subject performing any type of movement with inertial (IMUs) or optoelectronic (Vicon Vantage) sensors. To ensure your dataset fits the requirements, make sure to have a look at the **input dataset format** section.
 
 This document includes the following sections:
-- Input dataset format
+- [Input dataset format](#Input-dataset-format)
 - Environment architecture
 - Usage guide
 
@@ -26,15 +26,15 @@ Dataframes (as .csv files) from N subjects performing different activities. Each
 - **CSV files naming**, the name for each file must follow this rule **subject-activity-trial.csv**:
     
     - **subject**: name of the subject performing the activity. Each subject name must be unique and cannot be a substring of another subject name.
-    - **activity**: label for the activity. Each activity label must be unique and cannot be a substring of other activity label.
-    - **trial**: identifier to specify trial number in case there are multiple records for the same subject and activity. This can be the case, e.g. for measures performed under different conditions/scenarios (ideal, usual, abnormal) or movements recorded twice. 
+    - **activity**: label of the activity. Each label must be unique and cannot be a substring of other activity label.
+    - **trial**: identifier to specify trial number in case there are multiple records for the same subject and activity. E.g. measures performed under different conditions/scenarios (ideal, usual, abnormal) or movements recorded twice. 
 
 Some valid datasets examples could be:
 
 - https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/9QDD5J (Harvard dataset)
 - https://archive.ics.uci.edu/ml/datasets/REALDISP+Activity+Recognition+Dataset (Archive-ics dataset)
 
-**Important recall:** these are the minimum format requirements in terms of data information. Although, to make use of the environment you might have to tune the naming of your files or make other small changes. There are also included two tunning examples for the already mentioned datasets.
+**Important recall:** these are the format requirements in terms of data information. To make use of the environment you might have to tune the naming of your files or make other small changes in the dataframes. In fact, this was also the case for the databases mentioned above two tunning examples are included (one each).
 
 - [Harvard-tunning-example](../tunning/Harvard-tunning-example)
 - [Archive-ics-tunning-example](../tunning/Archive-ics-tunning-example)
@@ -45,7 +45,7 @@ Some valid datasets examples could be:
 
 ![Usage_schema](../../doc/images/pre-process/preprocess-utility.png)
 
-As detailed earlier, this environment is intended to work with time-series dataframes build either from **position** (3D) or **orientation** (quaternions) sensors. The architecture has to main functionalities:
+As detailed earlier, this environment is intended to work with time-series dataframes composed either from **position** (3D) or **orientation** (quaternions) sensors. The architecture has two main functionalities:
 
 - **Unity representation**: dataset processing for Unity representation.
 - **Pre-processing pipeline**: dataset pre-processing for input neural networks.
@@ -64,7 +64,7 @@ As represented two new files will be generated:
 - `S01-Walk-Positionjoints-1.csv`: contains only position sensors data.
 - `S01-Walk-Orientationjoints-1.csv`: contains only orientation sensors data.
 
-Then given one of those two files p.e. `S01-Walk-Positionjoints-1.csv` (only from position sensors) this is a graphical example for the final output file (a equivalent transformation will be applied to the orientation file):
+Given one of those two files p.e. `S01-Walk-Positionjoints-1.csv` (only from position sensors in this case) this is a graphical example for the final output file (a equivalent transformation will be applied to the orientation file):
 
 ![Usage_schema](../../doc/images/Interleaved_dataframe.png)
 
