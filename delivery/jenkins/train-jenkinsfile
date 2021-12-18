@@ -18,7 +18,7 @@ pipeline {
         choice( name: 'SHARED_VOLUME_PATH',
                 choices: ['/home/gonzalopardo/Documents/jenkins/HAR-AI-FRAMEWORK/final-dataset', 
                          '/home/gonserver/Documents/jenkins/HAR-AI-FRAMEWORK/final-dataset'],
-                description: 'Path to store dataset shared volume in remote node') }
+                description: 'Path to store dataset shared volume in remote node')
         string(name: 'SHARED_VOLUME_PATH', defaultValue: '/home/gonzalopardo/Documents/jenkins/HAR-AI-FRAMEWORK/final-dataset', description: 'Path to store dataset shared volume in remote node')
         gitParameter(name: 'BRANCH_NAME', type: 'PT_BRANCH_TAG', defaultValue: 'master', description: 'Branch to build')
     }
