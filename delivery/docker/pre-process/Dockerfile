@@ -5,9 +5,9 @@ RUN pip install toolz \
     pip install pandas \
     pip install progressbar
 
-RUN apt-get update
-RUN apt-get upgrade -y
-RUN apt-get install sudo
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install sudo bash-completion
 
 ARG USER=docker
 ARG UID=1000

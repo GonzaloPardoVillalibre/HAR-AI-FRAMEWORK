@@ -23,7 +23,6 @@ framework/pre-process/dataset/*
 framework/tunning/Archive-ics-tunning-example/original-dataset
 framework/tunning/Harvard-tunning-example/original-dataset
 
-framework/train/toTrain/*
 !framework/train/toTrain/.gitkeep
 framework/train/trainOutcomes/*
 !framework/train/trainOutcomes/.gitkeep

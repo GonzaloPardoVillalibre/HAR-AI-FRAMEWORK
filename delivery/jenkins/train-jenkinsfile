@@ -1,0 +1,47 @@
+def launch_env() {
+    sh """
+        #!/bin/bash
+        make train-up
+    """
+}
+
+def stop_env() {
+    sh """
+        #!/bin/bash
+        make train-down
+    """
+}
+
+pipeline {
+    agent { label "${EXECUTION_NODE}" }
+    parameters {
+        choice( name: 'SHARED_VOLUME_PATH',
+                choices: ['/home/gonzalopardo/Documents/jenkins/HAR-AI-FRAMEWORK/final-dataset', 
+                         '/home/gonserver/Documents/jenkins/HAR-AI-FRAMEWORK/final-dataset'],
+                description: 'Path to store dataset shared volume in remote node')
+        gitParameter(name: 'BRANCH_NAME', type: 'PT_BRANCH_TAG', defaultValue: 'master', description: 'Branch to build')
+    }
+    stages{
+        stage('Launch environment') {
+            steps{ 
+                launch_env()
+            }  
+        }
+        stage('Train') {
+            steps{ 
+                    sh """
+                        #!/bin/bash
+                        make -C ./delivery/jenkins train
+                    """
+            }  
+        }
+    }
+    post {
+        always{
+            archiveArtifacts 'framework/train/trainOutcomes/*,framework/train/trainOutcomes/*/*'
+            stop_env()
+            cleanWs()
+        }
+    }
+}
+
