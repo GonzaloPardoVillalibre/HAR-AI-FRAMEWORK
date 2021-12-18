@@ -16,8 +16,14 @@ def stop_env() {
 pipeline {
     agent { label "${EXECUTION_NODE}" }
     parameters {
-        string(name: 'DATASET_INPUT_PATH', defaultValue: '/home/gonzalopardo/Documents/jenkins/HAR-AI-FRAMEWORK/harvard-tunned-dataset', description: 'Path to retrieve tuned data to pre-process')
-        string(name: 'SHARED_VOLUME_PATH', defaultValue: '/home/gonzalopardo/Documents/jenkins/HAR-AI-FRAMEWORK/final-dataset', description: 'Path to store dataset shared volume in remote node')
+        choice( name: 'DATASET_INPUT_PATH',
+                choices: ['/home/gonzalopardo/Documents/jenkins/HAR-AI-FRAMEWORK/harvard-tunned-dataset', 
+                         '/home/gonserver/Documents/jenkins/HAR-AI-FRAMEWORK/harvard-tunned-dataset'],
+                description: 'Path to retrieve tuned data to pre-process') }
+        choice( name: 'SHARED_VOLUME_PATH',
+                choices: ['/home/gonzalopardo/Documents/jenkins/HAR-AI-FRAMEWORK/final-dataset', 
+                         '/home/gonserver/Documents/jenkins/HAR-AI-FRAMEWORK/final-dataset'],
+                description: 'Path to store dataset shared volume in remote node') }
         gitParameter(name: 'BRANCH_NAME', type: 'PT_BRANCH_TAG', defaultValue: 'master', description: 'Branch to build')
     }
     stages{
