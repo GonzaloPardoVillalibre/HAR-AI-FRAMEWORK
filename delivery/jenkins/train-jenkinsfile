@@ -19,6 +19,7 @@ pipeline {
                 choices: ['/home/gonzalopardo/Documents/jenkins/HAR-AI-FRAMEWORK/final-dataset', 
                          '/home/gonserver/Documents/jenkins/HAR-AI-FRAMEWORK/final-dataset'],
                 description: 'Path to store dataset shared volume in remote node')
+        string(name: 'OUTCOME_FOLDER_NAME', defaultValue: 'jenkins_build_${BUILD_NUMBER}', description: 'Name for training outcome')
         gitParameter(name: 'BRANCH_NAME', type: 'PT_BRANCH_TAG', defaultValue: 'master', description: 'Branch to build')
     }
     stages{
@@ -38,7 +39,7 @@ pipeline {
     }
     post {
         always{
-            archiveArtifacts 'framework/train/trainOutcomes/*,framework/train/trainOutcomes/*/*'
+            archiveArtifacts 'framework/train/trainOutcomes/*${OUTCOME_FOLDER_NAME}*,framework/train/trainOutcomes/*/*${OUTCOME_FOLDER_NAME}*'
             stop_env()
             cleanWs()
         }

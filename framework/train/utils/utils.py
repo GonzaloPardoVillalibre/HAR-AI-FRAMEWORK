@@ -89,10 +89,15 @@ def loadCfgJson(file_path:str):
         return json.load(f)
 
 def create_folder(folder_path: str, folderBaseName:str=''):
-    datetime_object = datetime.datetime.now()
-    folder_path = folder_path + '/' + folderBaseName + str(datetime_object) 
-    os.mkdir(folder_path)
-    return folder_path
+    outcome_folder_name = os.environ.get('OUTCOME_FOLDER_NAME') \
+            if 'OUTCOME_FOLDER_NAME' in os.environ and os.environ.get('OUTCOME_FOLDER_NAME') != "default"  else \
+            "default"
+    if outcome_folder_name == "default":
+        outcome_folder = folder_path + '/' + folderBaseName + str(datetime.datetime.now()) 
+    else:
+        outcome_folder = folder_path + '/' + folderBaseName + outcome_folder_name + '-' + str(datetime.datetime.now()) 
+    os.mkdir(outcome_folder)
+    return outcome_folder
 
 def create_outcome_file(outcome_path:str, model, test_loss, test_accuracy, history_callback, comments:str):
     history = history_callback.history
