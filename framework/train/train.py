@@ -46,7 +46,7 @@ def train_main(cfg: json, outcome_path:str):
 
 # Evaluation & prediction phases
   if modelCheckPoint:
-    model.load_weights(bestWeightsPath)
+    model.load_weights(outcome_path + '/modelCheckPoint/')
     test_loss, test_accuracy = model.evaluate(test_dataset, steps = test_steps, verbose=0)
     prediction = model.predict(test_dataset_prediction, steps = test_steps, verbose=0)
   else:
