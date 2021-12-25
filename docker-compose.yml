@@ -28,6 +28,9 @@ services:
     user: docker
     working_dir: /framework/train
     command: tail -f /dev/null
+    environment:
+      SHARED_VOLUME_PATH: ${SHARED_VOLUME_PATH:-./framework/final-dataset}
+      OUTCOME_FOLDER_NAME: ${OUTCOME_FOLDER_NAME:-default}
     deploy:
       resources:
         reservations:
