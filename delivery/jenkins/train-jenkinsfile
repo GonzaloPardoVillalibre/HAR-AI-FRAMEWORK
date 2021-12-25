@@ -39,7 +39,7 @@ pipeline {
     }
     post {
         always{
-            archiveArtifacts 'framework/train/trainOutcomes/*${OUTCOME_FOLDER_NAME}*,framework/train/trainOutcomes/*/*${OUTCOME_FOLDER_NAME}*'
+            archiveArtifacts "framework/train/trainOutcomes/*${OUTCOME_FOLDER_NAME}*,framework/train/trainOutcomes/*/*${OUTCOME_FOLDER_NAME}*"
             stop_env()
             cleanWs()
         }
