@@ -146,12 +146,17 @@ def save_model_and_weights(outcome_path:str, model):
 def addCallbacks(callbacks:json, callback_list: list, outcome_path:str):
     modelCheckPoint = False
     for callback in callbacks:
-        if(callback["type"] == "earlyStop"):
+        callback_type = callback["type"]
+        if(callback_type == "earlyStop"):
             callback_list.append(tf.keras.callbacks.EarlyStopping(monitor=callback["monitor"], patience=callback["patience"]))
-        if(callback["type"] == "modelCheckPoint"):
+        elif(callback_type == "modelCheckPoint"):
             modelCheckPoint = True
-            callback_list.append(tf.keras.callbacks.ModelCheckpoint(monitor=callback["monitor"], save_weights_only=callback["save_weights_only"], save_best_only=callback["save_best_only"] 
-                , filepath= outcome_path, mode=callback["mode"] ))
+            callback_list.append(tf.keras.callbacks.ModelCheckpoint(monitor=callback["monitor"], save_weights_only=callback["save_weights_only"], save_best_only=callback["save_best_only"],
+                                 filepath= outcome_path, mode=callback["mode"] ))
+        elif(callback_type == "tensorBoard"):
+            callback_list.append(tf.keras.callbacks.TensorBoard(log_dir=outcome_path+'/tensorboard', histogram_freq=callback["histogram_freq"], write_graph=callback["write_graph"], write_images=callback["write_images"], 
+                                write_steps_per_second=callback["write_steps_per_second"], update_freq=callback["update_freq"], profile_batch=callback["profile_batch"])
+)
     return callback_list, modelCheckPoint
 
 def initialize_folder(path):
