@@ -1,0 +1,28 @@
+{   
+    "detele-previous-output-directory" : true,
+    "data-filtering":{
+        "subjects": ["S01", "S02", "S04", "S05", "S06", "S08", "S09", "S10"],
+        "activities": ["A09", "A10", "A11", "A12"],
+        "trial": ["-1", "-2"],
+        "columns": ["ACC_X","ACC_Y","ACC_Z","RLA_1","RLA_2","RLA_3","RLA_4","RUA_1","RUA_2","RUA_3","RUA_4","BACK_1","BACK_2","BACK_3","BACK_4"]
+    },
+    "data-augmentation":{
+        "rotationGradesList": [0,180],
+        "4D-Sensors": ["RLA", "RUA", "BACK"],
+        "3D-Sensors": []
+    },
+    "pre-features-extraction":{
+    },
+    "segmentation":{
+        "window-size": 352,
+        "overlap": 264
+    },
+    "post-features-extraction":{
+        "FFT":{
+            "combined": true
+        }
+    },
+    "populate-final-dataset":{
+        "clean-before": true
+    }
+}
