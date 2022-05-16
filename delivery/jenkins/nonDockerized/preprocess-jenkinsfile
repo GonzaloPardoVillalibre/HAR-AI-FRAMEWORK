@@ -19,8 +19,8 @@ pipeline {
     agent { label "${EXECUTION_NODE}" }
     parameters {
         choice( name: 'DATASET_INPUT_PATH',
-                choices: ['~/projects/har_ai_framework/databases/tunned-hardvard-dataverse/',
-                         '~/projects/har_ai_framework/databases/tunned-archive-ics/'],
+                choices: ['~/projects/har_ai_framework/databases/tunned-hardvard-dataverse',
+                         '~/projects/har_ai_framework/databases/tunned-archive-ics'],
                 description: 'Path to retrieve tuned data to pre-process')
         choice( name: 'SHARED_VOLUME_PATH',
                 choices: ['~/projects/har_ai_framework/databases/final-hardvard-dataverse/',
