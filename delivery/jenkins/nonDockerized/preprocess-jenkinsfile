@@ -23,8 +23,8 @@ pipeline {
                          '~/projects/har_ai_framework/databases/tunned-archive-ics'],
                 description: 'Path to retrieve tuned data to pre-process')
         choice( name: 'SHARED_VOLUME_PATH',
-                choices: ['~/projects/har_ai_framework/databases/final-hardvard-dataverse/',
-                         '~/projects/har_ai_framework/databases/final-archive-ics/'],
+                choices: ['~/projects/har_ai_framework/databases/final-hardvard-dataverse',
+                         '~/projects/har_ai_framework/databases/final-archive-ics'],
                 description: 'Path to store dataset shared volume in remote node')
         gitParameter(name: 'BRANCH_NAME', type: 'PT_BRANCH_TAG', defaultValue: 'master', description: 'Branch to build')
     }
