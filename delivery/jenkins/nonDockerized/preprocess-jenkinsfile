@@ -34,6 +34,54 @@ pipeline {
                 set_env()
             }  
         }
+        stage('Data filtering') {
+               steps{
+                            sh """
+                                #!/bin/bash
+                                make -C ./framework/pre-process filter-data
+                            """
+                    }
+                }
+                stage('Data augmentation') {
+                    steps{
+                            sh """
+                                #!/bin/bash
+                                make -C ./framework/pre-process augment-data
+                            """
+                    }
+                }
+                stage('Pre segmentation feature extraction') {
+                    steps{
+                            sh """
+                                #!/bin/bash
+                                make -C ./framework/pre-process pre-fe
+                            """
+                    }
+                }
+                stage('Data segmentation') {
+                    steps{
+                            sh """
+                                #!/bin/bash
+                                make -C ./framework/pre-process segment
+                            """
+                    }
+                }
+                stage('Post segmentation feature extraction') {
+                    steps{
+                            sh """
+                                #!/bin/bash
+                                make -C ./framework/pre-process post-fe
+                            """
+                    }
+                }
+                stage('Final dataset population') {
+                    steps{
+                            sh """
+                                #!/bin/bash
+                                make -C ./framework/pre-process populate-fd
+                            """
+                    }
+                }
     }
 }
 
