@@ -1,0 +1,39 @@
+def set_env() {
+    sh """
+        #!/bin/bash
+        ls ./framework/pre-process/dataset
+        ln -s ${DATASET_INPUT_PATH}/ ./framework/pre-process/dataset
+        ls ./framework/final-dataset
+        ln -s ${SHARED_VOLUME_PATH}/ ./framework/final-dataset
+    """
+}
+
+def stop_env() {
+    sh """
+        #!/bin/bash
+        make preprocess-down
+    """
+}
+
+pipeline {
+    agent { label "${EXECUTION_NODE}" }
+    parameters {
+        choice( name: 'DATASET_INPUT_PATH',
+                choices: ['~/projects/har_ai_framework/databases/tunned-hardvard-dataverse/',
+                         '~/projects/har_ai_framework/databases/tunned-archive-ics/'],
+                description: 'Path to retrieve tuned data to pre-process')
+        choice( name: 'SHARED_VOLUME_PATH',
+                choices: ['~/projects/har_ai_framework/databases/final-hardvard-dataverse/',
+                         '~/projects/har_ai_framework/databases/final-archive-ics/'],
+                description: 'Path to store dataset shared volume in remote node')
+        gitParameter(name: 'BRANCH_NAME', type: 'PT_BRANCH_TAG', defaultValue: 'master', description: 'Branch to build')
+    }
+    stages{
+        stage('Launch environment') {
+            steps{ 
+                set_env()
+            }  
+        }
+    }
+}
+
