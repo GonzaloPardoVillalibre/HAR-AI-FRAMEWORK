@@ -25,9 +25,9 @@ Commands:
     Usual order:
       1. filter-data
       2. augment-data
-      3. pre-segmentation-fe
+      3. pre-fe
       4. segment
-      5. post-segmentation-fe
+      5. post-fe
       6. populate-fd
 
 endef
