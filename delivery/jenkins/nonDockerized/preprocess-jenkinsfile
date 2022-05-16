@@ -1,9 +1,9 @@
 def set_env() {
     sh """
         #!/bin/bash
-        ls ./framework/pre-process/dataset
+        rm -R ./framework/pre-process/dataset
         ln -s ${DATASET_INPUT_PATH}/ ./framework/pre-process/dataset
-        ls ./framework/final-dataset
+        rm -R ./framework/final-dataset
         ln -s ${SHARED_VOLUME_PATH}/ ./framework/final-dataset
     """
 }
