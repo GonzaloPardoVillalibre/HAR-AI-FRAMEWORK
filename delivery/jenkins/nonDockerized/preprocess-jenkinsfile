@@ -1,4 +1,4 @@
-def set_env() {
+def setup_env() {
     sh """
         #!/bin/bash
         rm -R ./framework/pre-process/dataset
@@ -6,13 +6,6 @@ def set_env() {
         rm ${SHARED_VOLUME_PATH}/*
         rm -R ./framework/final-dataset
         ln -s ${SHARED_VOLUME_PATH}/ ./framework/final-dataset
-    """
-}
-
-def stop_env() {
-    sh """
-        #!/bin/bash
-        make preprocess-down
     """
 }
 
@@ -32,7 +25,7 @@ pipeline {
     stages{
         stage('Launch environment') {
             steps{ 
-                set_env()
+                setup_env()
             }  
         }
     stage('Data filtering') {
