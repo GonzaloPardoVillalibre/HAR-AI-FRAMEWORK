@@ -5,6 +5,7 @@ import pandas as pd
 import numpy as np
 def process(file, cfg):
     df = pd.read_csv(file)
+    print(file)
     for key, value in cfg.items():
         df = apply_function(key,value, df)
     return df
@@ -22,7 +23,8 @@ def calculate_FFT(combined, df):
     nameimaginaryFFT = ['IFFT-' + name for name in names]
     data = df.values
     data = data.astype(np.float32)
-    data = np.fft.fft2(data).round(15)
+    #print(data.shape)
+    data = np.fft.fft2(data)
     fft_df_real = pd.DataFrame(data.real.astype(np.float32), columns=nameRealFFT)
     fft_df_imag = pd.DataFrame(data.imag.astype(np.float32), columns=nameimaginaryFFT)
     if combined:

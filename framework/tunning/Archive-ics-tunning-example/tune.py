@@ -85,6 +85,7 @@ for file in files:
     if 'ideal' in file:
         df = pd.read_csv(input_folder+ '/' + file, header=None, sep="\t")
         subject = file.split("_")[0].replace("subject", "")
+        print("processing: " + file + "...", end="")
         if int(subject)<10:
             subject = 'S0' + subject
         else:
@@ -103,4 +104,4 @@ for file in files:
                 i_df.to_csv(output_folder + '/' + subject + '-' + activities[i] + '-2.csv', index=False)
             else:
                 i_df.to_csv(output_folder + '/' + subject + '-' + activities[i] + '-3.csv', index=False)
-        print(file)
+        print("done!")
