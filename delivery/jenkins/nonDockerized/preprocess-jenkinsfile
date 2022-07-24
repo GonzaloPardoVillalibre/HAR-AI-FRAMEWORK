@@ -1,0 +1,91 @@
+def setup_env() {
+    sh """
+        #!/bin/bash
+        rm -R ./framework/pre-process/dataset
+        ln -s ${DATASET_INPUT_PATH}/ ./framework/pre-process/dataset
+        rm ${SHARED_VOLUME_PATH}/*
+        rm -R ./framework/final-dataset
+        ln -s ${SHARED_VOLUME_PATH}/ ./framework/final-dataset
+    """
+}
+
+pipeline {
+    agent { label "${EXECUTION_NODE}" }
+    parameters {
+        choice( name: 'DATASET_INPUT_PATH',
+                choices: ['~/projects/har_ai_framework/databases/tunned-hardvard-dataverse',
+                         '~/projects/har_ai_framework/databases/tunned-archive-ics'],
+                description: 'Path to retrieve tuned data to pre-process')
+        choice( name: 'SHARED_VOLUME_PATH',
+                choices: ['~/projects/har_ai_framework/databases/final-hardvard-dataverse',
+                         '~/projects/har_ai_framework/databases/final-archive-ics'],
+                description: 'Path to store dataset shared volume in remote node')
+        gitParameter(name: 'BRANCH_NAME', type: 'PT_BRANCH_TAG', defaultValue: 'master', description: 'Branch to build')
+    }
+    stages{
+        stage('Launch environment') {
+            steps{ 
+                setup_env()
+            }  
+        }
+    stage('Data filtering') {
+        steps{
+                    sh """
+                        #!/bin/bash
+                        make -C ./framework/pre-process filter-data
+                    """
+            }
+        }
+        stage('Data augmentation') {
+            steps{
+                    sh """
+                        #!/bin/bash
+                        make -C ./framework/pre-process augment-data
+                    """
+            }
+        }
+        stage('Pre segmentation feature extraction') {
+            steps{
+                    sh """
+                        #!/bin/bash
+                        make -C ./framework/pre-process pre-fe
+                    """
+            }
+        }
+        stage('Data segmentation') {
+            steps{
+                    sh """
+                        #!/bin/bash
+                        make -C ./framework/pre-process segment
+                    """
+            }
+        }
+        stage('Post segmentation feature extraction') {
+            steps{
+                    sh """
+                        #!/bin/bash
+                        make -C ./framework/pre-process post-fe
+                    """
+            }
+        }
+        stage('Final dataset population') {
+            steps{
+                    sh """
+                        #!/bin/bash
+                        make -C ./framework/pre-process populate-fd
+                    """
+            }
+        }
+    }
+    post {
+        always{
+            cleanWs(cleanWhenNotBuilt: false,
+                    deleteDirs: true,
+                    disableDeferredWipeout: true,
+                    notFailBuild: true,
+                    patterns: [[pattern: '.gitignore', type: 'INCLUDE'],
+                               [pattern: '.propsfile', type: 'EXCLUDE']])
+        }
+    }
+}
+

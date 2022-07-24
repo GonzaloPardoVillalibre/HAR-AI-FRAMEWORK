@@ -1,0 +1,28 @@
+{   
+    "detele-previous-output-directory" : true,
+    "data-filtering":{
+        "subjects": [],
+        "activities": [],
+        "trial": [],
+        "columns": []
+    },
+    "data-augmentation":{
+        "rotationGradesList": [],
+        "4D-Sensors": [],
+        "3D-Sensors": []
+    },
+    "pre-features-extraction":{
+    },
+    "segmentation":{
+        "window-size": ,
+        "overlap": 
+    },
+    "post-features-extraction":{
+        "FFT":{
+            "combined": 
+        }
+    },
+    "populate-final-dataset":{
+        "clean-before": 
+    }
+}

@@ -3,10 +3,9 @@ import os, json, gc
 import numpy as np
 import utils.utils as utils
 
-# main_path = os.getcwd()
-main_path = '/TFG'
-cfg_files_path = main_path + '/framework/train/toTrain'
-outcome = main_path + '/framework/train/trainOutcomes'
+current_path = os.path.dirname(os.path.abspath(__file__))
+cfg_files_path = current_path + '/toTrain'
+outcome = current_path + '/trainOutcomes'
 _, folders, files = next(os.walk(cfg_files_path))
 files.remove('.gitkeep')
 

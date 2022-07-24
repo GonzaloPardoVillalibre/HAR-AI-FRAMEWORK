@@ -67,7 +67,7 @@ Then all your files must end with ***-0.csv***
 
 ![Usage_schema](doc/images/train-environment-architecture.png)
 
-This environment is not divided in modules such the pre-processing environment. Although some logical blocks can be clearly distinguished.
+This environment is not divided in modules such the pre-process environment. Although some logical blocks can be clearly distinguished.
 
 ### Individual Training Manager
 #### Config loader

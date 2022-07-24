@@ -4,43 +4,54 @@ services:
   #######################################
   # Processing environment
   #######################################
-  preprocesser:
+  preprocess:
+    container_name: preprocess
     build:
-      context: ./docker/pre-processing
+      context: ./delivery/docker/pre-process
     volumes:
-      - ./framework/pre-processing:/TFG/framework/pre-processing
-      - ./framework/final-dataset:/TFG/framework/final-dataset
-    working_dir: /TFG/framework/pre-processing
+      - ./framework/pre-process:/framework/pre-process
+      - ${SHARED_VOLUME_PATH:-./framework/final-dataset}:/framework/final-dataset
+    user: docker
+    working_dir: /framework/pre-process
     command: tail -f /dev/null
 
   #######################################
   # Training environment
   #######################################
-  trainer:
+  train:
+    container_name: train
     build:
-      context: ./docker/train
+      context: ./delivery/docker/train
     volumes:
-      - ./framework/train:/TFG/framework/train
-      - ./framework/final-dataset:/TFG/framework/final-dataset
-    working_dir: /TFG/framework/train
+      - ./framework/train:/framework/train
+      - ${SHARED_VOLUME_PATH:-./framework/final-dataset}:/framework/final-dataset
+    user: docker
+    working_dir: /framework/train
     command: tail -f /dev/null
+    environment:
+      SHARED_VOLUME_PATH: ${SHARED_VOLUME_PATH:-./framework/final-dataset}
+      OUTCOME_FOLDER_NAME: ${OUTCOME_FOLDER_NAME:-default}
     deploy:
       resources:
         reservations:
           devices:
-          - capabilities: [gpu]
+            - driver: nvidia
+              device_ids: ['0']        
+              capabilities: [gpu]
 
   #######################################
   # Inference API
   #######################################
-  inferencer:
+  inference:
+    container_name: inference
     build:
-      context: ./docker/inference
+      context: ./delivery/docker/inference
     ports:
       - "8082:8082"
     volumes:
-      - ./framework/inference:/TFG/framework/inference
-    working_dir: /TFG/framework/inference
+      - ./framework/inference:/framework/inference
+    user: docker
+    working_dir: /framework/inference
     command: python3 inferenceServer.py
     environment:
         LOG_LEVEL: DEBUG
@@ -51,4 +62,6 @@ services:
       resources:
         reservations:
           devices:
-          - capabilities: [gpu]
+            - driver: nvidia
+              device_ids: ['0']        
+              capabilities: [gpu]

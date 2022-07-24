@@ -3,9 +3,8 @@ import tensorflow as tf
 import re, os, json
 import importlib
 
-# main_path = os.getcwd()
-main_path = '/TFG'
-final_input_path = main_path + '/framework/final-dataset/orientation/'
+current_path = os.path.dirname(os.path.abspath(__file__))
+final_input_path = current_path + '/../final-dataset/'
 _, _, files = next(os.walk(final_input_path))
 
 #########################
@@ -38,21 +37,20 @@ def train_main(cfg: json, outcome_path:str):
 
 # Add callbacks to model
   callbacks = []
-  bestWeightsPath = outcome_path + '/best_weights'
   if cfg["callbacks"]["enabled"]:
-    callbackList, modelCheckPoint = utils.addCallbacks(cfg["callbacks"]["list"], callbacks, bestWeightsPath)
+    callbackList, modelCheckPoint = utils.addCallbacks(cfg["callbacks"]["list"], callbacks, outcome_path)
 
 # Fit model
   history_callback = model.fit(train_dataset, validation_data = validation_dataset, steps_per_epoch = train_steps,
-          validation_steps = validation_steps, epochs = epochs, callbacks = callbacks)
+          validation_steps = validation_steps, epochs = epochs, callbacks = callbacks, verbose=2)
 
 # Evaluation & prediction phases
   if modelCheckPoint:
-    model.load_weights(bestWeightsPath)
-    test_loss, test_accuracy = model.evaluate(test_dataset, steps = test_steps)
-    prediction = model.predict(test_dataset_prediction, steps = test_steps)
+    model.load_weights(outcome_path + '/modelCheckPoint/')
+    test_loss, test_accuracy = model.evaluate(test_dataset, steps = test_steps, verbose=0)
+    prediction = model.predict(test_dataset_prediction, steps = test_steps, verbose=0)
   else:
-    test_loss, test_accuracy = model.evaluate(test_dataset, steps = test_steps)
-    prediction = model.predict(test_dataset_prediction, steps = test_steps)
+    test_loss, test_accuracy = model.evaluate(test_dataset, steps = test_steps, verbose=0)
+    prediction = model.predict(test_dataset_prediction, steps = test_steps, verbose=0)
 
   return model, test_loss, test_accuracy, prediction, history_callback

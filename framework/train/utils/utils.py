@@ -42,27 +42,27 @@ def split_dataset(files:list, cfg:json):
     train_files = filter_files_by_regex(train_files, movements_regex_string)
     # Use only original files if desired
     if cfg["no-augmentation"]:
-        train_files = filter_files_by_regex(train_files, r'-0.csv$')
+        train_files = filter_files_by_regex(train_files, r'-0°-')
 
     # Load test set
     test_user_regex_string = build_regex_for_subjects(cfg["test-subjects"])
     test_files = filter_files_by_regex(files, test_user_regex_string)
     test_files = filter_files_by_regex(test_files, movements_regex_string)
     # Use only original files for testing
-    test_files = filter_files_by_regex(test_files, r'-0.csv$')
+    test_files = filter_files_by_regex(test_files, r'-0°-')
 
     # Load validation set
     validation_user_regex_string = build_regex_for_subjects(cfg["validation-subjects"])
     validation_files = filter_files_by_regex(files, validation_user_regex_string)
     validation_files = filter_files_by_regex(validation_files, movements_regex_string)
     # Use only original files for validation
-    validation_files = filter_files_by_regex(validation_files, r'-0.csv$')
+    validation_files = filter_files_by_regex(validation_files, r'-0°-')
 
-    print("Original train files: " + str(len(filter_files_by_regex(train_files, r'-0.csv$'))))
+    print("Original train files: " + str(len(filter_files_by_regex(train_files, r'-0°-'))))
     print("Total train files: " + str(len(train_files)))
-    print("Original validation files: " + str(len(filter_files_by_regex(validation_files, r'-0.csv$'))))
+    print("Original validation files: " + str(len(filter_files_by_regex(validation_files, r'-0°-'))))
     print("Total validation files: " + str(len(validation_files)))
-    print("Original test files: " + str(len(filter_files_by_regex(test_files, r'-0.csv$'))))
+    print("Original test files: " + str(len(filter_files_by_regex(test_files, r'-0°-'))))
     print("Total test files: " + str(len(test_files)))
 
     return train_files, validation_files, test_files
@@ -89,10 +89,15 @@ def loadCfgJson(file_path:str):
         return json.load(f)
 
 def create_folder(folder_path: str, folderBaseName:str=''):
-    datetime_object = datetime.datetime.now()
-    folder_path = folder_path + '/' + folderBaseName + str(datetime_object) 
-    os.mkdir(folder_path)
-    return folder_path
+    outcome_folder_name = os.environ.get('OUTCOME_FOLDER_NAME') \
+            if 'OUTCOME_FOLDER_NAME' in os.environ and os.environ.get('OUTCOME_FOLDER_NAME') != "default"  else \
+            "default"
+    if outcome_folder_name == "default":
+        outcome_folder = folder_path + '/' + folderBaseName + str(datetime.datetime.now()) 
+    else:
+        outcome_folder = folder_path + '/' + folderBaseName + outcome_folder_name + '-' + str(datetime.datetime.now()) 
+    os.mkdir(outcome_folder)
+    return outcome_folder
 
 def create_outcome_file(outcome_path:str, model, test_loss, test_accuracy, history_callback, comments:str):
     history = history_callback.history
@@ -141,12 +146,17 @@ def save_model_and_weights(outcome_path:str, model):
 def addCallbacks(callbacks:json, callback_list: list, outcome_path:str):
     modelCheckPoint = False
     for callback in callbacks:
-        if(callback["type"] == "earlyStop"):
+        callback_type = callback["type"]
+        if(callback_type == "earlyStop"):
             callback_list.append(tf.keras.callbacks.EarlyStopping(monitor=callback["monitor"], patience=callback["patience"]))
-        if(callback["type"] == "modelCheckPoint"):
+        elif(callback_type == "modelCheckPoint"):
             modelCheckPoint = True
-            callback_list.append(tf.keras.callbacks.ModelCheckpoint(monitor=callback["monitor"], save_weights_only=callback["save_weights_only"], save_best_only=callback["save_best_only"] 
-                , filepath= outcome_path, mode=callback["mode"] ))
+            callback_list.append(tf.keras.callbacks.ModelCheckpoint(monitor=callback["monitor"], save_weights_only=callback["save_weights_only"], save_best_only=callback["save_best_only"],
+                                 filepath= outcome_path + '/modelCheckPoint/', mode=callback["mode"] ))
+        elif(callback_type == "tensorBoard"):
+            callback_list.append(tf.keras.callbacks.TensorBoard(log_dir=outcome_path + '/tensorboard', histogram_freq=callback["histogram_freq"], write_graph=callback["write_graph"], write_images=callback["write_images"], 
+                                write_steps_per_second=callback["write_steps_per_second"], update_freq=callback["update_freq"], profile_batch=callback["profile_batch"])
+)
     return callback_list, modelCheckPoint
 
 def initialize_folder(path):

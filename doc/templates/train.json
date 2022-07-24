@@ -1,0 +1,43 @@
+{
+    "neural-network": ,
+    "no-augmentation": ,
+    "movements": [ ],
+    "train-subjects": [ ],
+    "validation-subjects": [ ],
+    "test-subjects": [ ],
+    "callbacks": {
+        "enabled": ,
+        "list": [
+            {
+                "type":"modelCheckPoint",
+                "save_weights_only":,
+                "monitor": ,
+                "mode":,
+                "save_best_only":
+            },
+            {
+                "type":"earlyStop",
+                "monitor": ,
+                "patience":
+            },
+            {
+                "type":"tensorBoard",
+                "histogram_freq":,
+                "write_graph": ,
+                "write_images": ,
+                "write_steps_per_second": ,
+                "update_freq": ,
+                "profile_batch": 
+            }
+        ]
+    },
+    "input-rows": ,
+    "input-columns": ,
+    "channels": ,
+    "batch-size": ,
+    "train-steps": ,
+    "validation-steps": ,
+    "test-steps": ,
+    "epochs": ,
+    "comments": 
+} 

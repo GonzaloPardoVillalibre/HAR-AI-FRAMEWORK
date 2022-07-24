@@ -8,33 +8,25 @@
 .vscode
 
 # ouput
-framework/pre-processing/interleaved-dataframe/_output/*
-!framework/pre-processing/interleaved-dataframe/_output/.gitkeep
-framework/pre-processing/image-enricher/_output/*
-framework/pre-processing/image-enricher/_output-FFT/*
-!framework/pre-processing/image-enricher/_output/.gitkeep
-!framework/pre-processing/image-enricher/_output-FFT/.gitkeep
-framework/pre-processing/image-builder/_output/*
-!framework/pre-processing/image-builder/_output/.gitkeep
-!framework/pre-processing/interleaved-dataframe/_output/.gitkeep
-framework/pre-processing/final-dataset/orientation/*
-framework/pre-processing/final-dataset/position/*
+framework/pre-process/unity/_output/*
+framework/pre-process/pipeline/data-filtering/_output
+framework/pre-process/pipeline/data-augmentation/_output
+framework/pre-process/pipeline/features-extraction/post-segmentation_output
+framework/pre-process/pipeline/features-extraction/pre-segmentation_output
+framework/pre-process/pipeline/segmentation/_output
 framework/final-dataset/*
 !framework/final-dataset/.gitkeep
-framework/pre-processing/final-dataset/validation-set/*
-framework/train/trainOutcomes/*
-framework/pre-processing/tunning-examples/Archive-ics-tunning-example/framework-input-dataset/*
-!framework/pre-processing/tunning-examples/Archive-ics-tunning-example/framework-input-dataset/.gitkeep
-framework/pre-processing/dataset/*
-framework/pre-processing/tunning-examples/Archive-ics-tunning-example/original-dataset/*
-!framework/pre-processing/tunning-examples/Archive-ics-tunning-example/original-dataset/.gitkeep
+framework/pre-process/dataset/*
+!framework/pre-process/dataset/.gitkeep
 
-framework/pre-processing/tunning-examples/Harvard-tunning-example/framework-input-dataset/*
-!framework/pre-processing/tunning-examples/Harvard-tunning-example/framework-input-dataset/.gitkeep
-framework/pre-processing/tunning-examples/Harvard-tunning-example/original-dataset/*
-!framework/pre-processing/tunning-examples/Harvard-tunning-example/original-dataset/.gitkeep
+# tunning input
+framework/tunning/Archive-ics-tunning-example/original-dataset
+framework/tunning/Harvard-tunning-example/original-dataset
+
+!framework/train/toTrain/.gitkeep
+framework/train/trainOutcomes/*
+!framework/train/trainOutcomes/.gitkeep
 
 framework/train/ensemble/models
-framework/train/toTrain
 framework/train/toTrainDraft/Archive-ics-tunning-examples/*
 framework/train/toTrainDraft/Harvard-tunning-examples/*

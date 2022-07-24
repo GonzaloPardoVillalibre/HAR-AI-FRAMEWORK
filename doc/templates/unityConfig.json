@@ -1,0 +1,17 @@
+{  
+    "subjects":{
+        "list": [ ] 
+    },
+    "activities":{
+        "list":  [],
+        "samples": []
+    },
+    "4D-Sensors":{
+        "enabled": ,
+        "list":  []
+    },
+    "3D-Sensors":{
+        "enabled": ,
+        "list": []
+    }
+}
