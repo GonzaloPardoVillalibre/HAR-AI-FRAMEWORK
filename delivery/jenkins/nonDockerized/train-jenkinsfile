@@ -1,0 +1,41 @@
+def setup_env() {
+    sh """
+        #!/bin/bash
+        rm -R ./framework/final-dataset
+        ln -s ${SHARED_VOLUME_PATH}/ ./framework/final-dataset
+    """
+}
+
+pipeline {
+    agent { label "${EXECUTION_NODE}" }
+    parameters {
+        choice( name: 'SHARED_VOLUME_PATH',
+                choices: ['~/projects/har_ai_framework/databases/final-hardvard-dataverse',
+                         '~/projects/har_ai_framework/databases/final-archive-ics'],
+                description: 'Path to store dataset shared volume in remote node')
+        string(name: 'OUTCOME_FOLDER_NAME', defaultValue: 'jenkins_build_${BUILD_NUMBER}', description: 'Name for training outcome')
+        gitParameter(name: 'BRANCH_NAME', type: 'PT_BRANCH_TAG', defaultValue: 'master', description: 'Branch to build')
+    }
+    stages{
+        stage('Launch environment') {
+            steps{ 
+                setup_env()
+            }  
+        }
+        stage('Train') {
+            steps{ 
+                    sh """
+                        #!/bin/bash
+                        make -C ./framework/train train
+                    """
+            }  
+        }
+    }
+    post {
+        always{
+            archiveArtifacts 'framework/train/trainOutcomes/**/*'
+            cleanWs()
+        }
+    }
+}
+
