@@ -59,7 +59,7 @@ With only one main module (interleaved-dataframe) it takes every csv from the in
 
 Given an input file called `S01-Walk-1.csv` containing both orientation and position sensors the graphical example for this transformation will be:
 
-![Usage_schema](../../doc/images/Interleaved_dataframe_split.png)
+[Usage_schema](../../doc/images/Interleaved_dataframe_split.png)
 
 As represented two new files will be generated:
 
