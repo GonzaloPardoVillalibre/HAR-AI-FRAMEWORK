@@ -18,7 +18,7 @@ if you have never heard of those) the developer should click on "Build with para
 the framework in a local environment.The developer must select the right values so his pipeline will not interfere
 with other developer's job.
 
-
+![Usage_schema](../../doc/images/delivery/pipeline-build-parameters.png)
 
 ## Pre-process pipeline
 ![Usage_schema](../../doc/images/delivery/pre-process-pipeline.png)
