@@ -144,11 +144,11 @@ Commands:
 
 But the real key for this environment is the vast amount of configurable parameters for each train we perform. 
 This is done ,as explained, via the `framework/toTrain/` directory and the configuration file that must follow
-![this schema](../../doc/templates/train.json). 
+[this schema](../../doc/templates/train.json). 
 
-Also some training configuration files are included for the two already mentioned datasets:
-- ![Harvard dataset train config file examples](framework/train/toTrainDraft/Harvard-tunning-examples) 
-- ![Archive-ics dataset train config file exmples](framework/train/toTrainDraft/Archive-ics-tunning-examples)
+Some filled training configuration files are included for the two already mentioned datasets:
+- [Harvard dataset train config file example](../../doc/templates/filled-examples/harvard-train-example.json). Some other deleted schemas can be found in this [commit](https://github.com/GonzaloPardoVillalibre/HAR-AI-FRAMEWORK/pull/20/commits/9ccc5cc16d08ec835f41ab20b14519512532476a).
+- [Archive-ics dataset train config file examples](../../doc/templates/filled-examples/archive-ics-train-example.json).
 
 ### Training configuration files (JSON)
 Each configuration file no matter if it belongs to a K-fold directory or and independent train must contain the following parameters.
