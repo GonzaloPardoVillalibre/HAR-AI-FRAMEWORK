@@ -18,9 +18,9 @@ Finally, it also provides several tools to generate reports after the training p
 or **confusion matrices**.
 
 For the reference, this document includes the following sections:
-- Input dataset format.
-- Environment architecture & performance.
-- Usage guide & training configuration files.
+- [Input dataset format](#Input-dataset-format).
+- [Environment architecture & performance](#Environment-architecture-&-performance).
+- [Usage guide & training configuration files](#Usage-guide-&-training-configuration-files).
 
 ## Input dataset format: 
 As mentioned, **.CSV files naming** is the key in this environment and must follow this rule:
@@ -142,7 +142,9 @@ Commands:
   train:                        Start training process
 ```
 
-But the real key of this environment is the vast amount of configurable parameters for each train. This is done as explained via the `framework/toTrain/`. 
+But the real key for this environment is the vast amount of configurable parameters for each train we perform. 
+This is done ,as explained, via the `framework/toTrain/` directory and the configuration file that must follow
+![this schema](../../doc/templates/train.json). 
 
 Also some training configuration files are included for the two already mentioned datasets:
 - ![Harvard dataset train config file examples](framework/train/toTrainDraft/Harvard-tunning-examples) 
