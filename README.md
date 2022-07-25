@@ -1,18 +1,27 @@
 ---
+# HAR AI FRAMEWORK
+- [Deep learning networks for human activity recognition](#Deep-learning-networks-for-human-activity-recognition)
+    - [Pre-process and training framework in tensorflow](#Pre-process-and-training-framework-in-tensorflow)
+    - [Docker architecture](#Docker-architecture)
+    - [Pre-process environment](#Pre-process-environment)
+    - [Training environment](#Training-environment)
+    - [Inference environment](#Inference-environment)
+    - [Delivery](#Delivery)
+- [What is this project all about?](#What-is-this-project-all-about?)
+- [Contact](#Contact)
+- [Licensing](#Licensing)
+## Deep learning networks for human activity recognition
 
-# Deep learning networks for human activity recognition
+### Pre-process and training framework in tensorflow
 
-## Pre-process and training framework in tensorflow
-
-This project provides a framework based on docker and aims to expedite the ***human activity classification*** training process. Thus, three separate components are provided:
+This project provides a docker based framework which aims to expedite the resolution of the ***human activity recognition & classification*** (HAR) problem. Three separate components are provided for this purpose:
 
 - Pre-process environment.
 - Training environment.
-- Inference environment
+- Inference environment.
 
-While the ***training environment*** has a more general use, providing a generic tool to solve a vast amount of problems, the ***pre-process environment*** has its focus on pre-process human activity datasets (measured in a **quaternion** form) to solve the already mentioned ***"human activity classification problem"***.
-
-Meanwhile, the ***inference environment*** serves a development framework to deploy a flask rest API. This API loads the desired neural network model and is able to answer prediction requests. This API is also focused on the human activity classification problem, but can be easily tuned for a more generic purpose. To know more about flask you can visit the [official flask webpage](https://flask.palletsprojects.com/en/1.1.x/).
+While the ***training environment*** provides a generic utility for neural network's automatic setup, the ***pre-process environment*** has its focus on pre-processing human activity datasets (time series datatables from human body sensors).
+On the other hand, the ***inference environment*** serves a rest API based on Flask which loads a trained neural network and answers for human movement classification requests. This API is also focused on the human activity classification problem, but can be easily tuned for a more generic purpose. To know more about flask you can visit the [official flask webpage](https://flask.palletsprojects.com/en/1.1.x/).
 
 Pre-requirements:
 
@@ -38,22 +47,22 @@ make preprocess-up
 make train-up
 
 # Launch the inference API.
-make inference-sh
+make inference-up
 ```
 
-Also a `make help` utility is available to the developer.
+Also, `make help` utility is available to the developer.
 
-## Docker architecture
+### Docker architecture
 
 For the reference there is a generic view of the architecture:
 
 ![Usage_schema](doc/images/docker-architecture.png)
 
-As you'd have noticed, the ***inference environment*** has little to do with the previous architecture and can be treated as an individual component. Ideally, this component will be the only one deployed in a production environment.
+As you'd have noticed, the ***inference environment*** has little to do with the rest of the architecture and can be treated as an individual component. Ideally, this component will be the only one deployed in a production environment.
 
 More information can be found here: [data structure documentation](framework)
 
-## Pre-process environmnent
+### Pre-process environment
 
 ```sh
 # Enter the pre-process environment
@@ -62,16 +71,16 @@ make preprocess-sh
 
 The guide for this environment can be found here: [pre-process environment documentation](framework/pre-process)
 
-## Training environment
+### Training environment
 
 ```sh
 # Enter the training environment
 make train-sh
 ```
 
-The guide for this environment can be found here: [train environment documentation](framework/train)
+The guide for this environment can be found here: [training environment documentation](framework/train)
 
-## Inference environment
+### Inference environment
 
 ```sh
 # Enter the pre-process environment
@@ -87,7 +96,10 @@ docker logs -f inference
 
 The guide for this environment can be found here: [inference environment documentation](framework/inference)
 
-# What is this project all about?
+### Delivery
+This framework also provides [Jenkins](https://www.jenkins.io/) pipelines to smoothly run pre-process and training phases: [more info](delivery/jenkins).
+
+## What is this project all about?
 
 This project is the final assignment for Gonzalo Pardo Villalibre. The aim will be to detect which activity is a certain subject performing, minimizing the number of sensors needed. Therefore the student will take advantage of the use of NN (neural networks) from different types such as CNN (convolutional networks) or RNN (recurrent networks) such LSTM.
 
@@ -95,11 +107,11 @@ On this journey the developer decided to not only solve the concrete problem, bu
 
 More info about specific problem can be found here: [more info](doc/documents/this-problem.md)
 
-# Contact
+## Contact
 
 You can contact the creator via e-mail at: `gonzalopmb@gmail.com`
 
-# Licensing
+## Licensing
 
 MIT License
 

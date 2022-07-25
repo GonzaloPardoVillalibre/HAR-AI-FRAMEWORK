@@ -13,6 +13,8 @@
         └─── pre-process
         │   
         └─── train
+        │   
+        └─── tunning
 
 * #### final-dataset
     Volume shared by both environments. In any case, the developer should store the training dataset here; either if it comes from the pre-process environment or it is pre-processed externally.
@@ -25,3 +27,6 @@
 
 * #### train
     Contains all the scripts for the training environment.
+
+* #### tunning
+  Contains all the scripts for tunning databases to fit into the framework's requirements.

@@ -1,7 +1,11 @@
 -----------------------------------------
 
 # Training environment
-This environment represents the most general and useful utility of the framework and it is designed to train several types of neural networks such CNN or RNN **when the dataset is conformed by .csv files, where each .csv represents itself a sample and the name of the file describes the label for that sample**. Therefore, the naming of the .csv files is critical and will be reviewed in detail in the ***Input dataset format*** section.
+This environment represents the most generic utility of the framework, and it is designed to train several
+types of neural networks such CNN or RNN **given a dataset conformed by .csv files, where each .csv is 
+a hole sample itself and the name of the .csv file describes the label of the sample**. Thus, 
+the naming of the .csv files in the dataset is critical and will be reviewed in detail in the
+***[Input dataset format](#Input-dataset-format)*** section.
 
 This environment also provides a set of tools to automatically perform trainings varying parameters such:
 
@@ -10,12 +14,13 @@ This environment also provides a set of tools to automatically perform trainings
 - Hyperparemeters.
 - K-fold trainings for multiple subjects.
 
-Finally, it also provides several tools to generate reports after the training process such **performance metrics** or **confusion matrices**.
+Finally, it also provides several tools to generate reports after the training process such **performance metrics** 
+or **confusion matrices**.
 
 For the reference, this document includes the following sections:
-- Input dataset format.
-- Environment architecture & performance.
-- Usage guide & training configuration files.
+- [Input dataset format](#Input-dataset-format).
+- [Environment architecture & performance](#Environment-architecture-&-performance).
+- [Usage guide & training configuration files](#Usage-guide-&-training-configuration-files).
 
 ## Input dataset format: 
 As mentioned, **.CSV files naming** is the key in this environment and must follow this rule:
@@ -65,7 +70,7 @@ Then all your files must end with ***-0.csv***
 
 ## Environment architecture & performance
 
-![Usage_schema](doc/images/train-environment-architecture.png)
+![Usage_schema](../../doc/images/train/train-environment-architecture.png)
 
 This environment is not divided in modules such the pre-process environment. Although some logical blocks can be clearly distinguished.
 
@@ -85,13 +90,13 @@ As mentioned, augmented data (marked with non -0.csv ending files) will not be u
 
 For example:
 
-![Usage_schema](doc/images/datasets-generator.png)
+![Usage_schema](../../doc/images/train/datasets-generator.png)
 
 The entire training, test and validation sets are not loaded all at once in the RAM, but in batches of a fixed size specified in the `batch size` configuration variable. Two custom data loaders (custom data generators) have been created for this purpose following the rules specified in this [tensorflow custom datagenerator guide](https://www.tensorflow.org/guide/data).
 
 Both of them take the exact amount of `.csv` files, and label each one given the activity specified in the `.csv` tittle. The first one will use the raw csv as an input matrix for the NN. Whereas the second data generator should only be used with `OrientationJoints.csvs` and will split the data in the csv into a fourth channel matrix; each channel will represent a 4D dimension and will only contain quaternion samples from one dimension. Here there is an example of the ***dataGenerator4D***:
 
-![Usage_schema](doc/images/4d_data_generator.png)
+![Usage_schema](../../doc/images/train/4d_data_generator.png)
 
 For more information go to the ***Training configuration files (JSON)*** section.
 
@@ -99,8 +104,10 @@ For more information go to the ***Training configuration files (JSON)*** section
 This logical block loads the specified neural network model and performs a training phase given the specified hyperparameters in the *training configuration file*. All the available neural network models must be stored in `framework/train/neuralNetworks` and will be dynamically loaded and selected by its name. Several examples for CNN, LSTM or CONVLSTM will be stored for the reference. 
 
 - [CNN model example](neuralNetworks/N2.py)
-- [LSTM model example](neuralNetworks/N2.py) ***[TO UPDATE]***
-- [CONV-LSTM model example](neuralNetworks/N2.py) ***[TO UPDATE]***
+- [LSTM model example](neuralNetworks/LSTM-1.py)
+- [CONV-LSTM model example](neuralNetworks/CONVLSTM2D-1.py)
+- [CNN-LSTM model example](neuralNetworks/CNN+LSTM-1.py)
+- [CNN-GRU model example](neuralNetworks/CNN+GRU-Sergio.py)
 
 The logical block will also perform two testing phases: 
 - An evaluation phase.
@@ -135,11 +142,13 @@ Commands:
   train:                        Start training process
 ```
 
-But the real key of this environment is the vast amount of configurable parameters for each train. This is done as explained via the `framework/toTrain/`. 
+But the real key for this environment is the vast amount of configurable parameters for each train we perform. 
+This is done ,as explained, via the `framework/toTrain/` directory and the configuration file that must follow
+[this schema](../../doc/templates/train.json). 
 
-Also some training configuration files are included for the two already mentioned datasets:
-- ![Harvard dataset train config file examples](framework/train/toTrainDraft/Harvard-tunning-examples) 
-- ![Archive-ics dataset train config file exmples](framework/train/toTrainDraft/Archive-ics-tunning-examples)
+Some filled training configuration files are included for the two already mentioned datasets:
+- [Harvard dataset train config file example](../../doc/templates/filled-examples/harvard-train-example.json). Some other deleted schemas can be found in this [commit](https://github.com/GonzaloPardoVillalibre/HAR-AI-FRAMEWORK/pull/20/commits/9ccc5cc16d08ec835f41ab20b14519512532476a).
+- [Archive-ics dataset train config file examples](../../doc/templates/filled-examples/archive-ics-train-example.json).
 
 ### Training configuration files (JSON)
 Each configuration file no matter if it belongs to a K-fold directory or and independent train must contain the following parameters.

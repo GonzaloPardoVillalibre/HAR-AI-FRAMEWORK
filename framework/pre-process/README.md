@@ -70,7 +70,7 @@ Given one of those two files p.e. `S01-Walk-Positionjoints-1.csv` (only from pos
 
 ![Usage_schema](../../doc/images/Interleaved_dataframe.png)
 
-As probably not all the data from the original dataset is worth representing in Unity, it is possible to filter the desired subjects, activities, 4D sensors or 3D sensors. At this point you may want to check the ![interleaved dataframe configuration file template](../../doc/templates/unityConfig.json) matching the following specification:
+As probably not all the data from the original dataset is worth representing in Unity, it is possible to filter the desired subjects, activities, 4D sensors or 3D sensors. At this point you may want to check the [interleaved dataframe configuration file template](../../doc/templates/unityConfig.json) matching the following specification:
 
 | Field | Type | Description |
 | -------- |--------- | ----------- |
