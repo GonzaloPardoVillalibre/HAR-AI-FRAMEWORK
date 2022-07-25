@@ -21,7 +21,7 @@ with other developer's job.
 
 
 ## Pre-process pipeline
-![Usage_schema](../doc/images/delivery/pre-process-pipeline.png)
+![Usage_schema](../../doc/images/delivery/pre-process-pipeline.png)
 
 ## Train pipeline
-![Usage_schema](../doc/images/delivery/train-pipeline.png)
+![Usage_schema](../../doc/images/delivery/train-pipeline.png)
