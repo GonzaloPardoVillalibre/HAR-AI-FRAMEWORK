@@ -78,7 +78,7 @@ The guide for this environment can be found here: [pre-process environment docum
 make train-sh
 ```
 
-The guide for this environment can be found here: [train environment documentation](framework/train)
+The guide for this environment can be found here: [training environment documentation](framework/train)
 
 ### Inference environment
 
