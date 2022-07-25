@@ -1,8 +1,18 @@
 ---
+# HAR AI FRAMEWORK
+- [Deep learning networks for human activity recognition](#Deep-learning-networks-for-human-activity-recognition)
+    - [Pre-process and training framework in tensorflow](#Pre-process-and-training-framework-in-tensorflow)
+    - [Docker architecture](#Docker-architecture)
+    - [Pre-process environment](#Pre-process-environment)
+    - [Training environment](#Training-environment)
+    - [Inference environment](#Inference-environment)
+    - [Delivery](#Delivery)
+- [What is this project all about?](#What-is-this-project-all-about?)
+- [Contact](#Contact)
+- [Licensing](#Licensing)
+## Deep learning networks for human activity recognition
 
-# Deep learning networks for human activity recognition
-
-## Pre-process and training framework in tensorflow
+### Pre-process and training framework in tensorflow
 
 This project provides a docker based framework which aims to expedite the resolution of the ***human activity recognition & classification*** (HAR) problem. Three separate components are provided for this purpose:
 
@@ -42,7 +52,7 @@ make inference-up
 
 Also, `make help` utility is available to the developer.
 
-## Docker architecture
+### Docker architecture
 
 For the reference there is a generic view of the architecture:
 
@@ -52,7 +62,7 @@ As you'd have noticed, the ***inference environment*** has little to do with the
 
 More information can be found here: [data structure documentation](framework)
 
-## Pre-process environment
+### Pre-process environment
 
 ```sh
 # Enter the pre-process environment
@@ -61,7 +71,7 @@ make preprocess-sh
 
 The guide for this environment can be found here: [pre-process environment documentation](framework/pre-process)
 
-## Training environment
+### Training environment
 
 ```sh
 # Enter the training environment
@@ -70,7 +80,7 @@ make train-sh
 
 The guide for this environment can be found here: [train environment documentation](framework/train)
 
-## Inference environment
+### Inference environment
 
 ```sh
 # Enter the pre-process environment
@@ -86,10 +96,10 @@ docker logs -f inference
 
 The guide for this environment can be found here: [inference environment documentation](framework/inference)
 
-## Delivery
+### Delivery
 This framework also provides [Jenkins](https://www.jenkins.io/) pipelines to smoothly run pre-process and training phases: [more info](delivery/jenkins).
 
-# What is this project all about?
+## What is this project all about?
 
 This project is the final assignment for Gonzalo Pardo Villalibre. The aim will be to detect which activity is a certain subject performing, minimizing the number of sensors needed. Therefore the student will take advantage of the use of NN (neural networks) from different types such as CNN (convolutional networks) or RNN (recurrent networks) such LSTM.
 
@@ -97,11 +107,11 @@ On this journey the developer decided to not only solve the concrete problem, bu
 
 More info about specific problem can be found here: [more info](doc/documents/this-problem.md)
 
-# Contact
+## Contact
 
 You can contact the creator via e-mail at: `gonzalopmb@gmail.com`
 
-# Licensing
+## Licensing
 
 MIT License
 
