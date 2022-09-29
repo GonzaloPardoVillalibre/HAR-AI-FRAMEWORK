@@ -10,15 +10,17 @@ from scipy.spatial.transform import Rotation as R
 
 # Current directory
 current_path = os.path.dirname(os.path.abspath(__file__))
+#current_path = '/framework/tunning/Archive-ics-tunning-example'
+output_folder = current_path + '/../../pre-process/dataset'
+
 
 input_folder = current_path +  '/original-dataset'
 _, _, files = next(os.walk(input_folder))
-output_file = current_path +  '/../../pre-process/dataset/'
 calibration_folder = current_path +  '/calibration'
 _, _, calib_files = next(os.walk(calibration_folder))
 files.remove('.gitkeep')
 
-imuBack = Quaternion([ 0.6845527, 0.05967249, 0.7225831, -0.0755007])
+# imuBack = Quaternion([ 0.6845527, 0.05967249, 0.7225831, -0.0755007])
 # imuBack =Quaternion([0.05967249,  0.72258314, -0.0755007,   0.68455274])
 # inst_BACK = Quaternion([ -0.3, -0.7, -0.4, 0.5])
 # imuBack =Quaternion([0.68, 0.05, 0.72, -0.07])
@@ -64,7 +66,7 @@ def calibrate_activities(i_df, subject):
 # Extract sensors #
 ###################
 
-column_names = ['RLA_1', 'RLA_2', 'RLA_3', 'RLA_4', 
+column_names = ['ACC_X','ACC_Y','ACC_Z','RLA_1', 'RLA_2', 'RLA_3', 'RLA_4', 
          'RUA_1', 'RUA_2', 'RUA_3', 'RUA_4', 
          'BACK_1', 'BACK_2', 'BACK_3', 'BACK_4', 
          'LUA_1', 'LUA_2', 'LUA_3', 'LUA_4',
@@ -83,6 +85,7 @@ for file in files:
     if 'ideal' in file:
         df = pd.read_csv(input_folder+ '/' + file, header=None, sep="\t")
         subject = file.split("_")[0].replace("subject", "")
+        print("processing: " + file + "...", end="")
         if int(subject)<10:
             subject = 'S0' + subject
         else:
@@ -90,7 +93,7 @@ for file in files:
         
         for i in range(9,34):
             i_df = df.loc[ ( df.iloc[:,-1] == i)]
-            i_df = i_df.iloc[:, [11,12,13,14,24,25,26,27,37,38,39,40,50,51,52,53,63,64,65,66,76,77,78,79,89,90,91,92,102,103,104,105,115,116,117,118]]
+            i_df = i_df.iloc[:, [2,3,4,11,12,13,14,24,25,26,27,37,38,39,40,50,51,52,53,63,64,65,66,76,77,78,79,89,90,91,92,102,103,104,105,115,116,117,118]]
             i_df = i_df.astype('float32')
             i_df.columns = column_names
             calibrate_activities(i_df, subject)
@@ -101,4 +104,4 @@ for file in files:
                 i_df.to_csv(output_folder + '/' + subject + '-' + activities[i] + '-2.csv', index=False)
             else:
                 i_df.to_csv(output_folder + '/' + subject + '-' + activities[i] + '-3.csv', index=False)
-        print(file)
+        print("done!")

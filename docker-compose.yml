@@ -2,6 +2,20 @@ version: "3"
 services:
 
   #######################################
+  # Tunning environment
+  #######################################
+  tunning:
+    container_name: tunning
+    build:
+      context: ./delivery/docker/tunning
+    volumes:
+      - ./framework/tunning:/framework/tunning
+      - ${SHARED_VOLUME_PATH_TUNNING:-./framework/pre-process/dataset}:/framework/pre-process/dataset
+    user: docker
+    working_dir: /framework/tunning
+    command: tail -f /dev/null
+
+  #######################################
   # Processing environment
   #######################################
   preprocess:

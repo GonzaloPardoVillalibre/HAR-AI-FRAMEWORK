@@ -42,7 +42,7 @@ def train_main(cfg: json, outcome_path:str):
 
 # Fit model
   history_callback = model.fit(train_dataset, validation_data = validation_dataset, steps_per_epoch = train_steps,
-          validation_steps = validation_steps, epochs = epochs, callbacks = callbacks, verbose=2)
+          validation_steps = validation_steps, epochs = epochs, callbacks = callbacks, verbose=1)
 
 # Evaluation & prediction phases
   if modelCheckPoint:

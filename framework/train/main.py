@@ -28,7 +28,7 @@ def train_all_files(input_directory_path:str, outcome_directory_path:str, file:s
     utils.create_config_output_file(outcome_path, cfg)
 
 ##########
-#  Main  #
+#  Main  #fr!>>>
 ##########
 # K-Fold training directories. IMPORTANT DISCLAIMER:
 # Configuration files in each folder can only differ in train, test & validation subjects.

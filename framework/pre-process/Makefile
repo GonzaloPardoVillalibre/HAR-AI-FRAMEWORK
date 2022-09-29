@@ -16,8 +16,8 @@ Commands:
   #########################
     filter-data                            Execute data-filtering script
     augment-data                           Execute data augmentation script
-    pre-segmentation-fe                    Execute pre-segmentation feature extraction
-    post-segmentation-fe                   Execute post-segmentation feature extraction
+    pre-fe                                 Execute pre-segmentation feature extraction
+    post-fe                                Execute post-segmentation feature extraction
     segment                                Execute segmentation script
     populate-fd                            Execute populate-final-dataset script
     run-pipeline                           Execute pre-process pipeline 
