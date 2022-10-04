@@ -1,26 +1,28 @@
 {   
     "detele-previous-output-directory" : true,
     "data-filtering":{
-        "subjects": ["S01", "S02", "S04", "S05", "S06", "S07", "S08", "S09", "S10"],
-        "activities": ["FigureofEight", "HighKneeJog", "Jog", "JumpingJacks", "SpeedSkater", "Static", "Zigzag", "TUG", "Walk"],
-        "trial": ["-1", "-2"],
-        "columns": ["qRPV_1","qRPV_2","qRPV_3","qRPV_4","qRTH_1","qRTH_2","qRTH_3","qRTH_4","qLTH_1","qLTH_2","qLTH_3","qLTH_4","qRSK_1","qRSK_2","qRSK_3","qRSK_4","qLSK_1","qLSK_2","qLSK_3","qLSK_4","qRFT_1","qRFT_2","qRFT_3","qRFT_4","qLFT_1","qLFT_2","qLFT_3","qLFT_4"]
+        "subjects": ["S01","S05","S29","S30","S31","S32","S33","S34","S35","S36","S37","S38","S39"],
+        "activities": ["A05","A06", "A07", "A08", "A09","A10","A11","A12","A13"],
+        "trial": ["-T01"],
+        "comment_columns_low": ["qHIPS_w","qHIPS_x","qHIPS_y","qHIPS_z","qRUL_w","qRUL_x","qRUL_y","qRUL_z","qRLL_w","qRLL_x","qRLL_y","qRLL_z","qLUL_w","qLUL_x","qLUL_y","qLUL_z","qLLL_w","qLLL_x","qLLL_y","qLLL_z"],
+        "columns": ["qBACK_w", "qBACK_x", "qBACK_y", "qBACK_z", "qRUA_w", "qRUA_x", "qRUA_y", "qRUA_z", "qRLA_w", "qRLA_x", "qRLA_y", "qRLA_z", "qLUA_w", "qLUA_x", "qLUA_y", "qLUA_z", "qLLA_w", "qLLA_x", "qLLA_y", "qLLA_z"]
     },
     "data-augmentation":{
-        "rotationGradesList": [0,180],
-        "4D-Sensors": ["qRPV", "qRTH", "qRSK", "qRFT", "qLTH", "qLSK", "qLFT"],
+        "rotationGradesList": [],
+        "4D-Sensors": [],
         "3D-Sensors": []
     },
     "pre-features-extraction":{
+
     },
     "segmentation":{
-        "window-size": 352,
-        "overlap": 264
+        "window-size": 128,
+        "overlap": 112
     },
     "post-features-extraction":{
-        "FFT":{
-            "combined": true
-        }
+
+    },
+    "final-dataset":{
     },
     "populate-final-dataset":{
         "clean-before": true

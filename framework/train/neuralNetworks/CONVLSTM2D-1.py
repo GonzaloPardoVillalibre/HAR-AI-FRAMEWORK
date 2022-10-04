@@ -4,9 +4,6 @@ from tensorflow.keras import layers
 
 def load_model(input_rows:int, input_columns:int, channels:int, movements_number:int):
 
-    nnUtils.restrict_to_physcial_gpu()
-    nnUtils.set_memory_growth()
-
     input_shape = (input_rows, input_columns, channels)
 
     model = tf.keras.Sequential([

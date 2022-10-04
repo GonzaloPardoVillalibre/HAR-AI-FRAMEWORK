@@ -2,20 +2,13 @@
     "in-dt":{
         "enabled": true,
         "subjects":{
-            "list": [ "S01", "S02", "S04", "S05", "S06", "S07", "S08", "S09", "S10"] 
+            "list": [ "S01"] 
         },
         "movements":{
             "list": ["FigureofEight",
-                    "HighKneeJog",
-                    "Jog",
-                    "JumpingJacks",
-                    "SpeedSkater",
-                    "Static",
-                    "Zigzag",
-                    "TUG",
                     "Walk"
                     ],
-            "samples": ["1", "2"]
+            "samples": ["1"]
         },
         "orientationSensors":{
             "enabled": true,

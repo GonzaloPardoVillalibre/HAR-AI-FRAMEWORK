@@ -16,6 +16,7 @@ def build_output_directory(output_path):
     pass
 
 def load_files(input_path:str):
+  print(input_path)
   _, _, files = next(os.walk(input_path))
   return files
 

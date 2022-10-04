@@ -2,6 +2,7 @@ import train
 import os, json, gc
 import numpy as np
 import utils.utils as utils
+import tensorflow as tf
 
 current_path = os.path.dirname(os.path.abspath(__file__))
 cfg_files_path = current_path + '/toTrain'
@@ -15,7 +16,7 @@ files.remove('.gitkeep')
 def train_all_files(input_directory_path:str, outcome_directory_path:str, file:str):
     # Clean garbage & load configuration file
     gc.collect()
-    outcome_path = utils.create_folder(outcome_directory_path)
+    outcome_path = utils.create_folder(outcome_directory_path,file)
     cfg = utils.loadCfgJson(input_directory_path + '/' + file)
 
     # Train phase
@@ -23,7 +24,7 @@ def train_all_files(input_directory_path:str, outcome_directory_path:str, file:s
 
     # Generate report
     utils.save_model_and_weights(outcome_path, model)
-    utils.create_confusion_matrix(prediction, outcome_path, cfg["movements"])
+    utils.create_confusion_matrix(prediction, outcome_path, cfg["movements"],cfg["movements-legend"])
     utils.create_outcome_file(outcome_path, model, test_loss, test_accuracy, history_callback, cfg["comments"])
     utils.create_config_output_file(outcome_path, cfg)
 
@@ -32,6 +33,11 @@ def train_all_files(input_directory_path:str, outcome_directory_path:str, file:s
 ##########
 # K-Fold training directories. IMPORTANT DISCLAIMER:
 # Configuration files in each folder can only differ in train, test & validation subjects.
+
+#tf.config.list_physical_devices("GPU")
+#print(tf.config.list_physical_devices("GPU"))
+utils.restrict_to_physical_gpu()
+
 for folder in folders:
     kFold_input = cfg_files_path + '/' + folder
     kFold_outcome = utils.create_folder(outcome, folder)

@@ -1,0 +1,63 @@
+{   
+    "in-dt":{
+        "enabled": true,
+        "subjects":{
+            "list": ["S01","S05","S29","S30","S31"] 
+        },
+        "movements":{
+            "list": ["A01",
+                    "A02",
+                    "A03",
+                    "A04"
+                    ],
+            "samples": ["1"]
+        },
+        "orientationSensors":{
+            "enabled": true,
+            "list":  []
+        },
+        "positionSensors":{
+            "enabled": true,
+            "list": ["knee_angle_r"]
+        }
+        },
+    "image-builder":{
+        "enabled": true,
+        "orientationSensors":{
+            "enabled": true
+        },
+        "positionSensors":{
+            "enabled": true
+        },
+        "images":{
+            "window-size": 350,
+            "overlap": 280
+        },
+        "deletePrevious": true
+    }, 
+    "image-enricher":{
+        "deepen-images":{
+            "enabled": true
+        },
+        "dataAugmentationRotation":{
+            "gradeList":[0]
+        },
+    
+        "FFT":{
+            "enabled": true,
+            "combined": true,
+            "saveWithoutFFT": false
+        },
+    "deletePrevious": false
+    },
+    "final-dataset":{
+        "movements":{
+            "list": ["A01",
+                    "A02",
+                    "A03",
+                    "A04"
+                    ]
+        },
+        "FFT-input": true
+    }
+}

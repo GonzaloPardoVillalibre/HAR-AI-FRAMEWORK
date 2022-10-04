@@ -7,9 +7,6 @@ from keras.optimizers import Adam
 
 def load_model(input_rows:int, input_columns:int, channels:int, movements_number:int):
 
-    nnUtils.restrict_to_physcial_gpu()
-    nnUtils.set_memory_growth()
-
     lstm_input_rows = math.ceil(input_rows/8)
     lstm_input_columns = math.ceil(input_columns/8)
 

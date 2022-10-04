@@ -7,6 +7,7 @@ current_path = os.path.dirname(os.path.abspath(__file__))
 final_input_path = current_path + '/../final-dataset/'
 _, _, files = next(os.walk(final_input_path))
 
+
 #########################
 #  Main train function  #
 #########################
@@ -42,9 +43,10 @@ def train_main(cfg: json, outcome_path:str):
 
 # Fit model
   history_callback = model.fit(train_dataset, validation_data = validation_dataset, steps_per_epoch = train_steps,
-          validation_steps = validation_steps, epochs = epochs, callbacks = callbacks, verbose=2)
+            validation_steps = validation_steps, epochs = epochs, callbacks = callbacks, verbose=1,workers=4)
 
 # Evaluation & prediction phases
+  
   if modelCheckPoint:
     model.load_weights(outcome_path + '/modelCheckPoint/')
     test_loss, test_accuracy = model.evaluate(test_dataset, steps = test_steps, verbose=0)

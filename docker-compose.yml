@@ -22,6 +22,8 @@ services:
     container_name: train
     build:
       context: ./delivery/docker/train
+    ports:
+      - "8080:6006"
     volumes:
       - ./framework/train:/framework/train
       - ${SHARED_VOLUME_PATH:-./framework/final-dataset}:/framework/final-dataset

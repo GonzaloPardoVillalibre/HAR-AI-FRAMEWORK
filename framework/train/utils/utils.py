@@ -88,12 +88,12 @@ def loadCfgJson(file_path:str):
      with open(file_path) as f:
         return json.load(f)
 
-def create_folder(folder_path: str, folderBaseName:str=''):
+def create_folder(folder_path: str, folderBaseName:str='',file:str=''):
     outcome_folder_name = os.environ.get('OUTCOME_FOLDER_NAME') \
             if 'OUTCOME_FOLDER_NAME' in os.environ and os.environ.get('OUTCOME_FOLDER_NAME') != "default"  else \
             "default"
     if outcome_folder_name == "default":
-        outcome_folder = folder_path + '/' + folderBaseName + str(datetime.datetime.now()) 
+        outcome_folder = folder_path + '/' + folderBaseName +"_"+file+"-"+ str(datetime.datetime.now()) 
     else:
         outcome_folder = folder_path + '/' + folderBaseName + outcome_folder_name + '-' + str(datetime.datetime.now()) 
     os.mkdir(outcome_folder)
@@ -198,7 +198,7 @@ def calculate_confusion_matrix_metrics(confusion_matrix, movements):
     metrics_df['Average'] = metrics_df.mean(numeric_only=True, axis=1)
     return metrics_df
 
-def create_confusion_matrix(prediction:list, file_path:str, movements:list):
+def create_confusion_matrix(prediction:list, file_path:str, movements:list, movementslegend:list):
     predicted_labels = prediction.argmax(axis=-1)
     with open(file_path+ '/test.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
@@ -213,11 +213,12 @@ def create_confusion_matrix(prediction:list, file_path:str, movements:list):
         final_confusion_matrix = confusion_matrix(test_labels, predicted_labels)
     # os.remove(file_path+ '/test.csv')
     columns = np.array(movements)
+    columnNames = np.array(movementslegend) #MARIO
     # Build & save confusion matrix
-    save_dataframe_as_heatMap(nparray=final_confusion_matrix, indexNames=columns \
-            ,columNames=columns, saveFolder=file_path, imgBaseName='/confusion-matrix', format='d')
+    save_dataframe_as_heatMap(nparray=final_confusion_matrix, indexNames=columnNames \
+            ,columNames=columnNames, saveFolder=file_path, imgBaseName='/confusion-matrix', format='d')
     # Build & save confusion metrics matrix
-    metrics_df=calculate_confusion_matrix_metrics(final_confusion_matrix, movements)
+    metrics_df=calculate_confusion_matrix_metrics(final_confusion_matrix, columnNames)
     metrics_df.to_csv(file_path+'/confusion-matrix-metrics.csv')
     fig = plt.figure(figsize = (len(metrics_index),len(columns)))
     sn.set(font_scale=1.4) # for label size
@@ -227,20 +228,26 @@ def create_confusion_matrix(prediction:list, file_path:str, movements:list):
     # Build & save normalized confusion matrix
     row_sums = final_confusion_matrix.sum(axis=1)
     normalized_aggregated_confusion_matrix = final_confusion_matrix / row_sums[:, np.newaxis]
-    save_dataframe_as_heatMap(nparray=normalized_aggregated_confusion_matrix, indexNames=columns \
-            ,columNames=columns, saveFolder=file_path, imgBaseName='/confusion-matrix-normalized')
+    save_dataframe_as_heatMap(nparray=normalized_aggregated_confusion_matrix, indexNames=columnNames \
+            ,columNames=columnNames, saveFolder=file_path, imgBaseName='/confusion-matrix-normalized')
 
-def restrict_to_physcial_gpu():
+def restrict_to_physical_gpu(enableMemoryGrowth=True):
     gpus = tf.config.list_physical_devices('GPU')
     if gpus:
         # Restrict TensorFlow to only use the first GPU
         try:
-            tf.config.experimental.set_visible_devices(gpus[0], 'GPU')
+            tf.config.set_visible_devices(gpus[0], 'GPU')
+            if(enableMemoryGrowth):
+                for i,gpu in enumerate(gpus):
+                    tf.config.experimental.set_memory_growth(gpu, True) #newline
+
             logical_gpus = tf.config.experimental.list_logical_devices('GPU')
             print(len(gpus), "Physical GPUs,", len(logical_gpus), "Logical GPU")
         except RuntimeError as e:
             # Visible devices must be set before GPUs have been initialized
             print(e)
+            print("NO GPUs available")
+            exit
 
 def set_memory_growth():
     gpus = tf.config.list_physical_devices('GPU')
@@ -254,6 +261,7 @@ def set_memory_growth():
         except RuntimeError as e:
             # Memory growth must be set before GPUs have been initialized
             print(e)
+            exit
 
 # For K-Fold directories build average confusion matrices
 def build_average_confusion_matrix(kFoldFolder:str):

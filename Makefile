@@ -72,7 +72,7 @@ develenv-down:
 
 preprocess-sh:
 	@echo "Entering pre-process environment"
-	docker exec -it "preprocess" bash
+	docker exec  -it "preprocess" bash
 
 train-sh:
 	@echo "Entering train environment"

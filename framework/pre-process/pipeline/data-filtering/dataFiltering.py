@@ -32,6 +32,9 @@ files = fileUtils.load_files(input_path)
 
 if len(cfg["subjects"]):
   files = fileUtils.filter_files_by_regex(files, fileUtils.build_regex_for_contain_items(cfg["subjects"]))
+  if files == None:
+    print("No files found under "+input_path)
+    exit
 
 if len(cfg["activities"]):
   files = fileUtils.filter_files_by_regex(files, fileUtils.build_regex_for_contain_items(cfg["activities"]))
@@ -46,11 +49,11 @@ if len(cfg["columns"]):
   for idx, file in enumerate(files):
     pbar.update(idx)
     new_dataframe = dataFilteringUtils.filter_dataframe_columns(input_path + file, cfg["columns"])
-    new_dataframe.to_csv(output_path + file, index=False, float_format='%.15f')
+    new_dataframe.to_csv(output_path + file, index=False, float_format='%.8f')
 else:
   for idx, file in enumerate(files):
     pbar.update(idx)
     df = pd.read_csv(input_path + file)
-    df.to_csv(output_path + file, index=False, float_format='%.15f')
+    df.to_csv(output_path + file, index=False, float_format='%.8f')
 
 print("\nData-filtering completed.\n")
