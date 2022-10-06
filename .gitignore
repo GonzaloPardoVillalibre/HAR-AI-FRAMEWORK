@@ -15,7 +15,9 @@ framework/pre-process/pipeline/features-extraction/post-segmentation_output
 framework/pre-process/pipeline/features-extraction/pre-segmentation_output
 framework/pre-process/pipeline/segmentation/_output
 framework/final-dataset/*
+framework/train-results/*
 !framework/final-dataset/.gitkeep
+!framework/train-results/.gitkeep
 framework/pre-process/dataset/*
 !framework/pre-process/dataset/.gitkeep
 

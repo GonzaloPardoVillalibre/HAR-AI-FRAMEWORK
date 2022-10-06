@@ -27,6 +27,7 @@ services:
     volumes:
       - ./framework/train:/framework/train
       - ${SHARED_VOLUME_PATH:-./framework/final-dataset}:/framework/final-dataset
+      - ${SHARED_VOLUME_PATH:-./framework/trainresults}:/framework/trainresults
     user: docker
     working_dir: /framework/train
     command: tail -f /dev/null

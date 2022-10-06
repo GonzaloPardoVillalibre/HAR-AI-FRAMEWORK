@@ -14,7 +14,6 @@ output_path = current_path + '/pre-segmentation_output/'
 # Path to input
 input_path = current_path + '/../data-augmentation/_output/'
 
-
 # Load file utils file
 sys.path.append(current_path + '/../../utils')
 import fileUtils

@@ -21,8 +21,10 @@ def apply_function(function, function_params, df):
         return calculate_FFT(function_params["combined"], df)
     if function == "converttoradians":
         return convert_to_radians(df)
+    if function == "computequatsrootjoint":
+        return compute_quats_root_joint(df)
 
-def compute_quats_origin_pelvis():
+def compute_quats_root_joint():
     #TODO
     return
 
