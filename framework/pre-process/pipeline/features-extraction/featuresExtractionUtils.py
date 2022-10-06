@@ -3,6 +3,8 @@
 ################################
 import pandas as pd
 import numpy as np
+import math
+#import pyquaternion
 def process(file, cfg):
     df = pd.read_csv(file)
     for key, value in cfg.items():
@@ -17,6 +19,17 @@ def apply_function(function, function_params, df):
         return calculate_normalized_joint_angles(df)
     if function == "FFT":
         return calculate_FFT(function_params["combined"], df)
+    if function == "converttoradians":
+        return convert_to_radians(df)
+
+def compute_quats_origin_pelvis():
+    #TODO
+    return
+
+def convert_to_radians(df):
+    for column in df.columns.values:
+        df[column] = df[column]*math.pi/180.0
+    return df
 
 def calculate_normalized_joint_angles(df):
     joints_range_angle = {"lumbar_extension": (-15,90),

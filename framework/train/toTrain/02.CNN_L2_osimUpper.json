@@ -1,0 +1,71 @@
+{
+    "neural-network": "02_CNN_L2",
+    "no-augmentation": false,
+    "movements": [
+        "A05",
+        "A06",
+        "A07",
+        "A08",
+        "A09",
+        "A10",
+        "A11",
+        "A12",
+        "A13"
+    ],
+    "movements-legend":[
+        "R-Move-Lat",
+        "L-Move-Lat",
+        "R-Drink",
+        "L-Drink",
+        "Bi-Lego",
+        "Bi-Ball-Up",
+        "R-Reach-Up",
+        "L-Reach-Up",
+        "Bi-Cut-Throw"
+    ],
+    "train-subjects": [
+        "S01","S29","S30","S32","S33","S34","S36","S37","S38","S39"
+    ],
+    "validation-subjects": [
+        "S05"
+    ],
+    "test-subjects": [
+        "S31","S35"
+    ],
+    "callbacks": {
+        "enabled": true,
+        "list": [
+            {
+                "type": "modelCheckPoint",
+                "save_weights_only":true,
+                "monitor": "val_loss",
+                "mode":"min",
+                "save_best_only":true
+            },
+            {
+                "type": "earlyStop",
+                "monitor": "val_loss",
+                "patience": 8
+            },
+            {
+                "type":"tensorBoard",
+                "histogram_freq": 0,
+                "write_graph": true,
+                "write_images": false,
+                "write_steps_per_second": false,
+                "update_freq": "epoch" ,
+                "profile_batch": 0
+            }
+        ]
+    },
+    "input-rows": 128,
+    "input-columns": 13,
+    "channels": 1,
+    "batch-size": 16,
+    "train-steps": 350,
+    "validation-steps": 50,
+    "test-steps": 100,  
+    "steps-comment": "#num_act * num_windows_act * num_subj_testvalid / batch-size",
+    "epochs": 75,
+    "comments": "UpperAllEarly"  
+} 

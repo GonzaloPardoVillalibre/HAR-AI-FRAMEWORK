@@ -17,9 +17,9 @@ def load_model(input_rows:int, input_columns:int, channels:int, movements_number
         layers.Dense(movements_number, activation="softmax")
     ])
 
-    model.summary()
+    model.summary() 
     optimizer = tf.keras.optimizers.Adam(learning_rate=0.0001)
-    model.compile(loss = "sparse_categorical_crossentropy", optimizer = "adam", metrics = ["accuracy"])
+    model.compile(loss = "sparse_categorical_crossentropy", optimizer = optimizer, metrics = ["accuracy"])
 
     return model
 

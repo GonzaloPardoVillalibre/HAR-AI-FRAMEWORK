@@ -4,8 +4,6 @@ from tensorflow.keras import layers
 
 def load_model(input_rows:int, input_columns:int, channels:int, movements_number:int):
 
-    nnUtils.restrict_to_physcial_gpu()
-    nnUtils.set_memory_growth()
 
     model = tf.keras.Sequential([
         layers.Flatten(input_shape = (input_rows,input_columns,channels)),
@@ -15,7 +13,8 @@ def load_model(input_rows:int, input_columns:int, channels:int, movements_number
     ])
 
     model.summary()
-    model.compile(loss = "sparse_categorical_crossentropy", optimizer = "adam", metrics = ["accuracy"])
+    optimizer = tf.keras.optimizers.Adam(learning_rate=0.0001)
+    model.compile(loss = "sparse_categorical_crossentropy", optimizer = optimizer, metrics = ["accuracy"])
 
     return model
 
