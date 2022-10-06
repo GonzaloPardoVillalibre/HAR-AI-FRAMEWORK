@@ -59,7 +59,7 @@
         ]
     },
     "input-rows": 128,
-    "input-columns": 13,
+    "input-columns": 20,
     "channels": 1,
     "batch-size": 16,
     "train-steps": 350,

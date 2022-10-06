@@ -1,5 +1,5 @@
 {
-    "neural-network": "04_LSTM_Basic",
+    "neural-network": "02_CNN_L2",
     "no-augmentation": false,
     "movements": [
         "A05",
@@ -59,7 +59,7 @@
         ]
     },
     "input-rows": 128,
-    "input-columns": 13,
+    "input-columns": 20,
     "channels": 1,
     "batch-size": 16,
     "train-steps": 350,
