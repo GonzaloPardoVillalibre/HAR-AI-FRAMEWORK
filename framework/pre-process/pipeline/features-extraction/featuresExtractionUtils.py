@@ -3,7 +3,6 @@
 ################################
 import pandas as pd
 import numpy as np
-import math
 #import pyquaternion
 def process(file, cfg):
     df = pd.read_csv(file)
@@ -21,6 +20,8 @@ def apply_function(function, function_params, df):
         return calculate_FFT(function_params["combined"], df)
     if function == "converttoradians":
         return convert_to_radians(df)
+    if function == "convertoradiansandnormalize90":
+        return convert_to_radians_normalized(df)
     if function == "computequatsrootjoint":
         return compute_quats_root_joint(df)
 
@@ -30,7 +31,12 @@ def compute_quats_root_joint():
 
 def convert_to_radians(df):
     for column in df.columns.values:
-        df[column] = df[column]*math.pi/180.0
+        df[column] = df[column]*(np.pi/180.0)
+    return df
+
+def convert_to_radians_normalized(df):
+    for column in df.columns.values:
+        df[column] = df[column]/(90.0*np.pi)
     return df
 
 def calculate_normalized_joint_angles(df):
