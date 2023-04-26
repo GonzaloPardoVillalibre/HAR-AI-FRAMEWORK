@@ -16,7 +16,12 @@ files.remove('.gitkeep')
 def train_all_files(input_directory_path:str, outcome_directory_path:str, file:str):
     # Clean garbage & load configuration file
     gc.collect()
+    name,extension = os.path.splitext(file)
+    if extension == ".zip" or name[0]=="_":
+        return        #do not consider zip files or config files starting by "_"
+    
     outcome_path = utils.create_folder(outcome_directory_path,file)
+   
     cfg = utils.loadCfgJson(input_directory_path + '/' + file)
 
     # Train phase
@@ -37,15 +42,17 @@ def train_all_files(input_directory_path:str, outcome_directory_path:str, file:s
 #tf.config.list_physical_devices("GPU")
 #print(tf.config.list_physical_devices("GPU"))
 utils.restrict_to_physical_gpu()
+    
+# Independent training configurations.
+for file in sorted(files):
+   train_all_files(cfg_files_path, outcome, file)
 
-for folder in folders:
+for folder in sorted(folders):
+    if folder[0]=='_':
+        continue
     kFold_input = cfg_files_path + '/' + folder
     kFold_outcome = utils.create_folder(outcome, folder)
     _, folders, kFoldFiles = next(os.walk(kFold_input))
-    for file in kFoldFiles:
+    for file in sorted(kFoldFiles):
         train_all_files(kFold_input, kFold_outcome, file)
     utils.build_average_confusion_matrix(kFold_outcome)
-    
-# Independent training configurations.
-for file in files:
-   train_all_files(cfg_files_path, outcome, file)

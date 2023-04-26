@@ -35,7 +35,8 @@ print("\nStarting post-segmentation features extraction.")
 
 if cfg:
   pbar = fileUtils.initialize_progress_bar(len(files))
-  for idx, file in enumerate(files):
+  for idx, file in enumerate(sorted(files)):
+    print(file)
     pbar.update(idx)
     new_dataframe = featuresExtractionUtils.process(input_path + file, cfg)
     new_dataframe.to_csv(output_path + file, index=False, float_format='%.15f')

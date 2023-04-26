@@ -6,6 +6,7 @@ import numpy as np
 #import pyquaternion
 def process(file, cfg):
     df = pd.read_csv(file)
+    print(file)
     for key, value in cfg.items():
         df = apply_function(key,value, df)
     return df

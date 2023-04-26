@@ -23,7 +23,7 @@ for dir in dirs:
                 dfmot = pd.read_csv(os.path.join(input_folder,dir,file),skiprows=6,sep='\t')
                 #Remove calibration frame
                 dfmot = dfmot.iloc[1:]
-                #New filename
+                dfmot.drop('time')
 
                 filname = file.replace("ik_", "")
                 filname = filname.replace("_","-")

@@ -6,7 +6,7 @@
         "activities_DOWN": ["A01","A02", "A03", "A04"],
         "activities": ["A05","A06", "A07", "A08", "A09","A10","A11","A12","A13"],
         "trial": ["T01","T02","T03","T04","T05"],
-        "columns":["lumbar_extension","lumbar_bending","lumbar_rotation","arm_flex_r","arm_add_r","arm_rot_r","elbow_flex_r","pro_sup_r","arm_flex_l","arm_add_l","arm_rot_l",	"elbow_flex_l","pro_sup_l"],    
+        "columns":["lumbar_angle","arm_angle_r","elbow_angle_r","arm_angle_l","elbow_angle_l"],    
         "columns_basic": ["hip_angle_r","knee_angle_r","hip_angle_l","knee_angle_l"],
         "columns_sto": ["pelvis_imu_w","pelvis_imu_x","pelvis_imu_y","pelvis_imu_z","femur_r_imu_w","femur_r_imu_x","femur_r_imu_y","femur_r_imu_z","tibia_r_imu_w","tibia_r_imu_x","tibia_r_imu_y","tibia_r_imu_z","femur_l_imu_w","femur_l_imu_x","femur_l_imu_y","femur_l_imu_z","tibia_l_imu_w","tibia_l_imu_x","tibia_l_imu_y","tibia_l_imu_z"],
         "columns_mot": ["lumbar_extension","lumbar_bending","lumbar_rotation","arm_flex_r","arm_add_r","arm_rot_r","elbow_flex_r","pro_sup_r","arm_flex_l","arm_add_l","arm_rot_l","elbow_flex_l","pro_sup_l"]
@@ -21,8 +21,8 @@
         "convertoradiansandnormalize90":{}
     },
     "segmentation":{
-        "window-size": 100,
-        "overlap": 75
+        "window-size": 60,
+        "overlap": 45
     },
     "post-features-extraction":{
         "FFT":{

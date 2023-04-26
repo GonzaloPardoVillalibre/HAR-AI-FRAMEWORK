@@ -13,7 +13,7 @@ def load_model(input_rows:int, input_columns:int, channels:int, movements_number
     ])
 
     model.summary()
-    optimizer = tf.keras.optimizers.Adam(learning_rate=0.0001)
+    optimizer = tf.keras.optimizers.Adam(learning_rate=1e-3)
     model.compile(loss = "sparse_categorical_crossentropy", optimizer = optimizer, metrics = ["accuracy"])
 
     return model

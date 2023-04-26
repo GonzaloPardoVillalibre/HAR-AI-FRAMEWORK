@@ -9,7 +9,9 @@ from string import ascii_uppercase
 import utils.dataGenerator as datagen
 import utils.dataGenerator4D as datagen4D
 
-metrics_index = ['Sensitivity', 'Specificity', 'Precision', 'Negative predictive value', 'Fall out', 'False negative rate', 'False discovery rate', 'Accuracy', 'F1 Score']
+metrics_index = ['Negative predictive value', 'Fall out', 'False negative rate', 'False discovery rate','Precision','Sensitivity', 'Specificity', 'Accuracy', 'F1 Score']
+
+#metrics_index = ['Sensitivity', 'Specificity', 'Precision', 'Negative predictive value', 'Fall out', 'False negative rate', 'False discovery rate', 'Accuracy', 'F1 Score']
 
 def filter_files_by_regex(files:list, regex:str):
     filtered_list = [val for val in files if re.search(regex, val)]
@@ -147,8 +149,10 @@ def addCallbacks(callbacks:json, callback_list: list, outcome_path:str):
     modelCheckPoint = False
     for callback in callbacks:
         callback_type = callback["type"]
-        if(callback_type == "earlyStop"):
+        if(callback_type == "EarlyStopping"):
             callback_list.append(tf.keras.callbacks.EarlyStopping(monitor=callback["monitor"], patience=callback["patience"]))
+        elif(callback_type == "ReduceLROnPlateau"):
+            callback_list.append(tf.keras.callbacks.ReduceLROnPlateau(monitor=callback["monitor"],factor=callback["factor"],patience=callback["patience"],verbose=1,mode="auto",min_delta=0.0001,cooldown=callback["cooldown"],min_lr=0.0))
         elif(callback_type == "modelCheckPoint"):
             modelCheckPoint = True
             callback_list.append(tf.keras.callbacks.ModelCheckpoint(monitor=callback["monitor"], save_weights_only=callback["save_weights_only"], save_best_only=callback["save_best_only"],
@@ -194,7 +198,12 @@ def calculate_confusion_matrix_metrics(confusion_matrix, movements):
     ACC = (TP+TN)/(TP+FP+FN+TN)
     # F1 Score
     FONE = 2*TP/(2*TP + FP + FN)
-    metrics_df = pd.DataFrame([TPR, TNR, PPV, NPV, FPR, FNR, FDR, ACC, FONE] ,index= metrics_index ,columns=movements)
+
+    #metrics_index = ['Precision','Sensitivity', 'Specificity', 'Accuracy', 'F1 Score']
+    #metrics_index = ['Negative predictive value', 'Fall out', 'False negative rate', 'False discovery rate','Precision','Sensitivity', 'Specificity', 'Accuracy', 'F1 Score']
+
+    metrics_df = pd.DataFrame([NPV, FPR, FNR, FDR,PPV,TPR, TNR, ACC, FONE] ,index= metrics_index ,columns=movements)
+    #metrics_df = pd.DataFrame([TPR, TNR, PPV, NPV, FPR, FNR, FDR, ACC, FONE] ,index= metrics_index ,columns=movements)
     metrics_df['Average'] = metrics_df.mean(numeric_only=True, axis=1)
     return metrics_df
 
@@ -220,16 +229,21 @@ def create_confusion_matrix(prediction:list, file_path:str, movements:list, move
     # Build & save confusion metrics matrix
     metrics_df=calculate_confusion_matrix_metrics(final_confusion_matrix, columnNames)
     metrics_df.to_csv(file_path+'/confusion-matrix-metrics.csv')
-    fig = plt.figure(figsize = (len(metrics_index),len(columns)))
+    fig = plt.figure(figsize = (1.3*len(metrics_index),len(columns)))
     sn.set(font_scale=1.4) # for label size
-    sn.heatmap(metrics_df, annot=True, cmap='Blues', annot_kws={"size": 10}) # font size
+    sn.heatmap(metrics_df, annot=True, cmap='Blues', annot_kws={"size": 10},fmt='.3f') # font size
     fig.tight_layout()
     plt.savefig(file_path + '/confusion-matrix-metrics.png')
+    
+    #save_dataframe_as_heatMap(nparray=metrics_df, indexNames=metrics_index, sizeFactor=1.3 \
+    #                    ,columNames=columnNames, saveFolder=file_path, imgBaseName='/confusion-matrix-metrics',format='.3f')
+    
+    
     # Build & save normalized confusion matrix
     row_sums = final_confusion_matrix.sum(axis=1)
     normalized_aggregated_confusion_matrix = final_confusion_matrix / row_sums[:, np.newaxis]
     save_dataframe_as_heatMap(nparray=normalized_aggregated_confusion_matrix, indexNames=columnNames \
-            ,columNames=columnNames, saveFolder=file_path, imgBaseName='/confusion-matrix-normalized')
+            ,columNames=columnNames, saveFolder=file_path, imgBaseName='/confusion-matrix-normalized',format='.2f')
 
 def restrict_to_physical_gpu(enableMemoryGrowth=True):
     gpus = tf.config.list_physical_devices('GPU')
@@ -284,8 +298,8 @@ def build_average_confusion_matrix(kFoldFolder:str):
     
     # Build & save average confusion metrics matrix
     averages_confusion_metrics_matrix = np.add.reduce(confusion_matrix_metrics)/len(confusion_matrix_metrics)
-    save_dataframe_as_heatMap(nparray=averages_confusion_metrics_matrix, indexNames=metrics_index, sizeFactor=1.5 \
-                        ,columNames=columns[1], saveFolder=kFoldFolder, imgBaseName='/average-confusion-matrix-metrics')
+    save_dataframe_as_heatMap(nparray=averages_confusion_metrics_matrix, indexNames=metrics_index, sizeFactorWidth=1.3,sizeFactorHeight=1 \
+                        ,columNames=columns[1], saveFolder=kFoldFolder, imgBaseName='/average-confusion-matrix-metrics',format='.3f')
 
     # Build & save aggregated confusion matrix
     aggregated_confusion_matrix = np.add.reduce(confusion_matrixs).astype(int)
@@ -296,18 +310,18 @@ def build_average_confusion_matrix(kFoldFolder:str):
     row_sums = aggregated_confusion_matrix.sum(axis=1)
     normalized_aggregated_confusion_matrix = aggregated_confusion_matrix / row_sums[:, np.newaxis]
     save_dataframe_as_heatMap(nparray=normalized_aggregated_confusion_matrix, indexNames=columns[0] \
-                              ,columNames=columns[0], saveFolder=kFoldFolder, imgBaseName='/aggregated-confusion-matrix-normalized')
+                              ,columNames=columns[0], saveFolder=kFoldFolder, imgBaseName='/aggregated-confusion-matrix-normalized',format='.2f')
 
 # Function to build and save matrice's heatmap
-def save_dataframe_as_heatMap(nparray:np.array, columNames:list, indexNames:list, saveFolder:str, imgBaseName:str, sizeFactor:int=1, format:str=None):
+def save_dataframe_as_heatMap(nparray:np.array, columNames:list, indexNames:list, saveFolder:str, imgBaseName:str, sizeFactorWidth:int=1,sizeFactorHeight:int=1, format:str=None):
     df = pd.DataFrame(nparray,index=indexNames ,columns=columNames)
     df.to_csv(saveFolder + imgBaseName + '.csv')
-    fig = plt.figure(figsize = (sizeFactor*len(indexNames),sizeFactor*len(columNames)))
+    fig = plt.figure(figsize = (sizeFactorWidth*len(indexNames),sizeFactorHeight*len(columNames)))
     sn.set(font_scale=1.4) # for label size
     if format is None:
-        sn.heatmap(df, annot=True, cmap='Blues', annot_kws={"size": 10}) # font size
+        sn.heatmap(df, annot=True, cmap='Blues', annot_kws={"size": 10},cbar=False) # font size
     else:
-        sn.heatmap(df, annot=True, cmap='Blues', annot_kws={"size": 10}, fmt=format) # font size
+        sn.heatmap(df, annot=True, cmap='Blues',annot_kws={"size": 10}, fmt=format) # font size
     fig.tight_layout()
     plt.savefig(saveFolder + imgBaseName + '.png')
     plt.close(fig)
