@@ -24,10 +24,12 @@ framework/pre-process/dataset/*
 # tunning input
 framework/tunning/Archive-ics-tunning-example/original-dataset
 framework/tunning/Harvard-tunning-example/original-dataset
-framework/tunning/UVA-HESSO-T0/original-dataset
+framework/tunning/UVA-HESSO-T0/
+framework/tunning/vidimu/
 
-
-!framework/train/toTrain/.gitkeep
+framework/train/toTrain/*
+framework/train/neuralNetworks/*
+#!framework/train/toTrain/.gitkeep
 framework/train/trainOutcomes/*
 !framework/train/trainOutcomes/.gitkeep
 
